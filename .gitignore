@@ -6,3 +6,4 @@ SDL2/
 # ignore user setting files
 *.opendb
 *.vcxproj.*
+*.vcxproj
