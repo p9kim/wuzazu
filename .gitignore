@@ -1,2 +1,8 @@
-# Google App Engine generated folder
-appengine-generated/
+# VS generated folders
+.vs/
+x64/
+SDL2/
+
+# ignore user setting files
+*.opendb
+*.vcxproj.*
