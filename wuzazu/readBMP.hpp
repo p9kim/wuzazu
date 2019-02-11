@@ -7,6 +7,8 @@
 #include <vector>
 #include <iterator>
 
+using namespace std;
+
 class Pixel
 {
 protected:
@@ -19,7 +21,7 @@ public:
 	Pixel(unsigned int, unsigned int, unsigned int);
 	~Pixel();
 
-	unsigned char* readBMP(const char* filename);
+	vector<vector<Pixel*>> readBMP(const char* filename);
 
 private:
 

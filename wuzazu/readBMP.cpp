@@ -7,7 +7,7 @@ Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 	this->B = B;
 }
 
-unsigned char* Pixel::readBMP(const char* filename)
+vector<vector<Pixel*>> Pixel::readBMP(const char* filename)
 {
 	int i;
 	FILE* f = fopen(filename, "rb");
@@ -31,20 +31,27 @@ unsigned char* Pixel::readBMP(const char* filename)
 	unsigned char* data = new unsigned char[row_padded];
 	unsigned char tmp;
 
+	vector<vector<Pixel*>> pixels;
+	vector<Pixel*>* row = new vector<Pixel*>();
 	for (int i = 0; i < height; i++)
 	{
 		fread(data, sizeof(unsigned char), row_padded, f);
-		for (int j = 0; j < width * 3; j += 3)
+		
+		for (int j = 0; j < (width * 3)+3; j += 3)
 		{
 			// Convert (B, G, R) to (R, G, B)
 			tmp = data[j];
 			data[j] = data[j + 2];
 			data[j + 2] = tmp;
 
-			cout << "R: " << (int)data[j] << " G: " << (int)data[j + 1] << " B: " << (int)data[j + 2] << endl;
-		}
-	}
+			//cout <<i<<","<<j<<" " << "R: " << (int)data[j] << " G: " << (int)data[j + 1] << " B: " << (int)data[j + 2] << endl;
 
+			row->push_back(new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]));
+		}
+		pixels.push_back(*row);
+		row->clear();
+	}
+	delete(row);
 	fclose(f);
-	return data;
+	return pixels;
 }

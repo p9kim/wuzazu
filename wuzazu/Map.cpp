@@ -14,7 +14,10 @@ Map::Map()
 	dest.x = dest.y = 0;
 
 	Pixel* p = new Pixel();
-	p->readBMP("assets/map.bmp");
+	vector<vector<Pixel*>> pixels = p->readBMP("assets/map.bmp"); //49,50 = 50,50
+
+	cout << "hi";
+
 }
 
 void Map::LoadMap(int arr[25][20])
