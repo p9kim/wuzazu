@@ -1,5 +1,5 @@
 #include "readBMP.hpp"
-
+using namespace std;
 Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 {
 	this->R = R;
@@ -7,56 +7,44 @@ Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 	this->B = B;
 }
 
-std::vector<char> /*std::vector<std::vector<Pixel>>*/ Pixel::readBMP(const std::string &file)
+unsigned char* Pixel::readBMP(const char* filename)
 {
-	static constexpr size_t HEADER_SIZE = 54;
+	int i;
+	FILE* f = fopen(filename, "rb");
 
-	std::ifstream bmp(file, std::ios::binary);
+	if (f == NULL)
+		throw "Argument Exception";
 
-	std::array<char, HEADER_SIZE> header;
-	bmp.read(header.data(), header.size());
+	unsigned char info[54];
+	fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
 
-	auto fileSize = *reinterpret_cast<uint32_t *>(&header[2]);
-	auto dataOffset = *reinterpret_cast<uint32_t *>(&header[10]);
-	auto width = *reinterpret_cast<uint32_t *>(&header[18]);
-	auto height = *reinterpret_cast<uint32_t *>(&header[22]);
-	auto depth = *reinterpret_cast<uint16_t *>(&header[28]);
+	// extract image height and width from header
+	int width = *(int*)&info[18];
+	int height = *(int*)&info[22];
 
-	std::cout << "fileSize: " << fileSize << std::endl;
-	std::cout << "dataOffset: " << dataOffset << std::endl;
-	std::cout << "width: " << width << std::endl;
-	std::cout << "height: " << height << std::endl;
-	std::cout << "depth: " << depth << "-bit" << std::endl;
+	cout << endl;
+	cout << "  Name: " << filename << endl;
+	cout << " Width: " << width << endl;
+	cout << "Height: " << height << endl;
 
-	std::vector<char> img(dataOffset - HEADER_SIZE);
-	//std::vector<std::vector<Pixel>> pixels((dataOffset - HEADER_SIZE)/3));
-	bmp.read(img.data(), img.size());
+	int row_padded = (width * 3 + 3) & (~3);
+	unsigned char* data = new unsigned char[row_padded];
+	unsigned char tmp;
 
-	auto dataSize = ((width * 3 + 3) & (~3)) * height;
-	img.resize(dataSize);
-	bmp.read(img.data(), img.size());
-
-	char temp = 0;
-
-	for (auto i = dataSize - 4; i >= 0; i -= 3)
+	for (int i = 0; i < height; i++)
 	{
-		temp = img[i];
-		img[i] = img[i + 2];
-		img[i + 2] = temp;
-
-		
-		/*for (auto i = 0; i < width; i++)
+		fread(data, sizeof(unsigned char), row_padded, f);
+		for (int j = 0; j < width * 3; j += 3)
 		{
-			for (auto j = 0; i < height; j++)
-			{
-				Pixel.push
-			}
-		}*/
-		std::cout << "R: " << int(img[i] & 0xff) << " G: " << int(img[i + 1] & 0xff) << " B: " << int(img[i + 2] & 0xff) << std::endl;
-		Pixel* p = new Pixel();
-		
+			// Convert (B, G, R) to (R, G, B)
+			tmp = data[j];
+			data[j] = data[j + 2];
+			data[j + 2] = tmp;
+
+			cout << "R: " << (int)data[j] << " G: " << (int)data[j + 1] << " B: " << (int)data[j + 2] << endl;
+		}
 	}
 
-
-	return img;
+	fclose(f);
+	return data;
 }

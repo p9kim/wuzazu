@@ -11,8 +11,10 @@ Map::Map()
 	src.x = src.y = 0;
 	src.w = dest.w = 32;
 	src.h = dest.h = 32;
-
 	dest.x = dest.y = 0;
+
+	Pixel* p = new Pixel();
+	p->readBMP("assets/map.bmp");
 }
 
 void Map::LoadMap(int arr[25][20])

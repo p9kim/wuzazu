@@ -15,7 +15,7 @@ int main(int argc, char * argv[])
 
 	game = new Game();
 
-	game->init("Enging", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 900, true);
+	game->init("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 900, true);
 
 	while (game->running())
 	{
@@ -34,25 +34,6 @@ int main(int argc, char * argv[])
 	}
 
 	game->clean();
-
-	// Testing
-	/* 
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-	{
-		cout << "SDL initialization failed. SDL Error: " << SDL_GetError();
-		return 0;
-	}
-
-	cout << "SDL initialization succeeded";
-	SDL_Window* window = SDL_CreateWindow("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 400, SDL_WINDOW_SHOWN);
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
-	SDL_Delay(3000);
-
-	*/
 	
 	return 0;
 }

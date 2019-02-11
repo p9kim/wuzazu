@@ -19,7 +19,7 @@ public:
 	Pixel(unsigned int, unsigned int, unsigned int);
 	~Pixel();
 
-	/*std::vector<std::vector<Pixel>>*/std::vector<char> readBMP(const std::string &file);
+	unsigned char* readBMP(const char* filename);
 
 private:
 
