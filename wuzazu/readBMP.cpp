@@ -7,7 +7,7 @@ Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 	this->B = B;
 }
 
-std::vector<std::vector<Pixel>> Pixel::readBMP(const std::string &file)
+std::vector<char> /*std::vector<std::vector<Pixel>>*/ Pixel::readBMP(const std::string &file)
 {
 	static constexpr size_t HEADER_SIZE = 54;
 
@@ -29,7 +29,7 @@ std::vector<std::vector<Pixel>> Pixel::readBMP(const std::string &file)
 	std::cout << "depth: " << depth << "-bit" << std::endl;
 
 	std::vector<char> img(dataOffset - HEADER_SIZE);
-	std::vector<std::vector<Pixel>> pixels;
+	//std::vector<std::vector<Pixel>> pixels((dataOffset - HEADER_SIZE)/3));
 	bmp.read(img.data(), img.size());
 
 	auto dataSize = ((width * 3 + 3) & (~3)) * height;
@@ -45,12 +45,18 @@ std::vector<std::vector<Pixel>> Pixel::readBMP(const std::string &file)
 		img[i + 2] = temp;
 
 		
-
+		/*for (auto i = 0; i < width; i++)
+		{
+			for (auto j = 0; i < height; j++)
+			{
+				Pixel.push
+			}
+		}*/
 		std::cout << "R: " << int(img[i] & 0xff) << " G: " << int(img[i + 1] & 0xff) << " B: " << int(img[i + 2] & 0xff) << std::endl;
 		Pixel* p = new Pixel();
 		
 	}
 
 
-	return pixels;
+	return img;
 }
