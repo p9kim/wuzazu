@@ -2,9 +2,9 @@
 
 Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 {
-	this.R = R;
-	this.G = G;
-	this.B = B;
+	this->R = R;
+	this->G = G;
+	this->B = B;
 }
 
 std::vector<std::vector<Pixel>> Pixel::readBMP(const std::string &file)
