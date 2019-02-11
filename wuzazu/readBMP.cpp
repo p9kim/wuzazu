@@ -1,31 +1,13 @@
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <array>
-#include <vector>
-#include <iterator>
+#include "readBMP.hpp"
 
-class Pixel
+Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 {
-public:
-	Pixel()
-	{
-		R = 0;
-		G = 0;
-		B = 0;
-	}
-	Pixel(unsigned int R, unsigned int G, unsigned int B)
-	{
-		/*this.R = R;
-		this.G = G;
-		this.B = B;*/
-	}
-	unsigned int R;
-	unsigned int G;
-	unsigned int B;
-};
+	this.R = R;
+	this.G = G;
+	this.B = B;
+}
 
-std::vector<std::vector<Pixel>> readBMP(const std::string &file)
+std::vector<std::vector<Pixel>> Pixel::readBMP(const std::string &file)
 {
 	static constexpr size_t HEADER_SIZE = 54;
 
