@@ -3,23 +3,25 @@
 using namespace std;
 Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 {
-	this->R = R;
-	this->G = G;
-	this->B = B;
+	this->r = R;
+	this->g = G;
+	this->b = B;
 }
+
 unsigned int Pixel::R()
 {
-	return this->R;
+	return this->r;
 }
 unsigned int Pixel::G()
 {
-	return this->G;
+	return this->g;
 }
 unsigned int Pixel::B()
 {
-	return this->B;
+	return this->b;
 }
-deque<vector<Pixel*>> readBMP(Map map, const char* filename)
+
+deque<vector<Pixel*>> Pixel::readBMP(const char* filename)
 {
 	int i;
 	FILE* f = fopen(filename, "rb");
@@ -38,10 +40,6 @@ deque<vector<Pixel*>> readBMP(Map map, const char* filename)
 	cout << "  Name: " << filename << endl;
 	cout << " Width: " << width << endl;
 	cout << "Height: " << height << endl;
-
-	map.setHeight(height);
-	map.setWidth(width);
-	map.setName(filename);
 
 	int row_padded = (width * 3 + 3) & (~3);
 	unsigned char* data = new unsigned char[row_padded];

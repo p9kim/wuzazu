@@ -9,27 +9,26 @@
 #include <list>
 #include <array>
 #include <deque>
-#include "Map.hpp"
 
 using namespace std;
 
 class Pixel
 {
 protected:
-	unsigned int R;
-	unsigned int G;
-	unsigned int B;
+	unsigned int r;
+	unsigned int g;
+	unsigned int b;
 
 public:
-	Pixel() : R(0), G(0), B(0) { }
+	Pixel() : r(0), g(0), b(0) { }
 	Pixel(unsigned int, unsigned int, unsigned int);
 	unsigned int R();
 	unsigned int G();
 	unsigned int B();
 	~Pixel();
 
+	deque<vector<Pixel*>> readBMP(const char* filename);
+
 private:
 
 };
-
-deque<vector<Pixel*>> readBMP(Map map, const char* filename);

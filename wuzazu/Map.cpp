@@ -11,29 +11,54 @@ Map::Map()
 	src.w = dest.w = 32;
 	src.h = dest.h = 32;
 	dest.x = dest.y = 0;
+
+	Pixel* p = new Pixel();
+	map = p->readBMP("assets/map.bmp"); //49,50 = 50,50
+
+	cout << "hi";
+
 }
-void Map::LoadMap(unsigned int level)
+
+void Map::LoadMap(deque<vector<Pixel*>> lvl)
 {
-	switch (level)
-	{
-	case 1:
-		mapPixels = readBMP(this, "assets/map.bmp");
-		break;
-	}
 	return;
 }
 
 void Map::DrawMap()
 {
-	int type = 0;
-	
-	for (vector<Pixel*> row : mapPixels)
+	int r = 255;
+	int g = 255;
+	int b = 255;
+
+	int col = 0;
+	int row = 0;
+
+	for (vector<Pixel*> pV : map)
 	{
-		for (Pixel* pix : row)
+		for (Pixel* px : pV)
 		{
 
+			dest.x = col * 12;
+			dest.y = row * 12;
+			if (px->R() == r && px->G() == 0 && px->B() == 0)
+			{
+				TextureManager::Draw(dirt, src, dest);
+			}
+			else if (px->R() == 0 && px->G() == g && px->B() == 0)
+			{
+				TextureManager::Draw(grass, src, dest);
+			}
+			else
+			{
+				TextureManager::Draw(water, src, dest);
+			}
+			col++;
 		}
+		col = 0;
+		row++;
 	}
+	/*
+	int type = 0;
 
 	for (int row = 0; row < 20; row++)
 	{
@@ -60,39 +85,5 @@ void Map::DrawMap()
 			}
 		}
 	}
-}
-
-
-
-void Map::setPixels(deque<vector<Pixel*>> pixels)
-{
-	mapPixels = pixels;
-}
-deque<vector<Pixel*>> Map::getPixels()
-{
-	return mapPixels;
-}
-void Map::setHeight(unsigned int height)
-{
-	this->height = height;
-}
-unsigned int Map::getHeight()
-{
-	return height;
-}
-void Map::setWidth(unsigned int width)
-{
-	this->width = width;
-}
-unsigned int Map::getWidth()
-{
-	return width;
-}
-void Map::setName(string name)
-{
-	this->name = name;
-}
-string Map::getName()
-{
-	return name;
+	*/
 }
