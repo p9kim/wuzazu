@@ -26,6 +26,14 @@ void Map::LoadMap(unsigned int level)
 void Map::DrawMap()
 {
 	int type = 0;
+	
+	for (vector<Pixel*> row : mapPixels)
+	{
+		for (Pixel* pix : row)
+		{
+
+		}
+	}
 
 	for (int row = 0; row < 20; row++)
 	{

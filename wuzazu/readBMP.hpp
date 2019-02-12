@@ -23,6 +23,9 @@ protected:
 public:
 	Pixel() : R(0), G(0), B(0) { }
 	Pixel(unsigned int, unsigned int, unsigned int);
+	unsigned int R();
+	unsigned int G();
+	unsigned int B();
 	~Pixel();
 
 private:

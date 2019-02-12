@@ -7,7 +7,18 @@ Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 	this->G = G;
 	this->B = B;
 }
-
+unsigned int Pixel::R()
+{
+	return this->R;
+}
+unsigned int Pixel::G()
+{
+	return this->G;
+}
+unsigned int Pixel::B()
+{
+	return this->B;
+}
 deque<vector<Pixel*>> readBMP(Map map, const char* filename)
 {
 	int i;
