@@ -14,7 +14,7 @@ Map::Map()
 	dest.x = dest.y = 0;
 
 	Pixel* p = new Pixel();
-	vector<vector<Pixel*>> pixels = p->readBMP("assets/map.bmp"); //49,50 = 50,50
+	deque<vector<Pixel*>> pixels = p->readBMP("assets/map.bmp"); //49,50 = 50,50
 
 	cout << "hi";
 

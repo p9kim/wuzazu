@@ -6,6 +6,10 @@
 #include <array>
 #include <vector>
 #include <iterator>
+#include <algorithm>
+#include <list>
+#include <array>
+#include <deque>
 
 using namespace std;
 
@@ -21,7 +25,7 @@ public:
 	Pixel(unsigned int, unsigned int, unsigned int);
 	~Pixel();
 
-	vector<vector<Pixel*>> readBMP(const char* filename);
+	deque<vector<Pixel*>> readBMP(const char* filename);
 
 private:
 
