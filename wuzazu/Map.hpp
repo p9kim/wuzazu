@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.hpp"
+#include "readBMP.hpp"
 
 class Map
 {
@@ -8,7 +9,7 @@ public:
 	Map();
 	~Map();
 
-	void LoadMap(int arr[25][20]);
+	void LoadMap(deque<vector<Pixel*>>);
 	void DrawMap();
 
 private:

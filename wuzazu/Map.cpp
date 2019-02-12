@@ -1,6 +1,5 @@
 #include "Map.hpp"
 #include "TextureManager.h"
-#include "readBMP.hpp"
 
 Map::Map()
 {
@@ -20,15 +19,9 @@ Map::Map()
 
 }
 
-void Map::LoadMap(int arr[25][20])
+void Map::LoadMap(deque<vector<Pixel*>>)
 {
-	for (int row = 0; row < 20; row++)
-	{
-		for (int column = 0; column < 25; column++)
-		{
-			map[row][column] = arr[row][column];
-		}
-	}
+	return;
 }
 
 void Map::DrawMap()
