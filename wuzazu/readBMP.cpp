@@ -1,4 +1,5 @@
 #include "readBMP.hpp"
+
 using namespace std;
 Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 {
@@ -7,7 +8,7 @@ Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 	this->B = B;
 }
 
-deque<vector<Pixel*>> readBMP(const char* filename)
+deque<vector<Pixel*>> readBMP(Map map, const char* filename)
 {
 	int i;
 	FILE* f = fopen(filename, "rb");
@@ -26,6 +27,10 @@ deque<vector<Pixel*>> readBMP(const char* filename)
 	cout << "  Name: " << filename << endl;
 	cout << " Width: " << width << endl;
 	cout << "Height: " << height << endl;
+
+	map.setHeight(height);
+	map.setWidth(width);
+	map.setName(filename);
 
 	int row_padded = (width * 3 + 3) & (~3);
 	unsigned char* data = new unsigned char[row_padded];

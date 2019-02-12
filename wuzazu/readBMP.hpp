@@ -1,5 +1,4 @@
 #pragma once
-
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -10,6 +9,7 @@
 #include <list>
 #include <array>
 #include <deque>
+#include "Map.hpp"
 
 using namespace std;
 
@@ -29,4 +29,4 @@ private:
 
 };
 
-deque<vector<Pixel*>> readBMP(const char* filename);
+deque<vector<Pixel*>> readBMP(Map map, const char* filename);

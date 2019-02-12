@@ -12,22 +12,12 @@ Map::Map()
 	src.h = dest.h = 32;
 	dest.x = dest.y = 0;
 }
-
-void Map::setPixels(deque<vector<Pixel*>> pixels)
-{
-	mapPixels = pixels;
-}
-deque<vector<Pixel*>> Map::getPixels()
-{
-	return mapPixels;
-}
-
 void Map::LoadMap(unsigned int level)
 {
 	switch (level)
 	{
 	case 1:
-		mapPixels = readBMP("assets/map.bmp");
+		mapPixels = readBMP(this, "assets/map.bmp");
 		break;
 	}
 	return;
@@ -62,4 +52,39 @@ void Map::DrawMap()
 			}
 		}
 	}
+}
+
+
+
+void Map::setPixels(deque<vector<Pixel*>> pixels)
+{
+	mapPixels = pixels;
+}
+deque<vector<Pixel*>> Map::getPixels()
+{
+	return mapPixels;
+}
+void Map::setHeight(unsigned int height)
+{
+	this->height = height;
+}
+unsigned int Map::getHeight()
+{
+	return height;
+}
+void Map::setWidth(unsigned int width)
+{
+	this->width = width;
+}
+unsigned int Map::getWidth()
+{
+	return width;
+}
+void Map::setName(string name)
+{
+	this->name = name;
+}
+string Map::getName()
+{
+	return name;
 }
