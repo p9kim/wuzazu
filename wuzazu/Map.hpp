@@ -1,6 +1,6 @@
 #pragma once
 #include "Game.hpp"
-#include "readBMP.hpp"
+#include "Pixel.hpp"
 
 class Map
 {
@@ -11,11 +11,25 @@ public:
 
 	void LoadMap(deque<vector<Pixel*>>);
 	void DrawMap();
+	deque<vector<Pixel*>> readBMP(const char* filename);
+
+	void setPixels(deque<vector<Pixel*>>);
+	deque<vector<Pixel*>> getPixels();
+	void setHeight(unsigned int);
+	unsigned int getHeight();
+	void setWidth(unsigned int);
+	unsigned int getWidth();
+	void setName(string);
+	string getName();
 
 private:
 
-	SDL_Rect src, dest;
+	string name;
+	unsigned int width;
+	unsigned int height;
+	deque<vector<Pixel*>> mapPixels;
 
+	SDL_Rect src, dest;
 	SDL_Texture* dirt;
 	SDL_Texture* grass;
 	SDL_Texture* water;

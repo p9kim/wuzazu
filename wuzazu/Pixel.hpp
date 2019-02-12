@@ -27,8 +27,7 @@ public:
 	unsigned int B();
 	~Pixel();
 
-	deque<vector<Pixel*>> readBMP(const char* filename);
-
 private:
 
 };
+

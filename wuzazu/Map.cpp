@@ -12,11 +12,11 @@ Map::Map()
 	src.h = dest.h = 32;
 	dest.x = dest.y = 0;
 
-	Pixel* p = new Pixel();
-	map = p->readBMP("assets/map.bmp"); //49,50 = 50,50
+	map = readBMP("assets/map.bmp"); 
 
-	cout << "hi";
-
+	cout << this->width << endl;
+	cout << this->height << endl;
+	cout << this->name << endl;
 }
 
 void Map::LoadMap(deque<vector<Pixel*>> lvl)
@@ -57,33 +57,88 @@ void Map::DrawMap()
 		col = 0;
 		row++;
 	}
-	/*
-	int type = 0;
+}
 
-	for (int row = 0; row < 20; row++)
+deque<vector<Pixel*>> Map::readBMP(const char* filename)
+{
+	int i;
+	FILE* f = fopen(filename, "rb");
+
+	if (f == NULL)
+		throw "Argument Exception";
+
+	unsigned char info[54];
+	fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
+
+	// extract image height and width from header
+	const int width = *(int*)&info[18];
+	const int height = *(int*)&info[22];
+
+	cout << endl;
+	cout << "  Name: " << filename << endl;
+	cout << " Width: " << width << endl;
+	cout << "Height: " << height << endl;
+
+	this->width = width;
+	this->height = height;
+	this->name = name;
+
+	int row_padded = (width * 3 + 3) & (~3);
+	unsigned char* data = new unsigned char[row_padded];
+	unsigned char tmp;
+
+	deque<vector<Pixel*>> pixels;
+	vector<Pixel*>* row = new vector<Pixel*>();
+	for (int i = 0; i < height; i++)
 	{
-		for (int column = 0; column < 25; column++)
+		fread(data, sizeof(unsigned char), row_padded, f);
+		for (int j = 0; j < width * 3; j += 3)
 		{
-			type = map[row][column];
+			// Convert (B, G, R) to (R, G, B)
+			tmp = data[j];
+			data[j] = data[j + 2];
+			data[j + 2] = tmp;
 
-			dest.x = column * 32;
-			dest.y = row * 32;
+			//cout <<i<<","<<j<<" " << "R: " << (int)data[j] << " G: " << (int)data[j + 1] << " B: " << (int)data[j + 2] << endl;
 
-			switch (type)
-			{
-			case 0:
-				TextureManager::Draw(water, src, dest);
-				break;
-			case 1:
-				TextureManager::Draw(grass, src, dest);
-				break;
-			case 2:
-				TextureManager::Draw(dirt, src, dest);
-				break;
-			default:
-				break;
-			}
+			row->push_back(new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]));
 		}
+		pixels.push_front(*row);
+		row->clear();
 	}
-	*/
+	delete(row);
+	fclose(f);
+	return pixels;
+}
+void Map::setPixels(deque<vector<Pixel*>> pixels)
+{
+	mapPixels = pixels;
+}
+deque<vector<Pixel*>> Map::getPixels()
+{
+	return mapPixels;
+}
+void Map::setHeight(unsigned int height)
+{
+	this->height = height;
+}
+unsigned int Map::getHeight()
+{
+	return height;
+}
+void Map::setWidth(unsigned int width)
+{
+	this->width = width;
+}
+unsigned int Map::getWidth()
+{
+	return width;
+}
+void Map::setName(string name)
+{
+	this->name = name;
+}
+string Map::getName()
+{
+	return name;
 }
