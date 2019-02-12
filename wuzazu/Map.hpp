@@ -9,7 +9,7 @@ public:
 	Map();
 	~Map();
 
-	void LoadMap(deque<vector<Pixel*>>);
+	void LoadMap(unsigned int level);
 	void DrawMap();
 	deque<vector<Pixel*>> readBMP(const char* filename);
 
@@ -27,7 +27,6 @@ private:
 	string name;
 	unsigned int width;
 	unsigned int height;
-	deque<vector<Pixel*>> mapPixels;
 
 	SDL_Rect src, dest;
 	SDL_Texture* dirt;

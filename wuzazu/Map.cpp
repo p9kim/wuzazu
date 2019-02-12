@@ -12,15 +12,21 @@ Map::Map()
 	src.h = dest.h = 32;
 	dest.x = dest.y = 0;
 
-	map = readBMP("assets/map.bmp"); 
+	LoadMap(1);
 
 	cout << this->width << endl;
 	cout << this->height << endl;
 	cout << this->name << endl;
 }
 
-void Map::LoadMap(deque<vector<Pixel*>> lvl)
+void Map::LoadMap(unsigned int level)
 {
+	switch (level)
+	{
+	case 1:
+		map = readBMP("assets/map.bmp");
+		break;
+	}
 	return;
 }
 
@@ -61,7 +67,6 @@ void Map::DrawMap()
 
 deque<vector<Pixel*>> Map::readBMP(const char* filename)
 {
-	int i;
 	FILE* f = fopen(filename, "rb");
 
 	if (f == NULL)
@@ -110,13 +115,15 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 	fclose(f);
 	return pixels;
 }
+
+/* Getters / Setters */
 void Map::setPixels(deque<vector<Pixel*>> pixels)
 {
-	mapPixels = pixels;
+	map = pixels;
 }
 deque<vector<Pixel*>> Map::getPixels()
 {
-	return mapPixels;
+	return map;
 }
 void Map::setHeight(unsigned int height)
 {
