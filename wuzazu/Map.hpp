@@ -9,13 +9,16 @@ public:
 	Map();
 	~Map();
 
-	void LoadMap(deque<vector<Pixel*>>);
+	void LoadMap(unsigned int level);
+	void setPixels(deque<vector<Pixel*>>);
+	deque<vector<Pixel*>> getPixels();
 	void DrawMap();
 
 private:
 
-	SDL_Rect src, dest;
+	deque<vector<Pixel*>> mapPixels;
 
+	SDL_Rect src, dest;
 	SDL_Texture* dirt;
 	SDL_Texture* grass;
 	SDL_Texture* water;

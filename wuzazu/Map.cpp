@@ -11,16 +11,25 @@ Map::Map()
 	src.w = dest.w = 32;
 	src.h = dest.h = 32;
 	dest.x = dest.y = 0;
-
-	Pixel* p = new Pixel();
-	deque<vector<Pixel*>> pixels = p->readBMP("assets/map.bmp"); //49,50 = 50,50
-
-	cout << "hi";
-
 }
 
-void Map::LoadMap(deque<vector<Pixel*>>)
+void Map::setPixels(deque<vector<Pixel*>> pixels)
 {
+	mapPixels = pixels;
+}
+deque<vector<Pixel*>> Map::getPixels()
+{
+	return mapPixels;
+}
+
+void Map::LoadMap(unsigned int level)
+{
+	switch (level)
+	{
+	case 1:
+		mapPixels = readBMP("assets/map.bmp");
+		break;
+	}
 	return;
 }
 

@@ -7,7 +7,7 @@ Pixel::Pixel(unsigned int R, unsigned int G, unsigned int B)
 	this->B = B;
 }
 
-deque<vector<Pixel*>> Pixel::readBMP(const char* filename)
+deque<vector<Pixel*>> readBMP(const char* filename)
 {
 	int i;
 	FILE* f = fopen(filename, "rb");
