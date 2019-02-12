@@ -1,15 +1,4 @@
 #pragma once
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <array>
-#include <vector>
-#include <iterator>
-#include <algorithm>
-#include <list>
-#include <array>
-#include <deque>
-
 using namespace std;
 
 class Pixel

@@ -14,9 +14,9 @@ Map::Map()
 
 	LoadMap(1);
 
+	cout << "Loaded " << this->name << endl;
 	cout << this->width << endl;
 	cout << this->height << endl;
-	cout << this->name << endl;
 }
 
 void Map::LoadMap(unsigned int level)
@@ -26,6 +26,8 @@ void Map::LoadMap(unsigned int level)
 	case 1:
 		map = readBMP("assets/map.bmp");
 		break;
+	default:
+		throw new exception("Invalid Map ID");
 	}
 	return;
 }
@@ -79,11 +81,6 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 	const int width = *(int*)&info[18];
 	const int height = *(int*)&info[22];
 
-	cout << endl;
-	cout << "  Name: " << filename << endl;
-	cout << " Width: " << width << endl;
-	cout << "Height: " << height << endl;
-
 	this->width = width;
 	this->height = height;
 	this->name = name;
@@ -103,8 +100,6 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 			tmp = data[j];
 			data[j] = data[j + 2];
 			data[j + 2] = tmp;
-
-			//cout <<i<<","<<j<<" " << "R: " << (int)data[j] << " G: " << (int)data[j + 1] << " B: " << (int)data[j + 2] << endl;
 
 			row->push_back(new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]));
 		}

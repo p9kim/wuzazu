@@ -1,7 +1,11 @@
 #pragma once
 #include "Game.hpp"
 #include "Pixel.hpp"
-
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <deque>
 class Map
 {
 public:
