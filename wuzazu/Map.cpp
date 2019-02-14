@@ -46,8 +46,8 @@ void Map::DrawMap()
 		for (Pixel* px : pV)
 		{
 
-			dest.x = col * 12;
-			dest.y = row * 12;
+			dest.x = col * 16;
+			dest.y = row * 16;
 			if (px->R() == r && px->G() == 0 && px->B() == 0)
 			{
 				TextureManager::Draw(dirt, src, dest);
