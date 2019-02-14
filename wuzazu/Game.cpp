@@ -73,7 +73,7 @@ void Game::handleEvents()
 		}
 	}
 	*/
-	int moveby = 35;
+	int moveby = 24;
 	SDL_PollEvent(&e);
 	switch (e.key.keysym.sym)
 	{
