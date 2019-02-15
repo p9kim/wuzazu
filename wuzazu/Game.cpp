@@ -32,6 +32,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 {
 	isRunning = false;
 	int flags = 0;
+	renders = 0;
 	if (fullscreen)
 	{
 		int flag = SDL_WINDOW_FULLSCREEN;
@@ -122,6 +123,7 @@ void Game::render()
 	player->render();
 	//enemy->Render();
 	SDL_RenderPresent(renderer);
+	renders++;
 }
 void Game::clean()
 {

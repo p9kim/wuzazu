@@ -27,50 +27,17 @@ void Map::LoadMap(unsigned int level)
 
 void Map::DrawMap()
 {
-	Red* red = new Red();
-	Green* green = new Green();
-	Blue* blue = new Blue();
-	Yellow* yellow = new Yellow();
-
 	int col = 0;
 	int row = 0;
-	Terrain* ter;
-	vector<Terrain*> terrainRow;
-	for (vector<Pixel*> pV : mapPixels)
+	for (vector<Terrain*> tV : terrain)
 	{
-		for (Pixel* px : pV)
+		for (Terrain* tr : tV)
 		{
 			dest.x = col * 16;
 			dest.y = row * 16;
-			if (*px == *red || *px == *yellow)
-			{
-				ter = new Dirt();
-				ter->draw(src, dest);
-				terrainRow.push_back(ter);
-			}
-			else if (*px == *green)
-			{
-				ter = new Grass();
-				ter->draw(src, dest);
-				terrainRow.push_back(ter);
-			}
-			else if (*px == *blue)
-			{
-				ter = new Water();
-				ter->draw(src, dest);
-				terrainRow.push_back(ter);
-			}
-			else
-			{
-				ter = new Water();
-				ter->draw(src, dest);
-				terrainRow.push_back(ter);
-				cerr << "Unknown pixel color found at " << col << ", " << row << endl;
-			}
+			tr->draw(src, dest);
 			col++;
 		}
-		terrain.push_front(terrainRow);
-		terrainRow.clear();
 		col = 0;
 		row++;
 	}
@@ -78,6 +45,14 @@ void Map::DrawMap()
 
 deque<vector<Pixel*>> Map::readBMP(const char* filename)
 {
+	Red* red = new Red();
+	Green* green = new Green();
+	Blue* blue = new Blue();
+	Yellow* yellow = new Yellow();
+
+	Terrain* ter = 0;
+	vector<Terrain*> terrainRow;
+
 	FILE* f = fopen(filename, "rb");
 
 	if (f == NULL)
@@ -94,6 +69,7 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 	this->height = height;
 	this->name = name;
 
+
 	int row_padded = (width * 3 + 3) & (~3);
 	unsigned char* data = new unsigned char[row_padded];
 	unsigned char tmp;
@@ -109,11 +85,26 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 			tmp = data[j];
 			data[j] = data[j + 2];
 			data[j + 2] = tmp;
-
-			row->push_back(new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]));
+			Pixel* color = new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]);
+			if (*color == *red || *color == *yellow)
+				ter = new Dirt();
+			else if (*color == *green)
+				ter = new Grass();
+			else if (*color == *blue)
+				ter = new Water();
+			else
+			{
+				ter = new Water();
+				cerr << "Unknown pixel color found at " << j << ", " << i << endl;
+			}
+			terrainRow.push_back(ter);
+			row->push_back(color);
+			delete(color);
 		}
 		pixels.push_front(*row);
 		row->clear();
+		terrain.push_front(terrainRow);
+		terrainRow.clear();
 	}
 	delete(row);
 	fclose(f);
