@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "Pixel.hpp"
 #include "Player.hpp"
+#include "terrain.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -21,8 +22,9 @@ private:
 	SDL_Texture* grass;
 	SDL_Texture* water;
 
-	deque<vector<Pixel*>> map;
-	deque<vector<Player*>> cells;
+	deque<vector<Pixel*>> mapPixels;
+	deque<vector<Terrain*>> terrain;
+	vector<vector<Player*>> cells;
 
 public:
 
@@ -41,4 +43,5 @@ public:
 	unsigned int getWidth();
 	void setName(string);
 	string getName();
+	bool canMoveTo(unsigned int x, unsigned int y);
 };

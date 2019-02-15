@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 using namespace std;
 
 class Pixel
@@ -14,9 +15,29 @@ public:
 	unsigned int R();
 	unsigned int G();
 	unsigned int B();
-	~Pixel();
-
-private:
-
+	bool operator ==(Pixel other) const
+	{
+		return other.r == r && other.g == g && other.b == b;
+	}
 };
 
+class Red : public Pixel
+{
+public:
+	Red() {r = 255;}
+};
+class Green : public Pixel
+{
+public:
+	Green() { g = 255; }
+};
+class Blue : public Pixel
+{
+public:
+	Blue() { b = 255; }
+};
+class Yellow : public Pixel
+{
+public:
+	Yellow() { r = 255; g = 255; }
+};

@@ -1,22 +1,15 @@
 #include "Map.hpp"
-#include "TextureManager.h"
+#include "terrain.hpp"
+#include <iostream>
 
 Map::Map()
 {
-	dirt = TextureManager::LoadTexture("assets/dirt.png");
-	grass = TextureManager::LoadTexture("assets/grass.png");
-	water = TextureManager::LoadTexture("assets/water.png");
-
 	src.x = src.y = 0;
 	src.w = dest.w = 32;
 	src.h = dest.h = 32;
 	dest.x = dest.y = 0;
 
 	LoadMap(1);
-
-	cout << "Loaded " << this->name << endl;
-	cout << this->width << endl;
-	cout << this->height << endl;
 }
 
 void Map::LoadMap(unsigned int level)
@@ -34,34 +27,50 @@ void Map::LoadMap(unsigned int level)
 
 void Map::DrawMap()
 {
-	int r = 255;
-	int g = 255;
-	int b = 255;
+	Red* red = new Red();
+	Green* green = new Green();
+	Blue* blue = new Blue();
+	Yellow* yellow = new Yellow();
 
 	int col = 0;
 	int row = 0;
-
-	for (vector<Pixel*> pV : map)
+	Terrain* ter;
+	vector<Terrain*> terrainRow;
+	for (vector<Pixel*> pV : mapPixels)
 	{
 		for (Pixel* px : pV)
 		{
-
 			dest.x = col * 16;
 			dest.y = row * 16;
-			if (px->R() == r && px->G() == 0 && px->B() == 0)
+			if (*px == *red || *px == *yellow)
 			{
-				TextureManager::Draw(dirt, src, dest);
+				ter = new Dirt();
+				ter->draw(src, dest);
+				terrainRow.push_back(ter);
 			}
-			else if (px->R() == 0 && px->G() == g && px->B() == 0)
+			else if (*px == *green)
 			{
-				TextureManager::Draw(grass, src, dest);
+				ter = new Grass();
+				ter->draw(src, dest);
+				terrainRow.push_back(ter);
+			}
+			else if (*px == *blue)
+			{
+				ter = new Water();
+				ter->draw(src, dest);
+				terrainRow.push_back(ter);
 			}
 			else
 			{
-				TextureManager::Draw(water, src, dest);
+				ter = new Water();
+				ter->draw(src, dest);
+				terrainRow.push_back(ter);
+				cerr << "Unknown pixel color found at " << col << ", " << row << endl;
 			}
 			col++;
 		}
+		terrain.push_front(terrainRow);
+		terrainRow.clear();
 		col = 0;
 		row++;
 	}
@@ -110,18 +119,21 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 	fclose(f);
 	return pixels;
 }
-
+bool Map::canMoveTo(unsigned int x, unsigned int y)
+{
+	if (cells.at(y).at(x) == nullptr)
+		if(mapPixels.at(y).at(x) != /*water*/ false)
+			return true;
+	return true;
+}
 /* Getters / Setters */
 void Map::setPixels(deque<vector<Pixel*>> pixels)
 {
-	map = pixels;
-	cells.resize(width);
-	for (Player *p : cells)
-		e.resize(height);
+	mapPixels = pixels;
 }
 deque<vector<Pixel*>> Map::getPixels()
 {
-	return map;
+	return mapPixels;
 }
 void Map::setHeight(unsigned int height)
 {
