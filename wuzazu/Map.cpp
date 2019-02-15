@@ -24,7 +24,7 @@ void Map::LoadMap(unsigned int level)
 	switch (level)
 	{
 	case 1:
-		map = readBMP("assets/map.bmp");
+		setPixels(readBMP("assets/map.bmp"));
 		break;
 	default:
 		throw new exception("Invalid Map ID");
@@ -115,6 +115,9 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 void Map::setPixels(deque<vector<Pixel*>> pixels)
 {
 	map = pixels;
+	cells.resize(width);
+	for (Player *p : cells)
+		e.resize(height);
 }
 deque<vector<Pixel*>> Map::getPixels()
 {

@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.hpp"
 #include "Pixel.hpp"
+#include "Player.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -9,6 +10,20 @@
 
 class Map
 {
+private:
+
+	string name;
+	unsigned int width;
+	unsigned int height;
+
+	SDL_Rect src, dest;
+	SDL_Texture* dirt;
+	SDL_Texture* grass;
+	SDL_Texture* water;
+
+	deque<vector<Pixel*>> map;
+	deque<vector<Player*>> cells;
+
 public:
 
 	Map();
@@ -26,18 +41,4 @@ public:
 	unsigned int getWidth();
 	void setName(string);
 	string getName();
-
-private:
-
-	string name;
-	unsigned int width;
-	unsigned int height;
-
-	SDL_Rect src, dest;
-	SDL_Texture* dirt;
-	SDL_Texture* grass;
-	SDL_Texture* water;
-
-	deque<vector<Pixel*>> map;
-
 };
