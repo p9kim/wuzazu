@@ -16,7 +16,6 @@ class Game
 {
 protected:
 
-
 public:
 	Game();
 	~Game();

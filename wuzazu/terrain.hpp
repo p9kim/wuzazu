@@ -8,26 +8,27 @@ class Terrain
 private:
 	const char* imageFile;
 protected:
+	SDL_Texture* texture;
 public:
-	virtual const char* getImageFile() = 0;
-	bool draw(SDL_Rect, SDL_Rect);
+	string name;
+	void draw(SDL_Rect, SDL_Rect);
 	bool movement();
 };
 
 class Water : public Terrain
 {
 public:
-	const char* getImageFile() { return "assets/water.png"; }
+	Water();
 };
 
 class Dirt : public Terrain
 {
 public:
-	const char* getImageFile() { return "assets/dirt.png"; }
+	Dirt();
 };
 
 class Grass : public Terrain
 {
 public:
-	const char* getImageFile() { return "assets/grass.png"; }
+	Grass();
 };

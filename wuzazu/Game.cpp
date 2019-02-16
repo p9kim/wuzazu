@@ -1,9 +1,6 @@
 #include "Game.hpp"
 #include "Map.hpp"
 
-
-// Don't need will delete later
-
 using namespace std;
 
 SDL_Texture* playerTex;

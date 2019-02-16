@@ -1,14 +1,20 @@
 #include "terrain.hpp"
 
-bool Terrain::draw(SDL_Rect src, SDL_Rect dest)
+Water::Water()
 {
-	if(getImageFile() == NULL)
-	{
-		std::cerr << "Exception while drawing terrain" << std::endl;
-		return false;
-	}
-	TextureManager::Draw(TextureManager::LoadTexture(getImageFile()), src, dest);
-	return true;
+	Water::texture = TextureManager::LoadTexture("assets/water.png");
+}
+Grass::Grass()
+{
+	Grass::texture = TextureManager::LoadTexture("assets/grass.png");
+}
+Dirt::Dirt()
+{
+	Dirt::texture = TextureManager::LoadTexture("assets/dirt.png");
+}
+void Terrain::draw(SDL_Rect src, SDL_Rect dest)
+{
+	TextureManager::Draw((SDL_Texture*)texture, src, dest);
 }
 bool Terrain::movement()
 {
