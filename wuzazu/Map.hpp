@@ -18,9 +18,6 @@ private:
 	unsigned int height;
 
 	SDL_Rect src, dest;
-	SDL_Texture* dirt;
-	SDL_Texture* grass;
-	SDL_Texture* water;
 
 	deque<vector<Pixel*>> mapPixels;
 	deque<vector<Terrain*>> terrain;

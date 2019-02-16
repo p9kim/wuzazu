@@ -1,5 +1,4 @@
 #include "Player.hpp"
-#include "TextureManager.h"
 
 Player::Player(const char* model, int x, int y)
 {
@@ -11,11 +10,6 @@ Player::Player(const char* model, int x, int y)
 
 void Player::update()
 {
-	//SDL_Event e;
-	
-	//SDL_PollEvent(&e);
-
-
 	srcRect.h = 32;
 	srcRect.w = 32;
 	srcRect.x = 0;

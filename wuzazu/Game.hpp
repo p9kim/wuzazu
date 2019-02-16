@@ -2,8 +2,12 @@
 #ifndef Game_hpp
 #define Game_hpp
 
-#include "SDL2/include/SDL.h"
+#include "SDL.h"
 #include "SDL_image.h"
+#include "TextureManager.h"
+#include "GameObject.h"
+#include "Player.hpp"
+#include "MouseButtons.hpp"
 #include <stdio.h>
 #include <string>
 #include <iostream>

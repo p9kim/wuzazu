@@ -1,6 +1,4 @@
 #include "Map.hpp"
-#include "terrain.hpp"
-#include <iostream>
 
 Map::Map()
 {

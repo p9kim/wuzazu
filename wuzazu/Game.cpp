@@ -1,15 +1,8 @@
-#include <iostream>
-
-#include "Map.hpp"
 #include "Game.hpp"
-#include "TextureManager.h"
-#include "GameObject.h"
-#include "Player.hpp"
-#include "MouseButtons.hpp"
+#include "Map.hpp"
+
 
 // Don't need will delete later
-#include "ECS.hpp"
-#include "Components.hpp"
 
 using namespace std;
 
@@ -20,9 +13,6 @@ GameObject* enemy;
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
-
-Manager manager;
-auto& newPlayer(manager.addEntity());
 
 Game::Game()
 {}
@@ -112,7 +102,6 @@ void Game::update()
 {
 	player->update();
 	//enemy->Update();
-	manager.update();
 	/*std::cout << newPlayer.getComponent<PositionComponent>().x() << "," <<
 		newPlayer.getComponent<PositionComponent>().y() << std::endl;*/
 }

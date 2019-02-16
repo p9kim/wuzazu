@@ -1,5 +1,6 @@
 #pragma once
 #include "Game.hpp"
+#include "TextureManager.h"
 
 class Player
 {
