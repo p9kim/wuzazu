@@ -15,7 +15,7 @@ void Map::LoadMap(unsigned int level)
 	switch (level)
 	{
 	case 1:
-		setPixels(readBMP("assets/map.bmp"));
+		readBMP("assets/map.bmp");
 		break;
 	default:
 		throw new exception("Invalid Map ID");
@@ -27,13 +27,13 @@ void Map::DrawMap()
 {
 	int col = 0;
 	int row = 0;
-	for (vector<Terrain*> tV : terrain)
+	for (vector<Cell*> cV : cells)
 	{
-		for (Terrain* tr : tV)
+		for (Cell* c : cV)
 		{
 			dest.x = col * 16;
 			dest.y = row * 16;
-			tr->draw(src, dest);
+			c->terrain().draw(src, dest);
 			col++;
 		}
 		col = 0;
@@ -41,15 +41,13 @@ void Map::DrawMap()
 	}
 }
 
-deque<vector<Pixel*>> Map::readBMP(const char* filename)
+void Map::readBMP(const char* filename)
 {
 	water = *(new Water());
 	dirt = *(new Dirt());
 	grass = *(new Grass());
 
 	Terrain* ter = 0;
-	vector<Terrain*> terrainRow;
-
 	FILE* f = fopen(filename, "rb");
 
 	if (f == NULL)
@@ -71,8 +69,7 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 	unsigned char* data = new unsigned char[row_padded];
 	unsigned char tmp;
 
-	deque<vector<Pixel*>> pixels;
-	vector<Pixel*>* row = new vector<Pixel*>();
+	vector<Cell*>* row = new vector<Cell*>();
 	for (int i = 0; i < height; i++)
 	{
 		fread(data, sizeof(unsigned char), row_padded, f);
@@ -94,35 +91,23 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 				ter = &water;
 				cerr << "Unknown pixel color found at " << j << ", " << i << endl;
 			}
-			terrainRow.push_back(ter);
-			row->push_back(color);
+			row->push_back(new Cell(*color, *ter));
 			delete(color);
 		}
-		pixels.push_front(*row);
+		cells.push_front(*row);
 		row->clear();
-		terrain.push_front(terrainRow);
-		terrainRow.clear();
+
 	}
 	delete(row);
 	fclose(f);
-	return pixels;
 }
-bool Map::canMoveTo(unsigned int x, unsigned int y)
+Cell Map::at(unsigned int x, unsigned int y)
 {
-	if (cells.at(y).at(x) == nullptr)
-		if(mapPixels.at(y).at(x) != /*water*/ false)
-			return true;
-	return true;
+	vector<Cell*> col = cells.at(y);
+	return *col.at(x);
 }
+
 /* Getters / Setters */
-void Map::setPixels(deque<vector<Pixel*>> pixels)
-{
-	mapPixels = pixels;
-}
-deque<vector<Pixel*>> Map::getPixels()
-{
-	return mapPixels;
-}
 void Map::setHeight(unsigned int height)
 {
 	this->height = height;

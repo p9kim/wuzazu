@@ -1,8 +1,6 @@
 #pragma once
 #include "Game.hpp"
-#include "Pixel.hpp"
-#include "Player.hpp"
-#include "terrain.hpp"
+#include "Cell.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -18,10 +16,7 @@ private:
 	unsigned int height;
 
 	SDL_Rect src, dest;
-
-	deque<vector<Pixel*>> mapPixels;
-	deque<vector<Terrain*>> terrain;
-	vector<vector<Player*>> cells;
+	deque<vector<Cell*>> cells;
 
 public:
 
@@ -30,15 +25,13 @@ public:
 
 	void LoadMap(unsigned int level);
 	void DrawMap();
-	deque<vector<Pixel*>> readBMP(const char* filename);
+	void readBMP(const char* filename);
+	Cell at(unsigned int, unsigned int);
 
-	void setPixels(deque<vector<Pixel*>>);
-	deque<vector<Pixel*>> getPixels();
 	void setHeight(unsigned int);
 	unsigned int getHeight();
 	void setWidth(unsigned int);
 	unsigned int getWidth();
 	void setName(string);
 	string getName();
-	bool canMoveTo(unsigned int x, unsigned int y);
 };

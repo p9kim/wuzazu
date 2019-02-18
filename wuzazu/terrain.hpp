@@ -8,9 +8,8 @@ class Terrain
 private:
 	const char* imageFile;
 protected:
-	
-public:
 	SDL_Texture* texture;
+public:
 	string name;
 	void draw(SDL_Rect, SDL_Rect);
 	bool movement();
