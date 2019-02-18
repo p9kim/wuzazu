@@ -8,27 +8,28 @@ class Terrain
 private:
 	const char* imageFile;
 protected:
-	SDL_Texture* texture;
+	
 public:
+	SDL_Texture* texture;
 	string name;
 	void draw(SDL_Rect, SDL_Rect);
 	bool movement();
 };
 
-class Water : public Terrain
+static class Water : public Terrain
 {
 public:
 	Water();
-};
+} water;
 
-class Dirt : public Terrain
+static class Dirt : public Terrain
 {
 public:
 	Dirt();
-};
+} dirt;
 
-class Grass : public Terrain
+static class Grass : public Terrain
 {
 public:
 	Grass();
-};
+} grass;

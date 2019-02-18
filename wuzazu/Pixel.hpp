@@ -21,23 +21,23 @@ public:
 	}
 };
 
-class Red : public Pixel
+static class Red : public Pixel
 {
 public:
 	Red() {r = 255;}
-};
-class Green : public Pixel
+} red;
+static class Green : public Pixel
 {
 public:
 	Green() { g = 255; }
-};
-class Blue : public Pixel
+} green;
+static class Blue : public Pixel
 {
 public:
 	Blue() { b = 255; }
-};
-class Yellow : public Pixel
+} blue;
+static class Yellow : public Pixel
 {
 public:
 	Yellow() { r = 255; g = 255; }
-};
+} yellow;

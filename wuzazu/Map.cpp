@@ -43,10 +43,9 @@ void Map::DrawMap()
 
 deque<vector<Pixel*>> Map::readBMP(const char* filename)
 {
-	Red* red = new Red();
-	Green* green = new Green();
-	Blue* blue = new Blue();
-	Yellow* yellow = new Yellow();
+	water = *(new Water());
+	dirt = *(new Dirt());
+	grass = *(new Grass());
 
 	Terrain* ter = 0;
 	vector<Terrain*> terrainRow;
@@ -84,15 +83,15 @@ deque<vector<Pixel*>> Map::readBMP(const char* filename)
 			data[j] = data[j + 2];
 			data[j + 2] = tmp;
 			Pixel* color = new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]);
-			if (*color == *red || *color == *yellow)
-				ter = new Dirt();
-			else if (*color == *green)
-				ter = new Grass();
-			else if (*color == *blue)
-				ter = new Water();
+			if (*color == red || *color == yellow)
+				ter = &dirt;
+			else if (*color == green)
+				ter = &grass;
+			else if (*color == blue)
+				ter = &water;
 			else
 			{
-				ter = new Water();
+				ter = &water;
 				cerr << "Unknown pixel color found at " << j << ", " << i << endl;
 			}
 			terrainRow.push_back(ter);

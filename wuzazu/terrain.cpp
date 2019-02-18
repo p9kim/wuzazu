@@ -1,5 +1,4 @@
 #include "terrain.hpp"
-
 Water::Water()
 {
 	Water::texture = TextureManager::LoadTexture("assets/water.png");
