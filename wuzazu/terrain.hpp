@@ -1,6 +1,5 @@
 #pragma once
 #include "TextureManager.h"
-#include "Pixel.hpp"
 #include <iostream>
 
 class Terrain
@@ -10,7 +9,7 @@ private:
 protected:
 	SDL_Texture* texture;
 public:
-	string name;
+	std::string name;
 	void draw(SDL_Rect, SDL_Rect);
 	bool movement();
 };
@@ -18,17 +17,23 @@ public:
 static class Water : public Terrain
 {
 public:
-	Water();
+	Water() {
+		texture = TextureManager::LoadTexture("assets/water.png");
+	}
 } water;
 
 static class Dirt : public Terrain
 {
 public:
-	Dirt();
+	Dirt() {
+		texture = TextureManager::LoadTexture("assets/dirt.png");
+	}
 } dirt;
 
 static class Grass : public Terrain
 {
 public:
-	Grass();
+	Grass() {
+		texture = TextureManager::LoadTexture("assets/grass.png");
+	};
 } grass;
