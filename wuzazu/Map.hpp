@@ -23,9 +23,9 @@ public:
 	Map();
 	~Map();
 
-	void LoadMap(unsigned int level);
+	void LoadMap(unsigned int);
 	void DrawMap();
-	void readBMP(const char* filename);
+	void readBMP(const char*, const char*);
 	Cell at(unsigned int, unsigned int);
 
 	void setHeight(unsigned int);

@@ -3,8 +3,8 @@
 Map::Map()
 {
 	src.x = src.y = 0;
-	src.w = dest.w = 32;
-	src.h = dest.h = 32;
+	src.w = dest.w = 42;
+	src.h = dest.h = 42;
 	dest.x = dest.y = 0;
 
 	LoadMap(1);
@@ -15,7 +15,7 @@ void Map::LoadMap(unsigned int level)
 	switch (level)
 	{
 	case 1:
-		readBMP("assets/map.bmp");
+		readBMP("assets/map1.bmp", "assets/entity1.bmp");
 		break;
 	default:
 		throw new exception("Invalid Map ID");
@@ -31,8 +31,8 @@ void Map::DrawMap()
 	{
 		for (Cell* c : cV)
 		{
-			dest.x = col * 16;
-			dest.y = row * 16;
+			dest.x = col * 42;
+			dest.y = row * 42;
 			c->terrain().draw(src, dest);
 			col++;
 		}
@@ -41,24 +41,30 @@ void Map::DrawMap()
 	}
 }
 
-void Map::readBMP(const char* filename)
+void Map::readBMP(const char* mapfile, const char* entityfile)
 {
 	water = *(new Water());
 	dirt = *(new Dirt());
 	grass = *(new Grass());
 
 	Terrain* ter = 0;
-	FILE* f = fopen(filename, "rb");
+	FILE* f = fopen(mapfile, "rb");
+	FILE* ef = fopen(mapfile, "rb");
 
-	if (f == NULL)
-		throw "Argument Exception";
+	if (f == NULL || ef == NULL)
+		throw "File not found exception";
 
 	unsigned char info[54];
+	unsigned char info2[54];
 	fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
+	fread(info2, sizeof(unsigned char), 54, ef);
 
 	// extract image height and width from header
 	const int width = *(int*)&info[18];
 	const int height = *(int*)&info[22];
+	
+	if (width != *(int*)&info2[18] && height != *(int*)&info2[22])
+		throw "The two file's height and width do not match each other";
 
 	this->width = width;
 	this->height = height;
@@ -72,6 +78,7 @@ void Map::readBMP(const char* filename)
 	vector<Cell*>* row = new vector<Cell*>();
 	for (int i = 0; i < height; i++)
 	{
+		fread(data, sizeof(unsigned char), row_padded, f);
 		fread(data, sizeof(unsigned char), row_padded, f);
 		for (int j = 0; j < width * 3; j += 3)
 		{

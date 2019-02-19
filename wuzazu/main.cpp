@@ -15,7 +15,7 @@ int main(int argc, char * argv[])
 
 	game = new Game();
 
-	game->init("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 900, true);
+	game->init("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
 
 	while (game->running())
 	{
