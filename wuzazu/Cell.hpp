@@ -6,15 +6,19 @@ class Cell
 {
 private:
 	Pixel pixel_;
-	//Player player_;
+	Player* player_;
 	Terrain terrain_;
+	unsigned int X;
+	unsigned int Y;
 public:
-	Cell(Pixel, Terrain);
+	Cell(Pixel, Terrain, unsigned int, unsigned int);
 	void setPixel(Pixel);
 	Pixel pixel();
-	void setPlayer(Player);
-	//Player player();
-	//bool hasPlayer();
+	void setPlayer(Player*);
+	Player* player();
+	bool hasPlayer();
 	void setTerrain(Terrain);
 	Terrain terrain();
+	unsigned int x();
+	unsigned int y();
 };

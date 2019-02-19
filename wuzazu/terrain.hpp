@@ -4,8 +4,6 @@
 
 class Terrain
 {
-private:
-	const char* imageFile;
 protected:
 	SDL_Texture* texture;
 public:

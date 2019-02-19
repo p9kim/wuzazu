@@ -91,7 +91,7 @@ void Map::readBMP(const char* filename)
 				ter = &water;
 				cerr << "Unknown pixel color found at " << j << ", " << i << endl;
 			}
-			row->push_back(new Cell(*color, *ter));
+			row->push_back(new Cell(*color, *ter, i, j/3));
 			delete(color);
 		}
 		cells.push_front(*row);
