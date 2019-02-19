@@ -62,8 +62,10 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 	// extract image height and width from header
 	const int width = *(int*)&info[18];
 	const int height = *(int*)&info[22];
-	
-	if (width != *(int*)&info2[18] && height != *(int*)&info2[22])
+	const int width2 = *(int*)&info2[18];
+	const int height2 = *(int*)&info2[22];
+
+	if (width != width2 && height != height2)
 		throw "The two file's height and width do not match each other";
 
 	this->width = width;
@@ -72,14 +74,16 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 
 
 	int row_padded = (width * 3 + 3) & (~3);
+	int row_padded2 = (width2 * 3 + 3) & (~3);
 	unsigned char* data = new unsigned char[row_padded];
-	unsigned char tmp;
+	unsigned char* data2 = new unsigned char[row_padded2];
+	unsigned char tmp, tmp2;
 
 	vector<Cell*>* row = new vector<Cell*>();
 	for (int i = 0; i < height; i++)
 	{
 		fread(data, sizeof(unsigned char), row_padded, f);
-		fread(data, sizeof(unsigned char), row_padded, f);
+		fread(data2, sizeof(unsigned char), row_padded, ef);
 		for (int j = 0; j < width * 3; j += 3)
 		{
 			// Convert (B, G, R) to (R, G, B)
