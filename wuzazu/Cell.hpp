@@ -10,6 +10,7 @@ private:
 	Terrain terrain_;
 	unsigned int X;
 	unsigned int Y;
+	bool inside;
 public:
 	Cell(Pixel, Terrain, unsigned int, unsigned int);
 	void setPixel(Pixel);
@@ -21,4 +22,5 @@ public:
 	Terrain terrain();
 	unsigned int x();
 	unsigned int y();
+	//void clickEvent(SDL_Event*);
 };

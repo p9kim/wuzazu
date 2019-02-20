@@ -31,3 +31,9 @@ void Player::movePlayerBy(int x, int y)
 	this->xpos += x;
 	this->ypos += y;
 }
+
+void Player::moveTo(int x, int y)
+{
+	this->xpos = x;
+	this->ypos = y;
+}

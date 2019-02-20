@@ -61,8 +61,17 @@ void Game::handleEvents()
 		}
 	}
 	*/
+
 	int moveby = 24;
 	SDL_PollEvent(&e);
+	
+	if (e.type == SDL_MOUSEBUTTONDOWN)
+	{
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		player->moveTo(x, y);
+	}
+	
 	switch (e.key.keysym.sym)
 	{
 	case SDLK_UP:

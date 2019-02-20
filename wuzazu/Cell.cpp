@@ -6,6 +6,7 @@ Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y)
 	this->X = x;
 	this->Y = y;
 	player_ = nullptr;
+	inside = false;
 }
 void Cell::setPixel(Pixel pixel)
 {
@@ -44,9 +45,11 @@ Terrain Cell::terrain()
 }
 unsigned int Cell::x()
 {
+	cout << "Cell is at x: " << X << endl;
 	return X;
 }
 unsigned int Cell::y()
 {
+	cout << "Cell is at y: " << Y << endl;
 	return Y;
 }

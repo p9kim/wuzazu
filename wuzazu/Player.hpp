@@ -24,6 +24,7 @@ public:
 	};
 
 	void movePlayerBy(int, int);
+	void moveTo(int, int);
 
 private:
 	int xpos;
