@@ -1,12 +1,17 @@
 #include "Cell.hpp"
-Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y)
+
+Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y, Player* player)
 {
 	pixel_ = p;
 	terrain_ = t;
 	this->X = x;
 	this->Y = y;
+<<<<<<< HEAD
 	player_ = nullptr;
 	inside = false;
+=======
+	player_ = player;
+>>>>>>> 6413828f00caa1cbb55562b91caae7e42ac8541d
 }
 void Cell::setPixel(Pixel pixel)
 {
@@ -52,4 +57,14 @@ unsigned int Cell::y()
 {
 	cout << "Cell is at y: " << Y << endl;
 	return Y;
+}
+pair<unsigned int, unsigned int> Cell::getCenter()
+{
+	return make_pair(X + (42 / 2), Y + (42 / 2));
+}
+void Cell::draw(SDL_Rect src, SDL_Rect dest)
+{
+	terrain().draw(src, dest);
+	if (hasPlayer())
+		player()->render(src, dest);
 }
