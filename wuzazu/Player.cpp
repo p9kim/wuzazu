@@ -1,5 +1,13 @@
 #include "Player.hpp"
 
+Player::Player(const char* model)
+{
+	playerTex = TextureManager::LoadTexture(model);
+
+	xpos = 0;
+	ypos = 0;
+}
+
 Player::Player(const char* model, int x, int y)
 {
 	playerTex = TextureManager::LoadTexture(model);
@@ -25,9 +33,24 @@ void Player::render()
 {
 	SDL_RenderCopy(Game::renderer, playerTex, &srcRect, &destRect);
 }
+void Player::render(SDL_Rect src, SDL_Rect dest)
+{
+	srcRect = src;
+	destRect = dest;
+	SDL_RenderCopy(Game::renderer, playerTex, &srcRect, &destRect);
+}
 
 void Player::movePlayerBy(int x, int y)
 {
 	this->xpos += x;
 	this->ypos += y;
+}
+void Player::setCell(Cell* c)
+{
+	cell = c;
+}
+void Player::setCoord(std::pair<unsigned int, unsigned int> coord)
+{
+	xpos = coord.first;
+	ypos = coord.second;
 }

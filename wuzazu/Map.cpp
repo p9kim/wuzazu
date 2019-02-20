@@ -15,7 +15,7 @@ void Map::LoadMap(unsigned int level)
 	switch (level)
 	{
 	case 1:
-		readBMP("assets/map1.bmp", "assets/entity1.bmp");
+		readBMP("assets/map1.bmp", "assets/entities1.bmp");
 		break;
 	default:
 		throw new exception("Invalid Map ID");
@@ -33,7 +33,7 @@ void Map::DrawMap()
 		{
 			dest.x = col * 42;
 			dest.y = row * 42;
-			c->terrain().draw(src, dest);
+			c->draw(src, dest);
 			col++;
 		}
 		col = 0;
@@ -49,7 +49,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 
 	Terrain* ter = 0;
 	FILE* f = fopen(mapfile, "rb");
-	FILE* ef = fopen(mapfile, "rb");
+	FILE* ef = fopen(entityfile, "rb");
 
 	if (f == NULL || ef == NULL)
 		throw "File not found exception";
@@ -65,13 +65,12 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 	const int width2 = *(int*)&info2[18];
 	const int height2 = *(int*)&info2[22];
 
-	if (width != width2 && height != height2)
-		throw "The two file's height and width do not match each other";
+	//if (width != width2 && height != height2)
+		//throw "The two file's height and width do not match each other";
 
 	this->width = width;
 	this->height = height;
 	this->name = name;
-
 
 	int row_padded = (width * 3 + 3) & (~3);
 	int row_padded2 = (width2 * 3 + 3) & (~3);
@@ -83,13 +82,13 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 	for (int i = 0; i < height; i++)
 	{
 		fread(data, sizeof(unsigned char), row_padded, f);
-		fread(data2, sizeof(unsigned char), row_padded, ef);
+		fread(data2, sizeof(unsigned char), row_padded2, ef);
 		for (int j = 0; j < width * 3; j += 3)
 		{
 			// Convert (B, G, R) to (R, G, B)
-			tmp = data[j];
-			data[j] = data[j + 2];
-			data[j + 2] = tmp;
+			tmp = data[j]; tmp2 = data2[j];
+			data[j] = data[j + 2]; data2[j] = data2[j + 2];
+			data[j + 2] = tmp; data2[j + 2] = tmp2;
 			Pixel* color = new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]);
 			if (*color == red || *color == yellow)
 				ter = &dirt;
@@ -102,7 +101,16 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 				ter = &water;
 				cerr << "Unknown pixel color found at " << j << ", " << i << endl;
 			}
-			row->push_back(new Cell(*color, *ter, i, j/3));
+			Player* player = nullptr;
+			Pixel* color2 = new Pixel((unsigned int)data2[j], (unsigned int)data2[j + 1], (unsigned int)data2[j + 2]);
+			if (*color2 == red)
+				player = new Player("assets/testPlayer.png");
+			else if(*color2 == blue)
+				player = new Player("assets/player.png");
+			Cell* cell = new Cell(*color, *ter, i, j / 3, player);
+			if (player != nullptr)
+				player->setCell(cell);
+			row->push_back(cell);
 			delete(color);
 		}
 		cells.push_front(*row);

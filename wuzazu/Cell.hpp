@@ -2,6 +2,7 @@
 #include "terrain.hpp"
 #include "Pixel.hpp"
 #include "Player.hpp"
+
 class Cell
 {
 private:
@@ -11,7 +12,7 @@ private:
 	unsigned int X;
 	unsigned int Y;
 public:
-	Cell(Pixel, Terrain, unsigned int, unsigned int);
+	Cell(Pixel, Terrain, unsigned int, unsigned int, Player*);
 	void setPixel(Pixel);
 	Pixel pixel();
 	void setPlayer(Player*);
@@ -21,4 +22,6 @@ public:
 	Terrain terrain();
 	unsigned int x();
 	unsigned int y();
+	pair<unsigned int, unsigned int> getCenter();
+	void draw(SDL_Rect src, SDL_Rect dest);
 };
