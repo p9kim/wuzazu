@@ -39,10 +39,4 @@ public:
 
 	void moveTo(int, int);
 
-private:
-	int xpos;
-	int ypos;
-
-	SDL_Texture* playerTex;
-	SDL_Rect srcRect, destRect;
 };

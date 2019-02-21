@@ -1,17 +1,36 @@
 #include "Cell.hpp"
 
-Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y, Player* player)
+Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y, Player* player, unsigned int width, unsigned int height)
 {
 	pixel_ = p;
 	terrain_ = t;
 	this->X = x;
 	this->Y = y;
-<<<<<<< HEAD
+	this->width = width;
+	this->height = height;
+	this->xPix = 0;
+	this->yPix = 0;
+
 	player_ = nullptr;
 	inside = false;
-=======
+
 	player_ = player;
->>>>>>> 6413828f00caa1cbb55562b91caae7e42ac8541d
+}
+unsigned int Cell::getWidth()
+{
+	return width;
+}
+unsigned int Cell::getHeight()
+{
+	return height;
+}
+void Cell::setWidth(unsigned int width)
+{
+	this->width = width;
+}
+void Cell::setHeight(unsigned int height)
+{
+	this->height = height;
 }
 void Cell::setPixel(Pixel pixel)
 {
@@ -68,3 +87,18 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 	if (hasPlayer())
 		player()->render(src, dest);
 }
+
+unsigned int Cell::clickCell(unsigned int x, unsigned int y)
+{
+	if (x >= this->x() && x < (this->x() + this->getWidth()))
+	{
+		if (y >= this->y() && y < (this->y() + this->getHeight()))
+		{
+			cout << "mouse is in Cell: " << X << ", " << Y << endl;
+			return 1;
+		}
+	}
+	cout << "Doesn't work" << endl;
+	return 0;
+}
+

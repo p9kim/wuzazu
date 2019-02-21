@@ -3,8 +3,8 @@
 Map::Map()
 {
 	src.x = src.y = 0;
-	src.w = dest.w = 42;
-	src.h = dest.h = 42;
+	src.w = dest.w = cellSize;
+	src.h = dest.h = cellSize;
 	dest.x = dest.y = 0;
 
 	LoadMap(1);
@@ -31,8 +31,10 @@ void Map::DrawMap()
 	{
 		for (Cell* c : cV)
 		{
-			dest.x = col * 42;
-			dest.y = row * 42;
+			dest.x = col * cellSize;
+			dest.y = row * cellSize;
+			c->setXPix(dest.x);
+			c->setYPix(dest.y);
 			c->draw(src, dest);
 			col++;
 		}
@@ -107,7 +109,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 				player = new Player("assets/testPlayer.png");
 			else if(*color2 == blue)
 				player = new Player("assets/player.png");
-			Cell* cell = new Cell(*color, *ter, i, j / 3, player);
+			Cell* cell = new Cell(*color, *ter, i, j / 3, player, cellSize, cellSize);
 			if (player != nullptr)
 				player->setCell(cell);
 			row->push_back(cell);
@@ -120,6 +122,13 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 	delete(row);
 	fclose(f);
 }
+/*
+unsigned int clickCell(unsigned int x, unsigned int y, SDL_Rect rect)
+{
+
+}
+*/
+
 Cell Map::at(unsigned int x, unsigned int y)
 {
 	vector<Cell*> col = cells.at(y);
@@ -151,3 +160,4 @@ string Map::getName()
 {
 	return name;
 }
+
