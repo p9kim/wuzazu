@@ -6,6 +6,8 @@ using namespace std;
 
 Game *game = nullptr;
 
+Render* renderer = new Render();
+
 int main(int argc, char * argv[])
 {
 	const int FPS = 60;
@@ -14,10 +16,9 @@ int main(int argc, char * argv[])
 	Uint32 frameStart;
 	int frameTime;
 
-	renderer.createWindow("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
+	renderer->createWindow("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
 	
 	game = new Game();
-	game->setRenderer(&renderer);
 	game->init();
 
 	while (game->running())
@@ -35,7 +36,7 @@ int main(int argc, char * argv[])
 		}
 	}
 
-	renderer.clean();
+	renderer->clean();
 	
 	return 0;
 }

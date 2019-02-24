@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-static class Render
+class Render
 {
 private:
 	SDL_Renderer* renderer;
@@ -17,4 +17,6 @@ public:
 	void clean();
 	void renderingLoop();
 	bool createWindow(const char*, int, int, int, int, bool);
-} renderer;
+};
+
+extern Render* renderer;

@@ -31,13 +31,13 @@ void Player::update()
 
 void Player::render()
 {
-	SDL_RenderCopy(renderer.getRenderer(), playerTex, &srcRect, &destRect);
+	SDL_RenderCopy(renderer->getRenderer(), playerTex, &srcRect, &destRect);
 }
 void Player::render(SDL_Rect src, SDL_Rect dest)
 {
 	srcRect = src;
 	destRect = dest;
-	SDL_RenderCopy(renderer.getRenderer(), playerTex, &srcRect, &destRect);
+	SDL_RenderCopy(renderer->getRenderer(), playerTex, &srcRect, &destRect);
 }
 
 void Player::movePlayerBy(int x, int y)

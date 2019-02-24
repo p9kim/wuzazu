@@ -27,5 +27,5 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
-	SDL_RenderCopy(renderer.getRenderer(), objTexture, &srcRect, &destRect);
+	SDL_RenderCopy(renderer->getRenderer(), objTexture, &srcRect, &destRect);
 }

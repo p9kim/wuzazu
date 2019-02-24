@@ -26,10 +26,8 @@ public:
 	void update();
 	void render();
 	bool running();
-	void setRenderer(Render*);
 private:
 	bool isRunning;
-	Render* renderer;
 
 };
 #endif

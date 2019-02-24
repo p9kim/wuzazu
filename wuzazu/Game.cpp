@@ -89,7 +89,3 @@ bool Game::running()
 {
 	return isRunning;
 }
-void Game::setRenderer(Render* renderer)
-{
-	this->renderer = renderer;
-}
