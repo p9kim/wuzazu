@@ -7,6 +7,8 @@
 #include <vector>
 #include <deque>
 
+static const unsigned int CELLSIZE = 42;
+
 class Map
 {
 private:
@@ -26,7 +28,7 @@ public:
 	void LoadMap(unsigned int);
 	void DrawMap();
 	void readBMP(const char*, const char*);
-	Cell at(unsigned int, unsigned int);
+	Cell* at(unsigned int, unsigned int);
 
 	void setHeight(unsigned int);
 	unsigned int getHeight();
@@ -34,4 +36,6 @@ public:
 	unsigned int getWidth();
 	void setName(string);
 	string getName();
+
+	bool handleClick(int, int);
 };

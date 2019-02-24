@@ -3,8 +3,8 @@
 Map::Map()
 {
 	src.x = src.y = 0;
-	src.w = dest.w = 42;
-	src.h = dest.h = 42;
+	src.w = dest.w = CELLSIZE;
+	src.h = dest.h = CELLSIZE;
 	dest.x = dest.y = 0;
 
 	LoadMap(1);
@@ -31,8 +31,8 @@ void Map::DrawMap()
 	{
 		for (Cell* c : cV)
 		{
-			dest.x = col * 42;
-			dest.y = row * 42;
+			dest.x = col * CELLSIZE;
+			dest.y = row * CELLSIZE;
 			c->draw(src, dest);
 			col++;
 		}
@@ -120,10 +120,30 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 	delete(row);
 	fclose(f);
 }
-Cell Map::at(unsigned int x, unsigned int y)
+Cell* Map::at(unsigned int x, unsigned int y)
 {
 	vector<Cell*> col = cells.at(y);
-	return *col.at(x);
+	return col.at(x);
+}
+
+bool Map::handleClick(int x, int y)
+{
+	Cell* c = at(floor(x / CELLSIZE), floor(y / CELLSIZE));
+	static Player* p = nullptr;
+	if (c->hasPlayer())
+	{
+		p = c->player();
+		c->setPlayer(nullptr);
+	}
+	else
+	{
+		if (p != nullptr)
+		{
+			c->setPlayer(p);
+			p = nullptr;
+		}
+	}
+	return true;
 }
 
 /* Getters / Setters */

@@ -92,6 +92,12 @@ void Game::handleEvents()
 	default:
 		break;
 	}
+	if (e.type == SDL_MOUSEBUTTONUP)
+	{
+		int x, y;
+		SDL_GetMouseState(&x, &y);
+		map->handleClick(x, y);
+	}
 
 	
 }
