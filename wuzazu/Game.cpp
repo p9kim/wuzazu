@@ -1,53 +1,23 @@
 #include "Game.hpp"
 #include "Map.hpp"
-
+#include "Render.hpp"
 using namespace std;
 
 SDL_Texture* playerTex;
 SDL_Rect srcR, destR;
 Player* player;
-GameObject* enemy;
 Map* map;
 
-SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game()
 {}
 Game::~Game()
 {}
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init()
 {
-	isRunning = false;
-	int flags = 0;
-	renders = 0;
-	if (fullscreen)
-	{
-		int flag = SDL_WINDOW_FULLSCREEN;
-	}
-	
-	if (SDL_Init(SDL_INIT_EVERYTHING) == 0)
-	{
-		cout << "SDL initialization success" << endl;
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
-		if (window)
-			cout << "Window created!" << endl;
-		renderer = SDL_CreateRenderer(window, -1, 0);
-		if (renderer)
-		{
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-			cout << "Render created" << endl;
-		}
-	
-		isRunning = true;
-	}
-	
-	//playerTex = TextureManager::LoadTexture("assets/eggman.png", renderer);
+	isRunning = true;
 	player = new Player("assets/testPlayer.png", 500, 500);
-	//enemy = new GameObject("assets/testPlayer.png", 50, 50);
 	map = new Map();
-
-	//newPlayer.addComponent<PositionComponent>();
-	//newPlayer.getComponent<PositionComponent>().setPos(500, 500);
 }
 void Game::handleEvents()
 {
@@ -110,22 +80,16 @@ void Game::update()
 }
 void Game::render()
 {
-	SDL_RenderClear(renderer);
+	renderer->RenderClear();
 	map->DrawMap();
 	player->render();
-	//enemy->Render();
-	SDL_RenderPresent(renderer);
-	renders++;
-}
-void Game::clean()
-{
-	SDL_DestroyWindow(window);
-	window = NULL;
-	SDL_DestroyRenderer(renderer);
-	SDL_Quit();
-	std::cout << "Game Cleaned" << std::endl;
+	renderer->RenderPresent();
 }
 bool Game::running()
 {
 	return isRunning;
+}
+void Game::setRenderer(Render* renderer)
+{
+	this->renderer = renderer;
 }

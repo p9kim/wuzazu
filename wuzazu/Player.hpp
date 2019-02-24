@@ -1,5 +1,5 @@
 #pragma once
-#include "Game.hpp"
+#include "Render.hpp"
 #include "TextureManager.h"
 #include <utility>
 
@@ -34,6 +34,7 @@ public:
 		KEY_PRESS_SURFACE_RIGHT,
 		KEY_PRESS_SURFACE_TOTAL
 	};
-
 	void movePlayerBy(int, int);
+	void highlight();
+	void unhighlight();
 };

@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "Player.hpp"
 #include "MouseButtons.hpp"
+#include "Render.hpp"
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -20,19 +21,15 @@ public:
 	Game();
 	~Game();
 
-	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+	void init();
 	void handleEvents();
 	void update();
 	void render();
-	void clean();
 	bool running();
-
-	static SDL_Renderer *renderer;
-
+	void setRenderer(Render*);
 private:
-	int renders = 0;
 	bool isRunning;
-	SDL_Window *window;
+	Render* renderer;
 
 };
 #endif

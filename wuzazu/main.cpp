@@ -1,6 +1,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "Game.hpp"
+#include "Render.hpp"
 using namespace std;
 
 Game *game = nullptr;
@@ -13,9 +14,11 @@ int main(int argc, char * argv[])
 	Uint32 frameStart;
 	int frameTime;
 
+	renderer.createWindow("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
+	
 	game = new Game();
-
-	game->init("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
+	game->setRenderer(&renderer);
+	game->init();
 
 	while (game->running())
 	{
@@ -32,7 +35,7 @@ int main(int argc, char * argv[])
 		}
 	}
 
-	game->clean();
+	renderer.clean();
 	
 	return 0;
 }

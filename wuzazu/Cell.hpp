@@ -23,5 +23,7 @@ public:
 	unsigned int x();
 	unsigned int y();
 	pair<unsigned int, unsigned int> getCenter();
-	void draw(SDL_Rect src, SDL_Rect dest);
+	void draw(SDL_Rect, SDL_Rect);
+	void drawSelected();
+	void drawHighlight();
 };

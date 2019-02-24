@@ -1,4 +1,5 @@
 #include "Map.hpp"
+#include "HandleEvents.hpp"
 
 Map::Map()
 {
@@ -128,21 +129,8 @@ Cell* Map::at(unsigned int x, unsigned int y)
 
 bool Map::handleClick(int x, int y)
 {
-	Cell* c = at(floor(x / CELLSIZE), floor(y / CELLSIZE));
-	static Player* p = nullptr;
-	if (c->hasPlayer())
-	{
-		p = c->player();
-		c->setPlayer(nullptr);
-	}
-	else
-	{
-		if (p != nullptr)
-		{
-			c->setPlayer(p);
-			p = nullptr;
-		}
-	}
+	Cell* clickedCell = at((unsigned int)floor(x / CELLSIZE), (unsigned int)floor(y / CELLSIZE));
+	EventHandler.clickCell(clickedCell);
 	return true;
 }
 
