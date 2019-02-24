@@ -1,37 +1,6 @@
 #include "Render.hpp"
 
-Render::Render()
-{
-}
-SDL_Renderer* Render::getRenderer()
-{
-	return this->renderer;
-}
-void Render::setRenderer(SDL_Renderer* renderer)
-{
-	this->renderer = renderer;
-}
-void Render::clean()
-{
-	SDL_DestroyWindow(window);
-	window = NULL;
-	SDL_DestroyRenderer(this->renderer);
-	SDL_Quit();
-	std::cout << "Game Cleaned" << std::endl;
-}
-void Render::renderingLoop()
-{}
-void Render::RenderClear()
-{
-	SDL_RenderClear(this->renderer);
-}
-
-void Render::RenderPresent()
-{
-	SDL_RenderPresent(this->renderer);
-}
-
-bool Render::createWindow(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+Render::Render(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	int flags = 0;
 	if (fullscreen)
@@ -43,14 +12,40 @@ bool Render::createWindow(const char* title, int xpos, int ypos, int width, int 
 		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
 		if (window)
 			cout << "Window created!" << endl;
-		this->renderer = SDL_CreateRenderer(window, -1, 0);
-		if (this->renderer)
+		renderer = SDL_CreateRenderer(window, -1, 0);
+		if (renderer)
 		{
-			SDL_SetRenderDrawColor(this->renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 			cout << "Render created" << endl;
 		}
-
-		return true;
 	}
-	return false;
+}
+SDL_Renderer* Render::getRenderer()
+{
+	if (this == nullptr)
+		return 0;
+	return renderer;
+}
+void Render::setRenderer(SDL_Renderer* ren)
+{
+	renderer = ren;
+}
+void Render::clean()
+{
+	SDL_DestroyWindow(window);
+	window = NULL;
+	SDL_DestroyRenderer(renderer);
+	SDL_Quit();
+	std::cout << "Game Cleaned" << std::endl;
+}
+void Render::renderingLoop()
+{}
+void Render::RenderClear()
+{
+	SDL_RenderClear(renderer);
+}
+
+void Render::RenderPresent()
+{
+	SDL_RenderPresent(renderer);
 }

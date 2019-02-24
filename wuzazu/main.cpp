@@ -1,12 +1,12 @@
+#include "Render.hpp"
 #include <iostream>
 #include "SDL.h"
 #include "Game.hpp"
-#include "Render.hpp"
+
 using namespace std;
 
 Game *game = nullptr;
-
-Render* renderer = new Render();
+Render* renderer = new Render("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
 
 int main(int argc, char * argv[])
 {
@@ -15,8 +15,6 @@ int main(int argc, char * argv[])
 
 	Uint32 frameStart;
 	int frameTime;
-
-	renderer->createWindow("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
 	
 	game = new Game();
 	game->init();

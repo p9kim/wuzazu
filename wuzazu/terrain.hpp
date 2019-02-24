@@ -1,5 +1,6 @@
 #pragma once
 #include "TextureManager.h"
+#include "Render.hpp"
 #include <iostream>
 
 class Terrain

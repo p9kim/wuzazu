@@ -9,14 +9,13 @@ private:
 	SDL_Renderer* renderer;
 	SDL_Window* window;
 public:
-	Render();
+	Render(const char*, int, int, int, int, bool);
 	void setRenderer(SDL_Renderer*);
 	SDL_Renderer* getRenderer();
 	void RenderClear();
 	void RenderPresent();
 	void clean();
 	void renderingLoop();
-	bool createWindow(const char*, int, int, int, int, bool);
 };
 
 extern Render* renderer;
