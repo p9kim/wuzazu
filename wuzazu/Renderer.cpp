@@ -39,7 +39,9 @@ void Render::clean()
 	std::cout << "Game Cleaned" << std::endl;
 }
 void Render::renderingLoop()
-{}
+{
+
+}
 void Render::RenderClear()
 {
 	SDL_RenderClear(renderer);

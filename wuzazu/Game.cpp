@@ -83,6 +83,7 @@ void Game::render()
 	renderer->RenderClear();
 	map->DrawMap();
 	player->render();
+	renderer->renderingLoop();
 	renderer->RenderPresent();
 }
 bool Game::running()

@@ -4,7 +4,7 @@ void EventHandler_::clickCell(Cell* clickedCell)
 {
 	static Player* activePlayer = nullptr;
 	static Cell* lastCell = nullptr;
-	clickedCell->drawSelected();
+	clickedCell->selected = true;
 	if (clickedCell->hasPlayer() && !activePlayer)
 	{
 		activePlayer = clickedCell->player();

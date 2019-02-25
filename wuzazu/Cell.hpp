@@ -25,5 +25,5 @@ public:
 	pair<unsigned int, unsigned int> getCenter();
 	void draw(SDL_Rect, SDL_Rect);
 	void drawSelected();
-	void drawHighlight();
+	bool selected;
 };

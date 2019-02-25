@@ -1,4 +1,5 @@
 #include "Cell.hpp"
+#include "Render.hpp"
 
 Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y, Player* player)
 {
@@ -60,6 +61,16 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 	terrain().draw(src, dest);
 	if (hasPlayer())
 		player()->render(src, dest);
+	if (selected)
+	{
+		unsigned int xpos = X * 42;
+		unsigned int ypos = Y * 42;
+		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
+		SDL_RenderDrawLine(renderer->getRenderer(), xpos, ypos, xpos+42, ypos);
+		SDL_RenderDrawLine(renderer->getRenderer(), xpos, ypos, xpos, ypos+42);
+		SDL_RenderDrawLine(renderer->getRenderer(), xpos+42, ypos, xpos+42, ypos+42);
+		SDL_RenderDrawLine(renderer->getRenderer(), xpos, ypos+42, xpos+42, ypos+42);
+	}
 }
 void Cell::drawSelected()
 {
