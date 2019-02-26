@@ -65,11 +65,9 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 	{
 		unsigned int xpos = X * 42;
 		unsigned int ypos = Y * 42;
+		SDL_Rect outlineRect = { xpos, ypos, 42, 42 };
 		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderDrawLine(renderer->getRenderer(), xpos, ypos, xpos+42, ypos);
-		SDL_RenderDrawLine(renderer->getRenderer(), xpos, ypos, xpos, ypos+42);
-		SDL_RenderDrawLine(renderer->getRenderer(), xpos+42, ypos, xpos+42, ypos+42);
-		SDL_RenderDrawLine(renderer->getRenderer(), xpos, ypos+42, xpos+42, ypos+42);
+		SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	}
 }
 void Cell::drawSelected()

@@ -108,7 +108,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 				player = new Player("assets/testPlayer.png");
 			else if(*color2 == blue)
 				player = new Player("assets/player.png");
-			Cell* cell = new Cell(*color, *ter, i, j / 3, player);
+			Cell* cell = new Cell(*color, *ter, j/3, width-i-1, player);
 			if (player != nullptr)
 				player->setCell(cell);
 			row->push_back(cell);
