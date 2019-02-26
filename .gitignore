@@ -7,3 +7,5 @@ SDL2/
 *.opendb
 *.vcxproj.user
 *.vcxproj
+/wuzazu/Debug/wuzazu.tlog
+/wuzazu/Debug

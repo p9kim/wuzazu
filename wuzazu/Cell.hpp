@@ -9,6 +9,10 @@ private:
 	Pixel pixel_;
 	Player* player_;
 	Terrain terrain_;
+	Cell* N_;
+	Cell* E_;
+	Cell* S_;
+	Cell* W_;
 	unsigned int X;
 	unsigned int Y;
 public:
@@ -22,8 +26,15 @@ public:
 	Terrain terrain();
 	unsigned int x();
 	unsigned int y();
-	pair<unsigned int, unsigned int> getCenter();
 	void draw(SDL_Rect, SDL_Rect);
-	void drawSelected();
 	bool selected;
+	Cell* N();
+	void N(Cell*);
+	Cell* E();
+	void E(Cell*);
+	Cell* S();
+	void S(Cell*);
+	Cell* W();
+	void W(Cell*);
+
 };

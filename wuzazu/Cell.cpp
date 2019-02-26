@@ -8,6 +8,7 @@ Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y, Player* player)
 	this->X = x;
 	this->Y = y;
 	player_ = player;
+	N_ = E_ = S_ = W_ = nullptr;
 }
 void Cell::setPixel(Pixel pixel)
 {
@@ -52,9 +53,37 @@ unsigned int Cell::y()
 {
 	return Y;
 }
-pair<unsigned int, unsigned int> Cell::getCenter()
+Cell* Cell::N()
 {
-	return make_pair(X + (42 / 2), Y + (42 / 2));
+	return N_;
+}
+void Cell::N(Cell* n)
+{
+	N_ = n;
+}
+Cell* Cell::E()
+{
+	return E_;
+}
+void Cell::E(Cell* e)
+{
+	E_ = e;
+}
+Cell* Cell::S()
+{
+	return S_;
+}
+void Cell::S(Cell* s)
+{
+	S_ = s;
+}
+Cell* Cell::W()
+{
+	return W_;
+}
+void Cell::W(Cell* w)
+{
+	W_ = w;
 }
 void Cell::draw(SDL_Rect src, SDL_Rect dest)
 {
@@ -69,8 +98,4 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
 		SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	}
-}
-void Cell::drawSelected()
-{
-
 }
