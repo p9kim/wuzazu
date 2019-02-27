@@ -1,5 +1,6 @@
 #include "HandleEvents.hpp"
 
+//////////////////////////// Clicking Cells/Players ////////////////////////////
 void EventHandler_::clickCell(Cell* clickedCell)
 {
 	if (clickedCell->hasPlayer())
@@ -39,6 +40,14 @@ void EventHandler_::clickInactivePlayer(Cell* clickedCell)
 	activatePlayer(clickedCell->player());
 
 }
+void EventHandler_::moveableCells(Cell* from)
+{
+	from->weight = activePlayer->speed();
+	for (int i = 0; i < from->weight; i++)
+	{
+		//from->N()->weight = activePlayer->speed();
+	}
+}
 void EventHandler_::activePlayerClickCell(Cell* clickedCell)
 {
 	if (clickedCell == lastCell->N() || clickedCell == lastCell->E()
@@ -74,5 +83,8 @@ void EventHandler_::deactivatePlayer(Player* player)
 	activePlayer = nullptr;
 	highlightedCells.clear();
 }
+////////////////////////////////////////////////////////
+
+
 void EventHandler_::hoverCell(Cell* cell)
 {}

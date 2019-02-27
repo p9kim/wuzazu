@@ -6,7 +6,7 @@ Player::Player(const char* model)
 
 	xpos = 0;
 	ypos = 0;
-	movementpts = 3;
+	speed_ = 3;
 	canmove = active_ = false;
 }
 
@@ -16,7 +16,7 @@ Player::Player(const char* model, int x, int y)
 
 	xpos = x;
 	ypos = y;
-	movementpts = 3;
+	speed_ = 3;
 	canmove = false;
 }
 
@@ -83,4 +83,8 @@ bool Player::active()
 void Player::active(bool active)
 {
 	this->active_ = active;
+}
+int Player::speed()
+{
+	return this->speed_;
 }

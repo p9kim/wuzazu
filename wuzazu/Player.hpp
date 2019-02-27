@@ -10,7 +10,7 @@ class Player
 private:
 	int xpos;
 	int ypos;
-	int movementpts;
+	int speed_;
 	bool canmove;
 	bool active_;
 
@@ -40,8 +40,7 @@ public:
 	void movePlayerBy(int, int);
 	void highlight();
 	void unhighlight();
-	void minusMovementPts();
-	int getMovementPts();
+	int speed();
 	bool active();
 	void active(bool);
 	bool getCanMove();

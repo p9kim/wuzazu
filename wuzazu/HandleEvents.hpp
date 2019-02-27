@@ -16,4 +16,5 @@ public:
 	void activatePlayer(Player*);
 	void deactivatePlayer(Player*);
 	void hoverCell(Cell*);
+	void moveableCells(Cell*);
 } EventHandler;
