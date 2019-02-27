@@ -9,6 +9,24 @@ Map::Map()
 	dest.x = dest.y = 0;
 
 	LoadMap(1);
+	unsigned int x = 0, y = 0;
+	for (vector<Cell*> cV : cells)
+	{
+		for (Cell* c : cV)
+		{
+			if (x < width - 1)
+				c->E(cV.at(x + 1));
+			if (x > 0)
+				c->W(cV.at(x - 1));
+			if (y < height - 1)
+				c->S(cells.at(y + 1).at(x));
+			if (y > 0)
+				c->N(cells.at(y - 1).at(x));
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 }
 
 void Map::LoadMap(unsigned int level)
@@ -20,25 +38,6 @@ void Map::LoadMap(unsigned int level)
 		break;
 	default:
 		throw new exception("Invalid Map ID");
-	}
-
-	int x = 0, y = 0;
-	for (vector<Cell*> cV : cells)
-	{
-		for (Cell* c : cV)
-		{
-			if (x < width - 1)
-				c->E(cV.at(x + 1));
-			if (x > 0)
-				c->W(cV.at(x - 1));	
-			if (y < height - 1)
-				c->S(cells.at(y + 1).at(x));
-			if (y > 0)
-				c->N(cells.at(y - 1).at(x));
-			x++;
-		}
-		x = 0;
-		y++;
 	}
 	return;
 }
