@@ -12,6 +12,7 @@ private:
 	int ypos;
 	int movementpts;
 	bool canmove;
+	bool active_;
 
 	SDL_Texture* playerTex;
 	SDL_Rect srcRect, destRect;
@@ -41,6 +42,8 @@ public:
 	void unhighlight();
 	void minusMovementPts();
 	int getMovementPts();
+	bool active();
+	void active(bool);
 	bool getCanMove();
 	void setCanMove(bool);
 };

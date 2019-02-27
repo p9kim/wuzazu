@@ -2,48 +2,77 @@
 
 void EventHandler_::clickCell(Cell* clickedCell)
 {
-	static Player* activePlayer = nullptr;
-	static Cell* lastCell = nullptr;
-	static vector<Cell*> highlightedCells;
-
-	if (clickedCell->hasPlayer() && !activePlayer)
+	if (clickedCell->hasPlayer())
 	{
-		activePlayer = clickedCell->player();
-		clickedCell->player()->highlight();
-		lastCell = clickedCell;
-		highlightedCells.push_back(clickedCell->N());
-		highlightedCells.push_back(clickedCell->E());
-		highlightedCells.push_back(clickedCell->S());
-		highlightedCells.push_back(clickedCell->W());
-		for (Cell* c : highlightedCells)
-			if(c != 0)
-				c->selected = true;
-
-	}
-	else if (activePlayer)
-	{
-		if (clickedCell->player())
+		if (activePlayer == clickedCell->player())   //clicked on itself
+		{
+			deactivatePlayer(clickedCell->player());
 			return;
-		if (clickedCell == lastCell->N() || clickedCell == lastCell->E()
-			|| clickedCell == lastCell->S() || clickedCell == lastCell->W())
-		{
-			activePlayer->setCanMove(true);
 		}
-		if (activePlayer->getCanMove() == true)
+		else if (activePlayer != nullptr && activePlayer != clickedCell->player()) //clicked on another player
 		{
-			lastCell->setPlayer(nullptr);
-			clickedCell->setPlayer(activePlayer);
-			clickedCell->player()->unhighlight();
-			activePlayer->setCanMove(false);
-			activePlayer = nullptr;
-			lastCell = nullptr;
-			for (Cell* c : highlightedCells)
-				if (c != 0)
-					c->selected = false;
-			highlightedCells.clear();
+			deactivatePlayer(activePlayer);
+			clickInactivePlayer(clickedCell);
 		}
-		
+		else  //click on inactive player w nothing selected
+		{
+			clickInactivePlayer(clickedCell);
+		}
 	}
+	else //clicked empty cell
+	{
+		if (activePlayer != 0) //active player clicks empty cell
+		{
+			activePlayerClickCell(clickedCell);
+		}
+		else //clicked empty cell while nothing active
+		{}
+	}
+}
+void EventHandler_::clickInactivePlayer(Cell* clickedCell)
+{
+	lastCell = clickedCell;
+	highlightedCells.push_back(clickedCell->N());
+	highlightedCells.push_back(clickedCell->E());
+	highlightedCells.push_back(clickedCell->S());
+	highlightedCells.push_back(clickedCell->W());
+	activatePlayer(clickedCell->player());
+
+}
+void EventHandler_::activePlayerClickCell(Cell* clickedCell)
+{
+	if (clickedCell == lastCell->N() || clickedCell == lastCell->E()
+		|| clickedCell == lastCell->S() || clickedCell == lastCell->W())
+	{
+		activePlayer->setCanMove(true);
+	}
+	if (activePlayer->getCanMove() == true) //move player
+	{
+		lastCell->setPlayer(nullptr);
+		clickedCell->setPlayer(activePlayer);
+		activePlayer->setCanMove(false);
+		lastCell = nullptr;
+		deactivatePlayer(activePlayer);
+	}
+}
+void EventHandler_::activatePlayer(Player* player)
+{
+	activePlayer = player;
+	player->active(true);
+	player->highlight();
+	for (Cell* c : highlightedCells)
+		if (c != 0)
+			c->selected = true;
+}
+void EventHandler_::deactivatePlayer(Player* player)
+{
+	player->active(false);
+	player->unhighlight();
+	for (Cell* c : highlightedCells)
+		if (c != 0)
+			c->selected = false;
+	activePlayer = nullptr;
+	highlightedCells.clear();
 }
 void EventHandler_::hoverCell(Cell* cell)
 {}

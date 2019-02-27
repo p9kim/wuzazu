@@ -7,7 +7,7 @@ Player::Player(const char* model)
 	xpos = 0;
 	ypos = 0;
 	movementpts = 3;
-	canmove = false;
+	canmove = active_ = false;
 }
 
 Player::Player(const char* model, int x, int y)
@@ -73,4 +73,14 @@ bool Player::getCanMove()
 void Player::setCanMove(bool canmove)
 {
 	this->canmove = canmove;
+}
+bool Player::active()
+{
+	if (this == nullptr)
+		return false;
+	return this->active_;
+}
+void Player::active(bool active)
+{
+	this->active_ = active;
 }
