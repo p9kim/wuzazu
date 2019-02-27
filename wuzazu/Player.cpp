@@ -6,6 +6,8 @@ Player::Player(const char* model)
 
 	xpos = 0;
 	ypos = 0;
+	movementpts = 3;
+	canmove = false;
 }
 
 Player::Player(const char* model, int x, int y)
@@ -14,6 +16,8 @@ Player::Player(const char* model, int x, int y)
 
 	xpos = x;
 	ypos = y;
+	movementpts = 3;
+	canmove = false;
 }
 
 void Player::update()
@@ -61,4 +65,12 @@ void Player::highlight()
 void Player::unhighlight()
 {
 	SDL_SetTextureColorMod(playerTex, 255, 255, 255);
+}
+bool Player::getCanMove()
+{
+	return canmove;
+}
+void Player::setCanMove(bool canmove)
+{
+	this->canmove = canmove;
 }

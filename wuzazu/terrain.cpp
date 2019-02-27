@@ -8,3 +8,7 @@ bool Terrain::movement()
 {
 	return true;
 }
+unsigned int Terrain::getMovementCost()
+{
+	return movementcost;
+}

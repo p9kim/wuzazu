@@ -10,6 +10,8 @@ class Player
 private:
 	int xpos;
 	int ypos;
+	int movementpts;
+	bool canmove;
 
 	SDL_Texture* playerTex;
 	SDL_Rect srcRect, destRect;
@@ -37,4 +39,8 @@ public:
 	void movePlayerBy(int, int);
 	void highlight();
 	void unhighlight();
+	void minusMovementPts();
+	int getMovementPts();
+	bool getCanMove();
+	void setCanMove(bool);
 };

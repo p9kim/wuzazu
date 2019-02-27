@@ -18,20 +18,31 @@ void EventHandler_::clickCell(Cell* clickedCell)
 		for (Cell* c : highlightedCells)
 			if(c != 0)
 				c->selected = true;
+
 	}
 	else if (activePlayer)
 	{
 		if (clickedCell->player())
 			return;
-		lastCell->setPlayer(nullptr);
-		clickedCell->setPlayer(activePlayer);
-		clickedCell->player()->unhighlight();
-		activePlayer = nullptr;
-		lastCell = nullptr;
-		for (Cell* c : highlightedCells)
-			if(c != 0)
-				c->selected = false;
-		highlightedCells.clear();
+		if (clickedCell == lastCell->N() || clickedCell == lastCell->E()
+			|| clickedCell == lastCell->S() || clickedCell == lastCell->W())
+		{
+			activePlayer->setCanMove(true);
+		}
+		if (activePlayer->getCanMove() == true)
+		{
+			lastCell->setPlayer(nullptr);
+			clickedCell->setPlayer(activePlayer);
+			clickedCell->player()->unhighlight();
+			activePlayer->setCanMove(false);
+			activePlayer = nullptr;
+			lastCell = nullptr;
+			for (Cell* c : highlightedCells)
+				if (c != 0)
+					c->selected = false;
+			highlightedCells.clear();
+		}
+		
 	}
 }
 void EventHandler_::hoverCell(Cell* cell)
