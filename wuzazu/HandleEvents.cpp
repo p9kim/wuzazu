@@ -50,8 +50,8 @@ void EventHandler_::moveableCells(Cell* from)
 }
 void EventHandler_::activePlayerClickCell(Cell* clickedCell)
 {
-	if (clickedCell == lastCell->N() || clickedCell == lastCell->E()
-		|| clickedCell == lastCell->S() || clickedCell == lastCell->W())
+	if (std::find(highlightedCells.begin(), highlightedCells.end(), clickedCell) 
+		!= highlightedCells.end())
 	{
 		activePlayer->setCanMove(true);
 	}
