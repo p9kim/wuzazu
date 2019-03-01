@@ -2,6 +2,7 @@
 #include "Cell.hpp"
 #include "Player.hpp"
 #include <vector>
+#include <algorithm>
 
 static class EventHandler_
 {

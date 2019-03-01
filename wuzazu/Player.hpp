@@ -7,18 +7,20 @@ class Cell;
 
 class Player
 {
-private:
+protected:
 	int xpos;
 	int ypos;
 	int speed_;
 	bool canmove;
 	bool active_;
+	int health;
 
 	SDL_Texture* playerTex;
 	SDL_Rect srcRect, destRect;
     Cell* cell;
 
 public:
+	Player();
 	Player(const char*);
 	Player(const char*, int, int);
 	~Player();
