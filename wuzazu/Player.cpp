@@ -2,7 +2,9 @@
 
 Player::Player(const char* model)
 {
-	playerTex = TextureManager::LoadTexture(model);
+	textureManager.init();
+
+	playerTex = textureManager.LoadTexture(model);
 
 	xpos = 0;
 	ypos = 0;
@@ -12,7 +14,7 @@ Player::Player(const char* model)
 
 Player::Player(const char* model, int x, int y)
 {
-	playerTex = TextureManager::LoadTexture(model);
+	playerTex = textureManager.LoadTexture(model);
 
 	xpos = x;
 	ypos = y;
