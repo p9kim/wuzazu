@@ -48,8 +48,3 @@ public:
 	bool getCanMove();
 	void setCanMove(bool);
 };
-
-class Scissors : public Player
-{
-
-};
