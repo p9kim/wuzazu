@@ -41,3 +41,13 @@ static class Yellow : public Pixel
 public:
 	Yellow() { r = 255; g = 255; }
 } yellow;
+static class Orange : public Pixel
+{
+public:
+	Orange() { r = 255; g = 128; }
+} orange;
+static class Cyan : public Pixel
+{
+public:
+	Cyan() { g = 255; b = 255; }
+} cyan;

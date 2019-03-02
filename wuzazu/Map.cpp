@@ -123,9 +123,17 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 			Player* player = nullptr;
 			Pixel* color2 = new Pixel((unsigned int)data2[j], (unsigned int)data2[j + 1], (unsigned int)data2[j + 2]);
 			if (*color2 == red)
+				player = new Player("assets/rock_y.png");
+			else if (*color2 == orange)
 				player = new Player("assets/paper_y.png");
-			else if(*color2 == blue)
+			else if (*color2 == yellow)
+				player = new Player("assets/scissors_y.png");
+			else if (*color2 == green)
 				player = new Player("assets/rock_b.png");
+			else if (*color2 == blue)
+				player = new Player("assets/paper_b.png");
+			else if (*color2 == cyan)
+				player = new Player("assets/scissors_b.png");
 			Cell* cell = new Cell(*color, *ter, j/3, width-i-1, player);
 			if (player != nullptr)
 				player->setCell(cell);
