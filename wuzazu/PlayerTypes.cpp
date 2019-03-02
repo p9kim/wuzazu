@@ -1,4 +1,6 @@
 #include "PlayerTypes.hpp"
+Paper::Paper()
+{}
 
 Paper::Paper(const char* model)
 {
