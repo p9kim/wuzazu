@@ -19,7 +19,7 @@ static class Water : public Terrain
 {
 public:
 	Water() {
-		texture = TextureManager::LoadTexture("assets/water.png");
+		texture = textureManager.LoadTexture("assets/water.png");
 		movementcost = 99;
 	}
 } water;
@@ -28,7 +28,7 @@ static class Dirt : public Terrain
 {
 public:
 	Dirt() {
-		texture = TextureManager::LoadTexture("assets/dirt.png");
+		texture = textureManager.LoadTexture("assets/dirt.png");
 		movementcost = 2;
 	}
 } dirt;
@@ -37,7 +37,7 @@ static class Grass : public Terrain
 {
 public:
 	Grass() {
-		texture = TextureManager::LoadTexture("assets/grass.png");
+		texture = textureManager.LoadTexture("assets/grass.png");
 		movementcost = 1;
 	};
 } grass;

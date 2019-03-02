@@ -88,10 +88,10 @@
     <ClInclude Include="Render.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerTypes.hpp">
+    <ClInclude Include="TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureManager.h">
+    <ClInclude Include="PlayerTypes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
