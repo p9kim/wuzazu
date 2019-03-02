@@ -1,5 +1,8 @@
 #include "Player.hpp"
 
+Player::Player()
+{}
+
 Player::Player(const char* model)
 {
 	textureManager.init();
