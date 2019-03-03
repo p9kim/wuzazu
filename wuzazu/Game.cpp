@@ -8,7 +8,6 @@ SDL_Rect srcR, destR;
 Player* player;
 Map* map;
 
-
 Game::Game()
 {}
 Game::~Game()

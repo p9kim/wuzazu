@@ -13,6 +13,7 @@ protected:
 	int speed_;
 	bool canmove;
 	bool active_;
+	bool done_;
 	int health;
 
 	SDL_Texture* playerTex;
@@ -21,24 +22,14 @@ protected:
 
 public:
 	Player();
-	Player(const char*);
 	Player(const char*, int, int);
-	~Player();
 
+	string type;
+	char team;
 	void update();
 	void render();
 	void render(SDL_Rect src, SDL_Rect dest);
 	void setCell(Cell*);
-	void setCoord(std::pair<unsigned int, unsigned int>);
-	enum KeyPress
-	{
-		KEY_PRESS_SURFACE_DEFAULT,
-		KEY_PRESS_SURFACE_UP,
-		KEY_PRESS_SURFACE_DOWN,
-		KEY_PRESS_SURFACE_LEFT,
-		KEY_PRESS_SURFACE_RIGHT,
-		KEY_PRESS_SURFACE_TOTAL
-	};
 	void movePlayerBy(int, int);
 	void highlight();
 	void unhighlight();
@@ -47,4 +38,27 @@ public:
 	void active(bool);
 	bool getCanMove();
 	void setCanMove(bool);
+	bool done();
+	void done(bool);
+};
+
+class Rock : public Player
+{
+public:
+	const string type = "rock";
+	Rock(char team);
+};
+
+class Paper : public Player
+{
+public:
+	const string type = "paper";
+	Paper(char team);
+};
+
+class Scissors : public Player
+{
+public:
+	const string type = "scissors";
+	Scissors(char team);
 };

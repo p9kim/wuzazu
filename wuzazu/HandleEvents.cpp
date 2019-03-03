@@ -8,7 +8,6 @@ void EventHandler_::clickCell(Cell* clickedCell)
 		if (activePlayer == clickedCell->player())   //clicked on itself
 		{
 			deactivatePlayer(clickedCell->player());
-			return;
 		}
 		else if (activePlayer != nullptr && activePlayer != clickedCell->player()) //clicked on another player
 		{
@@ -60,6 +59,7 @@ void EventHandler_::activePlayerClickCell(Cell* clickedCell)
 		lastCell->setPlayer(nullptr);
 		clickedCell->setPlayer(activePlayer);
 		activePlayer->setCanMove(false);
+		activePlayer->done(true);
 		lastCell = nullptr;
 		deactivatePlayer(activePlayer);
 	}
