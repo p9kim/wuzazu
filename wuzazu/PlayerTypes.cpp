@@ -1,23 +1,38 @@
-#include "PlayerTypes.hpp"
-Paper::Paper()
-{}
+#include "Player.hpp"
 
-Paper::Paper(const char* model)
+Rock::Rock(char team)
 {
-	playerTex = TextureManager::LoadTexture(model);
+	Player();
 
-	xpos = 0;
-	ypos = 0;
-	speed_ = 3;
-	canmove = active_ = false;
+	if (team == 'y')
+		this->playerTex = textureManager.LoadTexture("assets/rock_y.png");
+	else if (team = 'b')
+		this->playerTex = textureManager.LoadTexture("assets/rock_b.png");
+	else
+		cerr << "ERROR: Unknown team to texture correspondance.";
+	this->team = team;
 }
-
-Paper::Paper(const char* model, int x, int y)
+Paper::Paper(char team)
 {
-	playerTex = TextureManager::LoadTexture(model);
-	
-	xpos = x;
-	ypos = y;
-	speed_ = 3;
-	canmove = active_ = false;
+	Player();
+
+	if(team == 'y')
+		playerTex = textureManager.LoadTexture("assets/paper_y.png");
+	else if(team = 'b')
+		playerTex = textureManager.LoadTexture("assets/paper_b.png");
+	else
+		cerr << "ERROR: Unknown team to texture correspondance.";
+	this->team = team;
+}
+Scissors::Scissors(char team)
+{
+	Player();
+
+	if (team == 'y')
+		playerTex = textureManager.LoadTexture("assets/scissors_y.png");
+	else if (team = 'b')
+		playerTex = textureManager.LoadTexture("assets/scissors_b.png");
+	else
+		cerr << "ERROR: Unknown team to texture correspondance.";
+	this->team = team;
 }

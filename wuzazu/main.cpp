@@ -2,6 +2,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "Game.hpp"
+#include "TextureManager.h"
 
 using namespace std;
 

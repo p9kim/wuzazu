@@ -1,18 +1,10 @@
 #include "Player.hpp"
-
 Player::Player()
-{}
-
-Player::Player(const char* model)
 {
-	textureManager.init();
-
-	playerTex = textureManager.LoadTexture(model);
-
 	xpos = 0;
 	ypos = 0;
 	speed_ = 3;
-	canmove = active_ = false;
+	canmove = active_ = done_ = false;
 }
 
 Player::Player(const char* model, int x, int y)
@@ -46,6 +38,8 @@ void Player::render(SDL_Rect src, SDL_Rect dest)
 {
 	srcRect = src;
 	destRect = dest;
+	if (done_ == true)
+		SDL_SetTextureColorMod(playerTex, 150, 150, 150);
 	SDL_RenderCopy(renderer->getRenderer(), playerTex, &srcRect, &destRect);
 }
 
@@ -57,11 +51,6 @@ void Player::movePlayerBy(int x, int y)
 void Player::setCell(Cell* c)
 {
 	cell = c;
-}
-void Player::setCoord(std::pair<unsigned int, unsigned int> coord)
-{
-	xpos = coord.first;
-	ypos = coord.second;
 }
 void Player::highlight()
 {
@@ -78,6 +67,14 @@ bool Player::getCanMove()
 void Player::setCanMove(bool canmove)
 {
 	this->canmove = canmove;
+}
+bool Player::done()
+{
+	return done_;
+}
+void Player::done(bool done)
+{
+	done_ = done;
 }
 bool Player::active()
 {
