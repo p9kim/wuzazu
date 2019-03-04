@@ -57,7 +57,6 @@ void Game::handleEvents()
 			break;
 		case SDLK_SPACE:
 			switchTurn();
-			cout << "Switch Turn" << endl;
 			break;
 		default:
 			break;
@@ -100,6 +99,7 @@ void Game::switchTurn()
 		p->done(false);
 	map->switchTurn();
 	turn_++;
+	cout << "Turn: " << currentTurn << endl;
 }
 bool Game::running()
 {
