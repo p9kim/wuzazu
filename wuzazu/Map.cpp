@@ -28,6 +28,8 @@ Map::Map(Game* game)
 		x = 0;
 		y++;
 	}
+	game_->switchTurn();
+	return;
 }
 
 void Map::LoadMap(unsigned int level)
@@ -40,7 +42,6 @@ void Map::LoadMap(unsigned int level)
 	default:
 		throw new exception("Invalid Map ID");
 	}
-	return;
 }
 
 void Map::DrawMap()
@@ -147,7 +148,8 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 				game_->addTeam('b');
 				player = new Scissors('b');
 			}
-			game_->addPlayer(player);
+			if(player != 0)
+				game_->addPlayer(player);
 			Cell* cell = new Cell(*color, *ter, j/3, width-i-1, player);
 			if (player != nullptr)
 				player->setCell(cell);
@@ -172,6 +174,10 @@ bool Map::handleClick(int x, int y)
 	Cell* clickedCell = at((unsigned int)floor(x / CELLSIZE), (unsigned int)floor(y / CELLSIZE));
 	EventHandler.clickCell(clickedCell);
 	return true;
+}
+void Map::switchTurn()
+{
+
 }
 
 /* Getters / Setters */

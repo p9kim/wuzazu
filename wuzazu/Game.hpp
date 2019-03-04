@@ -22,6 +22,8 @@ private:
 	bool isRunning;
 	vector<char> teams_;
 	vector<Player*> players;
+	char currentTurn;
+	unsigned int turn_ = 0;
 protected:
 
 public:
@@ -31,9 +33,14 @@ public:
 	void update();
 	void render();
 	bool running();
+	void switchTurn();
+
 	vector<char> teams();
 	void addTeam(char);
 	void addPlayer(Player*);
+	unsigned int turn();
+	void turn(unsigned int);
+
 };
 #endif
 

@@ -11,8 +11,8 @@ Map* map;
 
 Game::Game()
 {
-	teams_ = *(new vector<char>());
-	players = *(new vector<Player*>());
+	teams_ = *(new vector<char>(0));
+	players = *(new vector<Player*>(0));
 	isRunning = true;
 	player = new Player("assets/testPlayer.png", 500, 500);
 	map = new Map(this);
@@ -34,29 +34,35 @@ void Game::handleEvents()
 	*/
 	int moveby = 24;
 	SDL_PollEvent(&e);
-	switch (e.key.keysym.sym)
-	{
-	case SDLK_UP:
-		player->movePlayerBy(0, -(moveby));
-		std::cout << "UP" << std::endl;
-		break;
-	case SDLK_DOWN:
-		player->movePlayerBy(0, moveby);
-		std::cout << "DOWN" << std::endl;
-		break;
-	case SDLK_LEFT:
-		player->movePlayerBy(-(moveby), 0);
-		std::cout << "LEFT" << std::endl;
-		break;
-	case SDLK_RIGHT:
-		player->movePlayerBy(moveby, 0);
-		std::cout << "RIGHT" << std::endl;
-		break;
-	default:
-		break;
-	}
 	switch (e.type)
 	{
+	case SDL_KEYDOWN:
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_UP:
+			player->movePlayerBy(0, -(moveby));
+			std::cout << "UP" << std::endl;
+			break;
+		case SDLK_DOWN:
+			player->movePlayerBy(0, moveby);
+			std::cout << "DOWN" << std::endl;
+			break;
+		case SDLK_LEFT:
+			player->movePlayerBy(-(moveby), 0);
+			std::cout << "LEFT" << std::endl;
+			break;
+		case SDLK_RIGHT:
+			player->movePlayerBy(moveby, 0);
+			std::cout << "RIGHT" << std::endl;
+			break;
+		case SDLK_SPACE:
+			switchTurn();
+			cout << "Switch Turn" << endl;
+			break;
+		default:
+			break;
+		}
+		break;
 	case SDL_QUIT:
 		isRunning = false;
 		break;
@@ -87,6 +93,14 @@ void Game::render()
 	renderer->renderingLoop();
 	renderer->RenderPresent();
 }
+void Game::switchTurn()
+{
+	currentTurn = teams_.at(turn_ % teams_.size());
+	for (Player* p : players)
+		p->done(false);
+	map->switchTurn();
+	turn_++;
+}
 bool Game::running()
 {
 	return isRunning;
@@ -106,4 +120,12 @@ void Game::addTeam(char team)
 void Game::addPlayer(Player* p)
 {
 	players.push_back(p);
+}
+unsigned int Game::turn() 
+{
+	return turn_;
+}
+void Game::turn(unsigned int turn)
+{
+	turn_ = turn;
 }

@@ -31,6 +31,7 @@ public:
 	void DrawMap();
 	void readBMP(const char*, const char*);
 	Cell* at(unsigned int, unsigned int);
+	void switchTurn();
 
 	void setHeight(unsigned int);
 	unsigned int getHeight();

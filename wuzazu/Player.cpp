@@ -40,6 +40,8 @@ void Player::render(SDL_Rect src, SDL_Rect dest)
 	destRect = dest;
 	if (done_ == true)
 		SDL_SetTextureColorMod(playerTex, 150, 150, 150);
+	else
+		SDL_SetTextureColorMod(playerTex, 255, 255, 255);
 	SDL_RenderCopy(renderer->getRenderer(), playerTex, &srcRect, &destRect);
 }
 
