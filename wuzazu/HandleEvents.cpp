@@ -34,39 +34,59 @@ void EventHandler_::clickInactivePlayer(Cell* clickedCell)
 	deque<Cell*> cellQueue;
 	lastCell = clickedCell;
 	int speed = clickedCell->player()->speed();
-	Cell* currCell = clickedCell;
-	
-
+	Cell* currCell = nullptr;
+	Cell* prevCell = nullptr;
 	if (game->currentTeam() != clickedCell->player()->team() || clickedCell->player()->done())
 		return;
 
-	lastCell = clickedCell;
-	highlightedCells.push_back(clickedCell->N());
-	highlightedCells.push_back(clickedCell->E());
-	highlightedCells.push_back(clickedCell->S());
-	highlightedCells.push_back(clickedCell->W());
+	cellQueue.push_back(clickedCell);
+	weights[clickedCell] = *(new Int(speed));
+	prevCell = clickedCell;
 
-	/*cellQueue.push_back(currCell);
-
-	while (!cellQueue.empty())
+	int temp = 0;
+	while (!cellQueue.empty() && temp < 99)
 	{
-		highlightedCells.push_back(currCell->N());
-		highlightedCells.push_back(currCell->E());
-		highlightedCells.push_back(currCell->S());
-		highlightedCells.push_back(currCell->W());
+		temp++;
+		currCell = cellQueue.front();
+		cellQueue.pop_front();
 
-		highlightedCells.push_back(cellQueue.front());
-
+		if ((int)weights[currCell->N()].val() < (int)(weights[prevCell].val() - currCell->N()->terrain().weight())) //going from -1 -> 4 or 3 -> 4
+			weights[currCell->N()] = weights[prevCell].val() - currCell->N()->terrain().weight();
+		if ((int)weights[currCell->N()].val() > -1)
+		{
+			highlightedCells.push_back(currCell->N());
+			cellQueue.push_back(currCell->N());
+		}
+		if ((int)weights[currCell->S()].val() < (int)(weights[prevCell].val() - currCell->S()->terrain().weight()))
+			weights[currCell->S()] = weights[prevCell].val() - currCell->S()->terrain().weight();
+		if ((int)weights[currCell->S()].val() > -1)
+		{
+			highlightedCells.push_back(currCell->S());
+			cellQueue.push_back(currCell->S());
+		}
+		if ((int)weights[currCell->E()].val() < (int)(weights[prevCell].val() - currCell->E()->terrain().weight()))
+			weights[currCell->E()] = weights[prevCell].val() - currCell->E()->terrain().weight();
+		if ((int)weights[currCell->E()].val() > -1)
+		{
+			highlightedCells.push_back(currCell->E());
+			cellQueue.push_back(currCell->E());
+		}
+		if ((int)weights[currCell->W()].val() < (int)(weights[prevCell].val() - currCell->W()->terrain().weight()))
+			weights[currCell->W()] = weights[prevCell].val() - currCell->W()->terrain().weight();
+		if ((int)weights[currCell->W()].val() > -1)
+		{
+			highlightedCells.push_back(currCell->W());
+			cellQueue.push_back(currCell->W());
+		}
 	}
-	*/
+	weights.clear();
 	activatePlayer(clickedCell->player());
 }
 void EventHandler_::moveableCells(Cell* from)
 {
-	from->weight = activePlayer->speed();
-	for (int i = 0; i < from->weight; i++)
+	for (int i = 0; i < from->terrain().weight(); i++)
 	{
-		//from->N()->weight = activePlayer->speed();
+		//from->N()->terrain()->weight() = activePlayer->speed();
 	}
 }
 void EventHandler_::activePlayerClickCell(Cell* clickedCell)

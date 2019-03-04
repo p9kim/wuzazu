@@ -12,7 +12,7 @@ public:
 	std::string name;
 	void draw(SDL_Rect, SDL_Rect);
 	bool movement();
-	unsigned int getMovementCost();
+	unsigned int weight();
 };
 
 static class Water : public Terrain
@@ -20,7 +20,7 @@ static class Water : public Terrain
 public:
 	Water() {
 		texture = textureManager.LoadTexture("assets/water.png");
-		movementcost = 99;
+		movementcost = 3;
 	}
 } water;
 

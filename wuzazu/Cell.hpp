@@ -36,5 +36,4 @@ public:
 	void S(Cell*);
 	Cell* W();
 	void W(Cell*);
-	int weight = 0;
 };
