@@ -10,7 +10,7 @@ Rock::Rock(char team)
 		this->playerTex = textureManager.LoadTexture("assets/rock_b.png");
 	else
 		cerr << "ERROR: Unknown team to texture correspondance.";
-	this->team = team;
+	team_ = team;
 }
 Paper::Paper(char team)
 {
@@ -22,7 +22,7 @@ Paper::Paper(char team)
 		playerTex = textureManager.LoadTexture("assets/paper_b.png");
 	else
 		cerr << "ERROR: Unknown team to texture correspondance.";
-	this->team = team;
+	team_ = team;
 }
 Scissors::Scissors(char team)
 {
@@ -34,5 +34,5 @@ Scissors::Scissors(char team)
 		playerTex = textureManager.LoadTexture("assets/scissors_b.png");
 	else
 		cerr << "ERROR: Unknown team to texture correspondance.";
-	this->team = team;
+	team_ = team;
 }

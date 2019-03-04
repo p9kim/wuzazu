@@ -79,10 +79,7 @@ void Game::handleEvents()
 }
 void Game::update()
 {
-	player->update();
-	//enemy->Update();
-	/*std::cout << newPlayer.getComponent<PositionComponent>().x() << "," <<
-		newPlayer.getComponent<PositionComponent>().y() << std::endl;*/
+	player->update(); //dummy character
 }
 void Game::render()
 {
@@ -94,12 +91,12 @@ void Game::render()
 }
 void Game::switchTurn()
 {
-	currentTurn = teams_.at(turn_ % teams_.size());
+	currentTeam_ = teams_.at(turn_ % teams_.size());
 	for (Player* p : players)
 		p->done(false);
 	map->switchTurn();
 	turn_++;
-	cout << "Turn: " << currentTurn << endl;
+	cout << "Turn: " << currentTeam_ << endl;
 }
 bool Game::running()
 {
@@ -128,4 +125,8 @@ unsigned int Game::turn()
 void Game::turn(unsigned int turn)
 {
 	turn_ = turn;
+}
+char Game::currentTeam()
+{
+	return currentTeam_;
 }

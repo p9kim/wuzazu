@@ -92,3 +92,7 @@ int Player::speed()
 {
 	return this->speed_;
 }
+char Player::team()
+{
+	return team_;
+}

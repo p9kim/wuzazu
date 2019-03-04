@@ -15,7 +15,7 @@ protected:
 	bool active_;
 	bool done_;
 	int health;
-
+	char team_;
 	SDL_Texture* playerTex;
 	SDL_Rect srcRect, destRect;
     Cell* cell;
@@ -25,7 +25,6 @@ public:
 	Player(const char*, int, int);
 
 	string type;
-	char team;
 	void update();
 	void render();
 	void render(SDL_Rect src, SDL_Rect dest);
@@ -40,6 +39,7 @@ public:
 	void setCanMove(bool);
 	bool done();
 	void done(bool);
+	char team();
 };
 
 class Rock : public Player

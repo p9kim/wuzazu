@@ -35,8 +35,18 @@ void EventHandler_::clickInactivePlayer(Cell* clickedCell)
 	lastCell = clickedCell;
 	int speed = clickedCell->player()->speed();
 	Cell* currCell = clickedCell;
+	
 
-	cellQueue.push_back(currCell);
+	if (game->currentTeam() != clickedCell->player()->team() || clickedCell->player()->done())
+		return;
+
+	lastCell = clickedCell;
+	highlightedCells.push_back(clickedCell->N());
+	highlightedCells.push_back(clickedCell->E());
+	highlightedCells.push_back(clickedCell->S());
+	highlightedCells.push_back(clickedCell->W());
+
+	/*cellQueue.push_back(currCell);
 
 	while (!cellQueue.empty())
 	{
@@ -48,7 +58,7 @@ void EventHandler_::clickInactivePlayer(Cell* clickedCell)
 		highlightedCells.push_back(cellQueue.front());
 
 	}
-
+	*/
 	activatePlayer(clickedCell->player());
 }
 void EventHandler_::moveableCells(Cell* from)
@@ -100,3 +110,8 @@ void EventHandler_::deactivatePlayer(Player* player)
 
 void EventHandler_::hoverCell(Cell* cell)
 {}
+
+void EventHandler_::setGame(Game* game)
+{
+	this->game = game;
+}

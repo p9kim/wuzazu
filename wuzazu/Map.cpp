@@ -4,6 +4,7 @@
 Map::Map(Game* game)
 {
 	game_ = game;
+	EventHandler.setGame(game_);
 	src.x = src.y = 0;
 	src.w = dest.w = CELLSIZE;
 	src.h = dest.h = CELLSIZE;
@@ -29,7 +30,6 @@ Map::Map(Game* game)
 		y++;
 	}
 	game_->switchTurn();
-	return;
 }
 
 void Map::LoadMap(unsigned int level)
