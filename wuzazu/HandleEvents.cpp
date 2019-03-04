@@ -31,13 +31,25 @@ void EventHandler_::clickCell(Cell* clickedCell)
 }
 void EventHandler_::clickInactivePlayer(Cell* clickedCell)
 {
+	deque<Cell*> cellQueue;
 	lastCell = clickedCell;
-	highlightedCells.push_back(clickedCell->N());
-	highlightedCells.push_back(clickedCell->E());
-	highlightedCells.push_back(clickedCell->S());
-	highlightedCells.push_back(clickedCell->W());
-	activatePlayer(clickedCell->player());
+	int speed = clickedCell->player()->speed();
+	Cell* currCell = clickedCell;
 
+	cellQueue.push_back(currCell);
+
+	while (!cellQueue.empty())
+	{
+		highlightedCells.push_back(currCell->N());
+		highlightedCells.push_back(currCell->E());
+		highlightedCells.push_back(currCell->S());
+		highlightedCells.push_back(currCell->W());
+
+		highlightedCells.push_back(cellQueue.front());
+
+	}
+
+	activatePlayer(clickedCell->player());
 }
 void EventHandler_::moveableCells(Cell* from)
 {

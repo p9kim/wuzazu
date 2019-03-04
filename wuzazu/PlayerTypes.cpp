@@ -1,4 +1,4 @@
-#include "PlayerTypes.hpp"
+#include "Player.hpp"
 
 Rock::Rock(char team)
 {

@@ -3,6 +3,7 @@
 #include "Player.hpp"
 #include <vector>
 #include <algorithm>
+#include <deque>
 
 static class EventHandler_
 {
