@@ -12,22 +12,34 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <vector>
+
+class Player;
 
 class Game
 {
+private:
+	bool isRunning;
+	vector<char> teams_;
+	vector<Player*> players;
+	char currentTurn;
+	unsigned int turn_ = 0;
 protected:
 
 public:
 	Game();
 	~Game();
-
-	void init();
 	void handleEvents();
 	void update();
 	void render();
 	bool running();
-private:
-	bool isRunning;
+	void switchTurn();
+
+	vector<char> teams();
+	void addTeam(char);
+	void addPlayer(Player*);
+	unsigned int turn();
+	void turn(unsigned int);
 
 };
 #endif
