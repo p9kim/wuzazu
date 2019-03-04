@@ -1,8 +1,9 @@
 #include "Map.hpp"
 #include "HandleEvents.hpp"
 
-Map::Map()
+Map::Map(Game* game)
 {
+	game_ = game;
 	src.x = src.y = 0;
 	src.w = dest.w = CELLSIZE;
 	src.h = dest.h = CELLSIZE;
@@ -122,18 +123,30 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 			}
 			Player* player = nullptr;
 			Pixel* color2 = new Pixel((unsigned int)data2[j], (unsigned int)data2[j + 1], (unsigned int)data2[j + 2]);
-			if (*color2 == red)
+			if (*color2 == red) {
+				game_->addTeam('y');
 				player = new Rock('y');
-			else if (*color2 == orange)
+			}
+			else if (*color2 == orange) {
+				game_->addTeam('y');
 				player = new Paper('y');
-			else if (*color2 == yellow)
+			}
+			else if (*color2 == yellow) {
+				game_->addTeam('y');
 				player = new Scissors('y');
-			else if (*color2 == green)
+			}
+			else if (*color2 == green) {
+				game_->addTeam('b');
 				player = new Rock('b');
-			else if (*color2 == blue)
+			}
+			else if (*color2 == blue) {
+				game_->addTeam('b');
 				player = new Paper('b');
-			else if (*color2 == cyan)
+			}
+			else if (*color2 == cyan) {
+				game_->addTeam('b');
 				player = new Scissors('b');
+			}
 			Cell* cell = new Cell(*color, *ter, j/3, width-i-1, player);
 			if (player != nullptr)
 				player->setCell(cell);
@@ -184,4 +197,12 @@ void Map::setName(string name)
 string Map::getName()
 {
 	return name;
+}
+Game* Map::game()
+{
+	return game_;
+}
+void Map::game(Game* g)
+{
+	game_ = g;
 }

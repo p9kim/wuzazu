@@ -9,15 +9,15 @@ Player* player;
 Map* map;
 
 Game::Game()
-{}
-Game::~Game()
-{}
-void Game::init()
 {
+	teams_ = *(new vector<char>());
 	isRunning = true;
 	player = new Player("assets/testPlayer.png", 500, 500);
-	map = new Map();
+	map = new Map(this);
 }
+Game::~Game()
+{}
+
 void Game::handleEvents()
 {
 	SDL_Event e;
@@ -88,4 +88,16 @@ void Game::render()
 bool Game::running()
 {
 	return isRunning;
+}
+
+vector<char> Game::teams()
+{
+	return teams_;
+}
+void Game::addTeam(char team)
+{
+	for (char t : teams_)
+		if (t == team)
+			return;
+	teams_.push_back(team);
 }

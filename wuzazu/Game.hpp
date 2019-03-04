@@ -12,23 +12,25 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <vector>
 
 class Game
 {
+private:
+	bool isRunning;
+	vector<char> teams_;
+	//vector<Player*> players;
 protected:
 
 public:
 	Game();
 	~Game();
-
-	void init();
 	void handleEvents();
 	void update();
 	void render();
 	bool running();
-private:
-	bool isRunning;
-
+	vector<char> teams();
+	void addTeam(char);
 };
 #endif
 

@@ -20,9 +20,11 @@ private:
 	SDL_Rect src, dest;
 	deque<vector<Cell*>> cells;
 
+	Game* game_;
+
 public:
 
-	Map();
+	Map(Game*);
 	~Map();
 
 	void LoadMap(unsigned int);
@@ -36,6 +38,7 @@ public:
 	unsigned int getWidth();
 	void setName(string);
 	string getName();
-
 	bool handleClick(int, int);
+	Game* game();
+	void game(Game*);
 };

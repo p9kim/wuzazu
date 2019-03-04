@@ -18,7 +18,6 @@ int main(int argc, char * argv[])
 	int frameTime;
 	
 	game = new Game();
-	game->init();
 
 	while (game->running())
 	{
