@@ -147,6 +147,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile)
 				game_->addTeam('b');
 				player = new Scissors('b');
 			}
+			game_->addPlayer(player);
 			Cell* cell = new Cell(*color, *ter, j/3, width-i-1, player);
 			if (player != nullptr)
 				player->setCell(cell);

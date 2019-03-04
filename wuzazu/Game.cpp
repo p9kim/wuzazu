@@ -1,6 +1,7 @@
 #include "Game.hpp"
 #include "Map.hpp"
 #include "Render.hpp"
+
 using namespace std;
 
 SDL_Texture* playerTex;
@@ -11,6 +12,7 @@ Map* map;
 Game::Game()
 {
 	teams_ = *(new vector<char>());
+	players = *(new vector<Player*>());
 	isRunning = true;
 	player = new Player("assets/testPlayer.png", 500, 500);
 	map = new Map(this);
@@ -100,4 +102,8 @@ void Game::addTeam(char team)
 		if (t == team)
 			return;
 	teams_.push_back(team);
+}
+void Game::addPlayer(Player* p)
+{
+	players.push_back(p);
 }

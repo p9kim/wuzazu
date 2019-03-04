@@ -14,12 +14,14 @@
 #include <iostream>
 #include <vector>
 
+class Player;
+
 class Game
 {
 private:
 	bool isRunning;
 	vector<char> teams_;
-	//vector<Player*> players;
+	vector<Player*> players;
 protected:
 
 public:
@@ -31,6 +33,7 @@ public:
 	bool running();
 	vector<char> teams();
 	void addTeam(char);
+	void addPlayer(Player*);
 };
 #endif
 
