@@ -16,6 +16,8 @@ public:
 	void RenderPresent();
 	void clean();
 	void renderingLoop();
+	void updateCamera(unsigned int x, unsigned int y);
+	SDL_Rect camera = { 0, 0, 850, 850 };
 };
 
 extern Render* renderer;

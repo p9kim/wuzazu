@@ -85,6 +85,7 @@ void Game::render()
 {
 	renderer->RenderClear();
 	map->DrawMap();
+	renderer->updateCamera(player->xpos, player->ypos);
 	player->render();
 	renderer->renderingLoop();
 	renderer->RenderPresent();

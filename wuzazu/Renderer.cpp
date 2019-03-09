@@ -18,7 +18,18 @@ Render::Render(const char* title, int xpos, int ypos, int width, int height, boo
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 			cout << "Render created" << endl;
 		}
+		//camera.x = {};
+		//camera.y = {};
 	}
+}
+void Render::updateCamera(unsigned int x, unsigned int y)
+{
+	camera.x = (x + 42 / 2) - 850 / 2;
+	camera.y = (y + 42 / 2) - 850 / 2;
+	if (camera.x < 0)
+		camera.x = 0;
+	if (camera.y < 0)
+		camera.y = 0;
 }
 SDL_Renderer* Render::getRenderer()
 {

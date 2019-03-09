@@ -8,8 +8,7 @@ class Cell;
 class Player
 {
 protected:
-	int xpos;
-	int ypos;
+
 	int speed_;
 	bool canmove;
 	bool active_;
@@ -40,6 +39,8 @@ public:
 	bool done();
 	void done(bool);
 	char team();
+	int xpos;
+	int ypos;
 };
 
 class Rock : public Player
