@@ -8,31 +8,39 @@
 #include "GameObject.h"
 #include "Player.hpp"
 #include "MouseButtons.hpp"
+#include "Render.hpp"
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <vector>
+
+class Player;
 
 class Game
 {
+private:
+	bool isRunning;
+	vector<char> teams_;
+	vector<Player*> players;
+	char currentTeam_;
+	unsigned int turn_ = 0;
 protected:
 
 public:
 	Game();
 	~Game();
-
-	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 	void handleEvents();
 	void update();
 	void render();
-	void clean();
 	bool running();
+	void switchTurn();
 
-	static SDL_Renderer *renderer;
-
-private:
-	int renders = 0;
-	bool isRunning;
-	SDL_Window *window;
+	vector<char> teams();
+	void addTeam(char);
+	void addPlayer(Player*);
+	unsigned int turn();
+	void turn(unsigned int);
+	char currentTeam();
 
 };
 #endif
