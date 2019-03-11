@@ -108,3 +108,11 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 		SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	}
 }
+void Cell::setRegionColor(Pixel p)
+{
+	regionColor_ = p;
+}
+Pixel Cell::regionColor()
+{
+	return regionColor_;
+}

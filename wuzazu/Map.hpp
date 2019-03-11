@@ -29,9 +29,8 @@ public:
 
 	void LoadMap(unsigned int);
 	void DrawMap();
-	void readBMP(const char*, const char*);
+	void readBMP(const char*, const char*, const char*);
 	Cell* at(unsigned int, unsigned int);
-	void switchTurn();
 
 	void setHeight(unsigned int);
 	unsigned int getHeight();

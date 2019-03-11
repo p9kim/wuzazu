@@ -95,7 +95,6 @@ void Game::switchTurn()
 	currentTeam_ = teams_.at(turn_ % teams_.size());
 	for (Player* p : players)
 		p->done(false);
-	map->switchTurn();
 	turn_++;
 	cout << "Turn: " << currentTeam_ << endl;
 }
