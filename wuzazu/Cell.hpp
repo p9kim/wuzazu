@@ -16,6 +16,7 @@ private:
 	unsigned int X;
 	unsigned int Y;
 	Pixel regionColor_;
+	unsigned int regionNumber_;
 public:
 	Cell(Pixel, Terrain, unsigned int, unsigned int, Player*);
 	void setPixel(Pixel);
@@ -39,4 +40,6 @@ public:
 	void W(Cell*);
 	void setRegionColor(Pixel);
 	Pixel regionColor();
+	unsigned int regionNumber();
+	void regionNumber(unsigned int);
 };

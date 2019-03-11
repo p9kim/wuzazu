@@ -3,6 +3,7 @@
 //////////////////////////// Clicking Cells/Players ////////////////////////////
 void EventHandler_::clickCell(Cell* clickedCell)
 {
+	cout << "Clicked on cell in region: " << clickedCell->regionNumber() << endl;
 	if (clickedCell->hasPlayer())
 	{
 		if (activePlayer == clickedCell->player())   //clicked on itself

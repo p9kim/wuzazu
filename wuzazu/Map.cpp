@@ -29,6 +29,7 @@ Map::Map(Game* game)
 		x = 0;
 		y++;
 	}
+	buildRegions();
 	game_->switchTurn();
 }
 
@@ -178,12 +179,60 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 
 void Map::buildRegions()
 {
-
+	water = *(new Water());
+	dirt = *(new Dirt());
+	grass = *(new Grass());
+	Pixel curColor;
+	unsigned int regionNumber = 0;
+	unordered_map<Cell*, bool> isRegion;
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
 		{
-
+			if (!(c->regionColor() == curColor) && !isRegion[c])
+			{
+				regionNumber++;
+				curColor = c->regionColor();
+				//bfs
+				deque<Cell*> curRegion;
+				curRegion.push_back(c);
+				regions[regionNumber].push_back(c);
+				isRegion[c] = true;
+				c->regionNumber(regionNumber);
+				while (!curRegion.empty())
+				{
+					Cell* temp = curRegion.front();
+					curRegion.pop_front();
+					if (temp->N() && !isRegion[temp->N()] && temp->N()->regionColor() == curColor)
+					{
+						curRegion.push_back(temp->N());
+						regions[regionNumber].push_back(temp->N());
+						isRegion[temp->N()] = true;
+						temp->N()->regionNumber(regionNumber);
+					}
+					if (temp->E() && !isRegion[temp->E()] && temp->E()->regionColor() == curColor)
+					{
+						curRegion.push_back(temp->E());
+						regions[regionNumber].push_back(temp->E());
+						isRegion[temp->E()] = true;
+						temp->E()->regionNumber(regionNumber);
+					}
+					if (temp->S() && !isRegion[temp->S()] && temp->S()->regionColor() == curColor)
+					{
+						curRegion.push_back(temp->S());
+						regions[regionNumber].push_back(temp->S());
+						isRegion[temp->S()] = true;
+						temp->S()->regionNumber(regionNumber);
+					}
+					if (temp->W() && !isRegion[temp->W()] && temp->W()->regionColor() == curColor)
+					{
+						curRegion.push_back(temp->W());
+						regions[regionNumber].push_back(temp->W());
+						isRegion[temp->W()] = true;
+						temp->W()->regionNumber(regionNumber);
+					}
+				}
+			}
 		}
 	}
 }

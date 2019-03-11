@@ -116,3 +116,11 @@ Pixel Cell::regionColor()
 {
 	return regionColor_;
 }
+unsigned int Cell::regionNumber()
+{
+	return regionNumber_;
+}
+void Cell::regionNumber(unsigned int num)
+{
+	regionNumber_ = num;
+}

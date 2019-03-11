@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <unordered_map>
 
 static const unsigned int CELLSIZE = 42;
 
@@ -19,7 +20,7 @@ private:
 
 	SDL_Rect src, dest;
 	deque<vector<Cell*>> cells;
-
+	unordered_map<unsigned int, vector<Cell*>> regions;
 	Game* game_;
 
 public:
