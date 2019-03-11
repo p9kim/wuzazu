@@ -30,6 +30,7 @@ public:
 	void LoadMap(unsigned int);
 	void DrawMap();
 	void readBMP(const char*, const char*, const char*);
+	void buildRegions();
 	Cell* at(unsigned int, unsigned int);
 
 	void setHeight(unsigned int);

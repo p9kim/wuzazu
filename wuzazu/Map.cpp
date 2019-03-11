@@ -175,6 +175,19 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 	fclose(ef);
 	fclose(rf);
 }
+
+void Map::buildRegions()
+{
+
+	for (vector<Cell*> cV : cells)
+	{
+		for (Cell* c : cV)
+		{
+
+		}
+	}
+}
+
 Cell* Map::at(unsigned int x, unsigned int y)
 {
 	vector<Cell*> col = cells.at(y);
