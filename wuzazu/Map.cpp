@@ -116,7 +116,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 		{
 			// Convert (B, G, R) to (R, G, B)
 			tmp = data[j]; tmp2 = data2[j]; tmp3 = data3[j];
-			data[j] = data[j + 2]; data2[j] = data2[j + 2]; data3[j + 2];
+			data[j] = data[j + 2]; data2[j] = data2[j + 2]; data3[j] = data3[j + 2];
 			data[j + 2] = tmp; data2[j + 2] = tmp2; data3[j + 2] = tmp3;
 			Pixel* color = new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]);
 			if (*color == red || *color == yellow)
