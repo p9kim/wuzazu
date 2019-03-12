@@ -61,6 +61,11 @@ void Map::DrawMap()
 		col = 0;
 		row++;
 	}
+	for(pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
+	{
+		SDL_RenderDrawLine(renderer->getRenderer(), p.first.first, p.first.second, p.second.first, p.second.second);
+	}
+	
 }
 
 void Map::readBMP(const char* mapfile, const char* entityfile, const char* regionfile)
@@ -179,9 +184,6 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 
 void Map::buildRegions()
 {
-	water = *(new Water());
-	dirt = *(new Dirt());
-	grass = *(new Grass());
 	Pixel curColor;
 	unsigned int regionNumber = 0;
 	unordered_map<Cell*, bool> isRegion;
@@ -230,6 +232,35 @@ void Map::buildRegions()
 						regions[regionNumber].push_back(temp->W());
 						isRegion[temp->W()] = true;
 						temp->W()->regionNumber(regionNumber);
+					}
+					//////
+					if (temp->N() && !(temp->N()->regionColor() == curColor))
+					{
+						region_borders.push_back(make_pair(
+							make_pair(temp->N()->x(), temp->N()->y()), //x,y start
+							make_pair(temp->N()->x()+42, temp->N()->y()) //x,y dest
+						));
+					}
+					if (temp->E() && !(temp->E()->regionColor() == curColor))
+					{
+						region_borders.push_back(make_pair(
+							make_pair(temp->E()->x() + 42, temp->E()->y()),
+							make_pair(temp->E()->x() + 42, temp->E()->y() +42)
+						));
+					}
+					if (temp->S() && !(temp->S()->regionColor() == curColor))
+					{
+						region_borders.push_back(make_pair(
+							make_pair(temp->S()->x(), temp->S()->y() +42),
+							make_pair(temp->S()->x() + 42, temp->S()->y() +42)
+						));
+					}
+					if (temp->W() && !(temp->W()->regionColor() == curColor))
+					{
+						region_borders.push_back(make_pair(
+							make_pair(temp->W()->x(), temp->W()->y()),
+							make_pair(temp->W()->x(), temp->W()->y()+42)
+						));
 					}
 				}
 			}

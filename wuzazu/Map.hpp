@@ -21,6 +21,7 @@ private:
 	SDL_Rect src, dest;
 	deque<vector<Cell*>> cells;
 	unordered_map<unsigned int, vector<Cell*>> regions;
+	vector<pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>>> region_borders;
 	Game* game_;
 
 public:
