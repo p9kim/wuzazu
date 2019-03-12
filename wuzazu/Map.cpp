@@ -237,29 +237,29 @@ void Map::buildRegions()
 					if (temp->N() && !isRegion[temp->N()] && !(temp->N()->regionColor() == curColor))
 					{
 						region_borders.push_back(make_pair(
-							make_pair(temp->N()->x()*42, temp->N()->y() * 42), //x,y start
-							make_pair(temp->N()->x()*42 +42, temp->N()->y() * 42) //x,y dest
+							make_pair(temp->x()*42, temp->y() * 42), //x,y start
+							make_pair(temp->x()*42 +42, temp->y() * 42) //x,y dest
 						));
 					}
 					if (temp->E() && !isRegion[temp->E()] && !(temp->E()->regionColor() == curColor))
 					{
 						region_borders.push_back(make_pair(
-							make_pair(temp->E()->x() * 42 + 42, temp->E()->y() * 42),
-							make_pair(temp->E()->x() * 42 + 42, temp->E()->y() * 42 +42)
+							make_pair(temp->x() * 42 + 42, temp->y() * 42),
+							make_pair(temp->x() * 42 + 42, temp->y() * 42 +42)
 						));
 					}
 					if (temp->S() && !isRegion[temp->S()] && !(temp->S()->regionColor() == curColor))
 					{
 						region_borders.push_back(make_pair(
-							make_pair(temp->S()->x() * 42, temp->S()->y() * 42 +42),
-							make_pair(temp->S()->x() * 42 + 42, temp->S()->y() * 42 +42)
+							make_pair(temp->x() * 42, temp->y() * 42 +42),
+							make_pair(temp->x() * 42 + 42, temp->y() * 42 +42)
 						));
 					}
 					if (temp->W() && !isRegion[temp->W()] && !(temp->W()->regionColor() == curColor))
 					{
 						region_borders.push_back(make_pair(
-							make_pair(temp->W()->x() * 42, temp->W()->y() * 42),
-							make_pair(temp->W()->x() * 42, temp->W()->y() * 42 +42)
+							make_pair(temp->x() * 42, temp->y() * 42),
+							make_pair(temp->x() * 42, temp->y() * 42 +42)
 						));
 					}
 				}
