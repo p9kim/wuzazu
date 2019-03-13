@@ -188,26 +188,22 @@ void Map::buildRegions()
 	unsigned int regionNumber = 0;
 	unordered_map<Cell*, bool> isRegion;
 	deque<Cell*> curRegion;
-	auto buildSubRegion = [&](Cell* temp, char dir)
+	Cell* temp;
+	auto buildSubRegion = [&](Cell* cell, char dir)
 	{
-		if (!temp) return;
-		unordered_map<char, pair<Cell*, array<int, 4>>> inv = {
-			{'N', {temp->S(), {0,0,1,0}}},
-			{'E', {temp->W(), {1,0,1,1}}},
-			{'S', {temp->N(), {0,1,1,1}}},
-			{'W', {temp->E(), {0,0,0,1}}}
-		};
-		if (!isRegion[temp] && temp->regionColor() == curColor)
+		if (!cell) return;
+		unordered_map<char, array<int, 4>> coord = { {'N', {0,0,42,0}},	{'E', {42,0,42,42}}, {'S', {0,42,42,42}}, {'W', {0,0,0,42}} };
+		if (!isRegion[cell] && cell->regionColor() == curColor)
 		{
-			curRegion.push_back(temp);
-			regions[regionNumber].push_back(temp);
-			isRegion[temp] = true;
-			temp->regionNumber(regionNumber);
+			curRegion.push_back(cell);
+			regions[regionNumber].push_back(cell);
+			isRegion[cell] = true;
+			cell->regionNumber(regionNumber);
 		}
-		if (!isRegion[temp] && !(temp->regionColor() == curColor))
+		if (!isRegion[cell] && !(cell->regionColor() == curColor))
 			region_borders.push_back(make_pair(
-				make_pair(inv[dir].first->x()*CS + (inv[dir].second[0] * CS), inv[dir].first->y()*CS + (inv[dir].second[1] * CS)), //x,y start
-				make_pair(inv[dir].first->x()*CS + (inv[dir].second[2] * CS), inv[dir].first->y()*CS + (inv[dir].second[3] * CS))  //x,y dest
+				make_pair(temp->x()*CS + (coord[dir][0]), temp->y()*CS + (coord[dir][1])), //x,y start
+				make_pair(temp->x()*CS + (coord[dir][2]), temp->y()*CS + (coord[dir][3]))  //x,y dest
 			));
 	};
 	for (vector<Cell*> cV : cells)
@@ -225,7 +221,7 @@ void Map::buildRegions()
 				c->regionNumber(regionNumber);
 				while (!curRegion.empty())
 				{
-					Cell* temp = curRegion.front();
+					temp = curRegion.front();
 					curRegion.pop_front();
 					buildSubRegion(temp->N(), 'N');
 					buildSubRegion(temp->E(), 'E');
