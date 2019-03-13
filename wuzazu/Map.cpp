@@ -192,7 +192,7 @@ void Map::buildRegions()
 	auto buildSubRegion = [&](Cell* cell, char dir)
 	{
 		if (!cell) return;
-		unordered_map<char, array<int, 4>> coord = { {'N', {0,0,42,0}},	{'E', {42,0,42,42}}, {'S', {0,42,42,42}}, {'W', {0,0,0,42}} };
+		unordered_map<char, array<int, 4>> coord = { {'N', {0,0,CS,0}},	{'E', {CS,0,CS,CS}}, {'S', {0,CS,CS,CS}}, {'W', {0,0,0,CS}} };
 		if (!isRegion[cell] && cell->regionColor() == curColor)
 		{
 			curRegion.push_back(cell);
