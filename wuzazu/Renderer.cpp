@@ -21,6 +21,7 @@ Render::Render(const char* title, int xpos, int ypos, int width, int height, boo
 		//camera.x = {};
 		//camera.y = {};
 	}
+	SDL_SetRenderDrawBlendMode(getRenderer(), SDL_BLENDMODE_BLEND);
 }
 void Render::updateCamera(unsigned int x, unsigned int y)
 {

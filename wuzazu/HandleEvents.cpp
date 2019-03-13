@@ -111,13 +111,12 @@ void EventHandler_::deactivatePlayer(Player* player)
 
 void EventHandler_::hoverCell(Cell* cell)
 {
-	//! can't draw in here ???
-	int xpos = cell->x() * 42;
-	int ypos = cell->y() * 42;
-	SDL_Rect outlineRect = { xpos, ypos, 42, -42 };
-	SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
+	int xpos = cell->x()*42;
+	int ypos = cell->y()*42;
+	SDL_Rect outlineRect = { xpos+1, ypos+1, 41, 41 };
 	SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 100);
 	SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
+	renderer->RenderPresent();
 }
 
 void EventHandler_::setGame(Game* game)
