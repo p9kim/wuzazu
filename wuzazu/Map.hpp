@@ -35,6 +35,8 @@ public:
 	void readBMP(const char*, const char*, const char*);
 	void buildRegions();
 	Cell* at(unsigned int, unsigned int);
+	void handleClick(int, int);
+	void handleMouseHover(int, int);
 
 	void setHeight(unsigned int);
 	unsigned int getHeight();
@@ -42,7 +44,6 @@ public:
 	unsigned int getWidth();
 	void setName(string);
 	string getName();
-	bool handleClick(int, int);
 	Game* game();
 	void game(Game*);
 };

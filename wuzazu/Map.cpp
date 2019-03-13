@@ -63,6 +63,7 @@ void Map::DrawMap()
 	}
 	for (pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
 	{
+		SDL_SetRenderDrawColor(renderer->getRenderer(), 0, 0, 0, 100);
 		SDL_RenderDrawLine(renderer->getRenderer(), p.first.first, p.first.second, p.second.first, p.second.second);
 	}
 
@@ -239,12 +240,20 @@ Cell* Map::at(unsigned int x, unsigned int y)
 	return col.at(x);
 }
 
-bool Map::handleClick(int x, int y)
+void Map::handleClick(int x, int y)
 {
 	Cell* clickedCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
 	EventHandler.clickCell(clickedCell);
-	return true;
 }
+
+void Map::handleMouseHover(int x, int y)
+{
+	Cell* hoveredCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
+	if (!hoveredCell)
+		return;
+	EventHandler.hoverCell(hoveredCell);
+}
+
 
 /* Getters / Setters */
 void Map::setHeight(unsigned int height)

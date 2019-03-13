@@ -23,17 +23,10 @@ Game::~Game()
 void Game::handleEvents()
 {
 	SDL_Event e;
-	/*
-	while (SDL_PollEvent(&e) != 0)
-	{
-		if (e.type = SDL_QUIT)
-		{
-			isRunning = false;
-		}
-	}
-	*/
 	int moveby = 24;
 	SDL_PollEvent(&e);
+	int x, y;
+	SDL_GetMouseState(&x, &y);
 	switch (e.type)
 	{
 	case SDL_KEYDOWN:
@@ -70,11 +63,9 @@ void Game::handleEvents()
 	}
 	if (e.type == SDL_MOUSEBUTTONUP)
 	{
-		int x, y;
-		SDL_GetMouseState(&x, &y);
 		map->handleClick(x, y);
 	}
-
+	map->handleMouseHover(x, y);
 	
 }
 void Game::update()

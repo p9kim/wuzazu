@@ -1,5 +1,5 @@
 #include "HandleEvents.hpp"
-
+#include "Render.hpp"
 //////////////////////////// Clicking Cells/Players ////////////////////////////
 void EventHandler_::clickCell(Cell* clickedCell)
 {
@@ -110,7 +110,15 @@ void EventHandler_::deactivatePlayer(Player* player)
 
 
 void EventHandler_::hoverCell(Cell* cell)
-{}
+{
+	//! can't draw in here ???
+	int xpos = cell->x() * 42;
+	int ypos = cell->y() * 42;
+	SDL_Rect outlineRect = { xpos, ypos, 42, -42 };
+	SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 100);
+	SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
+}
 
 void EventHandler_::setGame(Game* game)
 {

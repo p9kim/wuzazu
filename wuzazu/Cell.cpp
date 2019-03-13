@@ -98,15 +98,10 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
 		SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	}
-	int m_x, m_y;
-	SDL_GetMouseState(&m_x, &m_y);
-	if(m_x > xpos && m_x < xpos+42 && ypos > m_y && ypos < m_y+42) 
-	{ 
-		SDL_Rect outlineRect = { xpos, ypos, 42, -42 };
-		SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
-		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 100);
-		SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
-	}
+	/*SDL_Rect outlineRect = { xpos, ypos, 42, -42 };
+	SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
+	SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 100);
+	SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);*/
 }
 void Cell::setRegionColor(Pixel p)
 {
