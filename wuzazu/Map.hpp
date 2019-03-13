@@ -7,8 +7,9 @@
 #include <vector>
 #include <deque>
 #include <unordered_map>
+#include <array>
 
-static const unsigned int CELLSIZE = 42;
+static const unsigned int CS = 42;
 
 class Map
 {

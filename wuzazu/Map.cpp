@@ -6,8 +6,8 @@ Map::Map(Game* game)
 	game_ = game;
 	EventHandler.setGame(game_);
 	src.x = src.y = 0;
-	src.w = dest.w = CELLSIZE;
-	src.h = dest.h = CELLSIZE;
+	src.w = dest.w = CS;
+	src.h = dest.h = CS;
 	dest.x = dest.y = 0;
 
 	LoadMap(1);
@@ -53,19 +53,19 @@ void Map::DrawMap()
 	{
 		for (Cell* c : cV)
 		{
-			dest.x = col * CELLSIZE;
-			dest.y = row * CELLSIZE;
+			dest.x = col * CS;
+			dest.y = row * CS;
 			c->draw(src, dest);
 			col++;
 		}
 		col = 0;
 		row++;
 	}
-	for(pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
+	for (pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
 	{
 		SDL_RenderDrawLine(renderer->getRenderer(), p.first.first, p.first.second, p.second.first, p.second.second);
 	}
-	
+
 }
 
 void Map::readBMP(const char* mapfile, const char* entityfile, const char* regionfile)
@@ -162,10 +162,10 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 				game_->addTeam('b');
 				player = new Scissors('b');
 			}
-			if(player != 0)
+			if (player != 0)
 				game_->addPlayer(player);
 			Pixel* regionColor = new Pixel((unsigned int)data3[j], (unsigned int)data3[j + 1], (unsigned int)data3[j + 2]);
-			Cell* cell = new Cell(*color, *ter, j/3, width-i-1, player);
+			Cell* cell = new Cell(*color, *ter, j / 3, width - i - 1, player);
 			if (player != nullptr)
 				player->setCell(cell);
 			cell->setRegionColor(*regionColor);
@@ -187,6 +187,29 @@ void Map::buildRegions()
 	Pixel curColor;
 	unsigned int regionNumber = 0;
 	unordered_map<Cell*, bool> isRegion;
+	deque<Cell*> curRegion;
+	auto buildSubRegion = [&](Cell* temp, char dir)
+	{
+		if (!temp) return;
+		unordered_map<char, pair<Cell*, array<int, 4>>> inv = {
+			{'N', {temp->S(), {0,0,1,0}}},
+			{'E', {temp->W(), {1,0,1,1}}},
+			{'S', {temp->N(), {0,1,1,1}}},
+			{'W', {temp->E(), {0,0,0,1}}}
+		};
+		if (!isRegion[temp] && temp->regionColor() == curColor)
+		{
+			curRegion.push_back(temp);
+			regions[regionNumber].push_back(temp);
+			isRegion[temp] = true;
+			temp->regionNumber(regionNumber);
+		}
+		if (!isRegion[temp] && !(temp->regionColor() == curColor))
+			region_borders.push_back(make_pair(
+				make_pair(inv[dir].first->x()*CS + (inv[dir].second[0] * CS), inv[dir].first->y()*CS + (inv[dir].second[1] * CS)), //x,y start
+				make_pair(inv[dir].first->x()*CS + (inv[dir].second[2] * CS), inv[dir].first->y()*CS + (inv[dir].second[3] * CS))  //x,y dest
+			));
+	};
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
@@ -196,7 +219,6 @@ void Map::buildRegions()
 				regionNumber++;
 				curColor = c->regionColor();
 				//bfs
-				deque<Cell*> curRegion;
 				curRegion.push_back(c);
 				regions[regionNumber].push_back(c);
 				isRegion[c] = true;
@@ -205,63 +227,10 @@ void Map::buildRegions()
 				{
 					Cell* temp = curRegion.front();
 					curRegion.pop_front();
-					if (temp->N() && !isRegion[temp->N()] && temp->N()->regionColor() == curColor)
-					{
-						curRegion.push_back(temp->N());
-						regions[regionNumber].push_back(temp->N());
-						isRegion[temp->N()] = true;
-						temp->N()->regionNumber(regionNumber);
-					}
-					if (temp->E() && !isRegion[temp->E()] && temp->E()->regionColor() == curColor)
-					{
-						curRegion.push_back(temp->E());
-						regions[regionNumber].push_back(temp->E());
-						isRegion[temp->E()] = true;
-						temp->E()->regionNumber(regionNumber);
-					}
-					if (temp->S() && !isRegion[temp->S()] && temp->S()->regionColor() == curColor)
-					{
-						curRegion.push_back(temp->S());
-						regions[regionNumber].push_back(temp->S());
-						isRegion[temp->S()] = true;
-						temp->S()->regionNumber(regionNumber);
-					}
-					if (temp->W() && !isRegion[temp->W()] && temp->W()->regionColor() == curColor)
-					{
-						curRegion.push_back(temp->W());
-						regions[regionNumber].push_back(temp->W());
-						isRegion[temp->W()] = true;
-						temp->W()->regionNumber(regionNumber);
-					}
-					//////
-					if (temp->N() && !isRegion[temp->N()] && !(temp->N()->regionColor() == curColor))
-					{
-						region_borders.push_back(make_pair(
-							make_pair(temp->x()*42, temp->y() * 42), //x,y start
-							make_pair(temp->x()*42 +42, temp->y() * 42) //x,y dest
-						));
-					}
-					if (temp->E() && !isRegion[temp->E()] && !(temp->E()->regionColor() == curColor))
-					{
-						region_borders.push_back(make_pair(
-							make_pair(temp->x() * 42 + 42, temp->y() * 42),
-							make_pair(temp->x() * 42 + 42, temp->y() * 42 +42)
-						));
-					}
-					if (temp->S() && !isRegion[temp->S()] && !(temp->S()->regionColor() == curColor))
-					{
-						region_borders.push_back(make_pair(
-							make_pair(temp->x() * 42, temp->y() * 42 +42),
-							make_pair(temp->x() * 42 + 42, temp->y() * 42 +42)
-						));
-					}
-					if (temp->W() && !isRegion[temp->W()] && !(temp->W()->regionColor() == curColor))
-					{
-						region_borders.push_back(make_pair(
-							make_pair(temp->x() * 42, temp->y() * 42),
-							make_pair(temp->x() * 42, temp->y() * 42 +42)
-						));
-					}
+					buildSubRegion(temp->N(), 'N');
+					buildSubRegion(temp->E(), 'E');
+					buildSubRegion(temp->S(), 'S');
+					buildSubRegion(temp->W(), 'W');
 				}
 			}
 		}
@@ -276,7 +245,7 @@ Cell* Map::at(unsigned int x, unsigned int y)
 
 bool Map::handleClick(int x, int y)
 {
-	Cell* clickedCell = at((unsigned int)floor(x / CELLSIZE), (unsigned int)floor(y / CELLSIZE));
+	Cell* clickedCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
 	EventHandler.clickCell(clickedCell);
 	return true;
 }
