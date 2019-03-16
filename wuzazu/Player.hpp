@@ -1,11 +1,11 @@
 #pragma once
 #include "Render.hpp"
 #include "TextureManager.h"
-#include "Teams.hpp"
 #include <utility>
 
 
 class Cell;
+class Team;
 
 class Player
 {
@@ -49,19 +49,19 @@ class Rock : public Player
 {
 public:
 	const string type = "rock";
-	Rock(Team team);
+	Rock(Team* team);
 };
 
 class Paper : public Player
 {
 public:
 	const string type = "paper";
-	Paper(Team team);
+	Paper(Team* team);
 };
 
 class Scissors : public Player
 {
 public:
 	const string type = "scissors";
-	Scissors(Team team);
+	Scissors(Team* team);
 };

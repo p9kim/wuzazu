@@ -11,7 +11,7 @@ Map* map;
 
 Game::Game()
 {
-	teams_ = *(new vector<Team*>(0));
+	teams_ = *(new vector<Team>(0));
 	players = *(new vector<Player*>(0));
 	isRunning = true;
 	player = new Player("assets/testPlayer.png", 500, 500);
@@ -87,23 +87,23 @@ void Game::switchTurn()
 	for (Player* p : players)
 		p->done(false);
 	turn_++;
-	cout << "Turn: " << currentTeam_ << endl;
+	cout << "Turn: " << currentTeam_.name() << endl;
 }
 bool Game::running()
 {
 	return isRunning;
 }
 
-vector<Team*> Game::teams()
+vector<Team> Game::teams()
 {
 	return teams_;
 }
 void Game::addTeam(Team team)
 {
-	for (Team* t : teams_)
-		if (t == &team)
+	for (Team t : teams_)
+		if (t == team)
 			return;
-	teams_.push_back(&team);
+	teams_.push_back(team);
 }
 void Game::addPlayer(Player* p)
 {
@@ -117,7 +117,7 @@ void Game::turn(unsigned int turn)
 {
 	turn_ = turn;
 }
-Team* Game::currentTeam()
+Team Game::currentTeam()
 {
 	return currentTeam_;
 }

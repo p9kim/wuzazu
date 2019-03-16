@@ -37,7 +37,7 @@ void EventHandler_::clickInactivePlayer(Cell* clickedCell)
 	lastCell = clickedCell;
 	int speed = clickedCell->player()->speed();
 	Cell* currCell = nullptr;
-	if (game->currentTeam() != clickedCell->player()->team() || clickedCell->player()->done())
+	if (game->currentTeam() != *clickedCell->player()->team() || clickedCell->player()->done())
 		return;
 
 	cellQueue.push_back(clickedCell);

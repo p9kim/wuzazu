@@ -9,6 +9,7 @@
 #include "Player.hpp"
 #include "MouseButtons.hpp"
 #include "Render.hpp"
+#include "Teams.hpp"
 #include <stdio.h>
 #include <string>
 #include <iostream>
@@ -21,9 +22,9 @@ class Game
 {
 private:
 	bool isRunning;
-	vector<Team*> teams_;
+	vector<Team> teams_;
 	vector<Player*> players;
-	Team* currentTeam_;
+	Team currentTeam_;
 	unsigned int turn_ = 0;
 protected:
 
@@ -36,12 +37,12 @@ public:
 	bool running();
 	void switchTurn();
 
-	vector<Team*> teams();
+	vector<Team> teams();
 	void addTeam(Team);
 	void addPlayer(Player*);
 	unsigned int turn();
 	void turn(unsigned int);
-	Team* currentTeam();
+	Team currentTeam();
 
 };
 #endif

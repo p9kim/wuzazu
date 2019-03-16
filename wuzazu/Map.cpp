@@ -9,7 +9,6 @@ Map::Map(Game* game)
 	src.w = dest.w = CS;
 	src.h = dest.h = CS;
 	dest.x = dest.y = 0;
-
 	LoadMap(1);
 	unsigned int x = 0, y = 0;
 	for (vector<Cell*> cV : cells)
@@ -71,10 +70,6 @@ void Map::DrawMap()
 
 void Map::readBMP(const char* mapfile, const char* entityfile, const char* regionfile)
 {
-	water = *(new Water());
-	dirt = *(new Dirt());
-	grass = *(new Grass());
-
 	Terrain* ter = 0;
 	FILE* f = fopen(mapfile, "rb");
 	FILE* ef = fopen(entityfile, "rb");
@@ -83,20 +78,14 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 	if (f == NULL || ef == NULL)
 		throw "File not found exception";
 
-	unsigned char info[54];
-	unsigned char info2[54];
-	unsigned char info3[54];
+	unsigned char info[54], info2[54], info3[54];
 	fread(info, sizeof(unsigned char), 54, f); //read the 54-byte header
 	fread(info2, sizeof(unsigned char), 54, ef);
 	fread(info3, sizeof(unsigned char), 54, rf);
 
 	// extract image height and width from header
-	const int width = *(int*)&info[18];
-	const int height = *(int*)&info[22];
-	const int width2 = *(int*)&info2[18];
-	const int height2 = *(int*)&info2[22];
-	const int width3 = *(int*)&info3[18];
-	const int height3 = *(int*)&info3[22];
+	const int width = *(int*)&info[18], width2 = *(int*)&info2[18], width3 = *(int*)&info3[18];
+	const int height = *(int*)&info[22], height2 = *(int*)&info2[22], height3 = *(int*)&info3[22];
 
 	//if (width != width2 && height != height2)
 		//throw "The two file's height and width do not match each other";
@@ -105,9 +94,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 	this->height = height;
 	this->name = name;
 
-	int row_padded = (width * 3 + 3) & (~3);
-	int row_padded2 = (width2 * 3 + 3) & (~3);
-	int row_padded3 = (width3 * 3 + 3) & (~3);
+	int row_padded = (width * 3 + 3) & (~3), row_padded2 = (width2 * 3 + 3) & (~3), row_padded3 = (width3 * 3 + 3) & (~3);
 	unsigned char* data = new unsigned char[row_padded];
 	unsigned char* data2 = new unsigned char[row_padded2];
 	unsigned char* data3 = new unsigned char[row_padded3];
@@ -141,27 +128,27 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 			Pixel* color2 = new Pixel((unsigned int)data2[j], (unsigned int)data2[j + 1], (unsigned int)data2[j + 2]);
 			if (*color2 == red) {
 				game_->addTeam(YellowTeam);
-				player = new Rock(YellowTeam);
+				player = new Rock(&YellowTeam);
 			}
 			else if (*color2 == orange) {
 				game_->addTeam(YellowTeam);
-				player = new Paper(YellowTeam);
+				player = new Paper(&YellowTeam);
 			}
 			else if (*color2 == yellow) {
 				game_->addTeam(YellowTeam);
-				player = new Scissors(YellowTeam);
+				player = new Scissors(&YellowTeam);
 			}
 			else if (*color2 == green) {
 				game_->addTeam(BlueTeam);
-				player = new Rock(BlueTeam);
+				player = new Rock(&BlueTeam);
 			}
 			else if (*color2 == blue) {
 				game_->addTeam(BlueTeam);
-				player = new Paper(BlueTeam);
+				player = new Paper(&BlueTeam);
 			}
 			else if (*color2 == cyan) {
 				game_->addTeam(BlueTeam);
-				player = new Scissors(BlueTeam);
+				player = new Scissors(&BlueTeam);
 			}
 			if (player != 0)
 				game_->addPlayer(player);
