@@ -1,16 +1,19 @@
-#include <string>
 #include "Pixel.hpp"
+#include <string>
+#include <vector>
 using namespace std;
 
 class Team
 {
 protected:
 	string name_;
-	Pixel color;
+	Pixel color_;
+	static vector<Team>* teams_;
 public:
-	string name() {
-		return name_;
-	};
+	string name() { return name_; };
+	Pixel color() { return color_; };
+	static void setTeams(vector<Team>* t) { teams_ = t; };
+	static vector<Team>* teams() { return teams_; };
 	bool operator ==(Team other) { return name_ == other.name(); };
 	bool operator !=(Team other) { return name_ != other.name(); };
 };
@@ -21,7 +24,7 @@ public:
 	TeamRed()
 	{
 		name_ = "Red Team";
-		color = red;
+		color_ = red;
 	}
 } RedTeam;
 static class TeamBlue : public Team
@@ -30,7 +33,7 @@ public:
 	TeamBlue()
 	{
 		name_ = "Blue Team";
-		color = blue;
+		color_ = blue;
 	}
 } BlueTeam;
 static class TeamYellow : public Team
@@ -39,6 +42,6 @@ public:
 	TeamYellow()
 	{
 		name_ = "Yellow Team";
-		color = yellow;
+		color_ = yellow;
 	}
 } YellowTeam;

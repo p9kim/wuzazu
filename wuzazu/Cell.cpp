@@ -9,6 +9,7 @@ Cell::Cell(Pixel p, Terrain t, unsigned int x, unsigned int y, Player* player)
 	this->Y = y;
 	player_ = player;
 	N_ = E_ = S_ = W_ = nullptr;
+	owner_ = nullptr;
 }
 void Cell::setPixel(Pixel pixel)
 {

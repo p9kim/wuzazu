@@ -16,7 +16,6 @@
 #include <vector>
 
 class Player;
-class Team;
 
 class Game
 {

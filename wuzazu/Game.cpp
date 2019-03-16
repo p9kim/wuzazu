@@ -16,6 +16,7 @@ Game::Game()
 	isRunning = true;
 	player = new Player("assets/testPlayer.png", 500, 500);
 	map = new Map(this);
+	Team::setTeams(&teams_);
 }
 Game::~Game()
 {}

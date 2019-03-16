@@ -3,6 +3,7 @@
 #include "Pixel.hpp"
 #include "Player.hpp"
 
+class Team;
 class Cell
 {
 private:
@@ -15,6 +16,7 @@ private:
 	Cell* W_;
 	unsigned int X;
 	unsigned int Y;
+	Team* owner_;
 	Pixel regionColor_;
 	unsigned int regionNumber_;
 public:
