@@ -5,36 +5,40 @@ using namespace std;
 class Team
 {
 protected:
-	string name;
+	string name_;
 	Pixel color;
 public:
-	void getTeam(string);
+	string name() {
+		return name_;
+	};
+	bool operator ==(Team other) { return name_ == other.name(); };
+	bool operator !=(Team other) { return name_ != other.name(); };
 };
 
-static class RedTeam : public Team
+static class TeamRed : public Team
 {
 public:
-	RedTeam()
+	TeamRed()
 	{
-		name = "Red Team";
+		name_ = "Red Team";
 		color = red;
 	}
-} Red;
-static class BlueTeam : public Team
+} RedTeam;
+static class TeamBlue : public Team
 {
 public:
-	BlueTeam()
+	TeamBlue()
 	{
-		name = "Blue Team";
+		name_ = "Blue Team";
 		color = blue;
 	}
-} Red;
-static class YellowTeam : public Team
+} BlueTeam;
+static class TeamYellow : public Team
 {
 public:
-	YellowTeam()
+	TeamYellow()
 	{
-		name = "Yellow Team";
+		name_ = "Yellow Team";
 		color = yellow;
 	}
-} Red;
+} YellowTeam;

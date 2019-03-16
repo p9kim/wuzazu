@@ -92,7 +92,7 @@ int Player::speed()
 {
 	return this->speed_;
 }
-char Player::team()
+Team* Player::team()
 {
 	return team_;
 }

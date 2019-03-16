@@ -140,28 +140,28 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 			Player* player = nullptr;
 			Pixel* color2 = new Pixel((unsigned int)data2[j], (unsigned int)data2[j + 1], (unsigned int)data2[j + 2]);
 			if (*color2 == red) {
-				game_->addTeam('y');
-				player = new Rock('y');
+				game_->addTeam(YellowTeam);
+				player = new Rock(YellowTeam);
 			}
 			else if (*color2 == orange) {
-				game_->addTeam('y');
-				player = new Paper('y');
+				game_->addTeam(YellowTeam);
+				player = new Paper(YellowTeam);
 			}
 			else if (*color2 == yellow) {
-				game_->addTeam('y');
-				player = new Scissors('y');
+				game_->addTeam(YellowTeam);
+				player = new Scissors(YellowTeam);
 			}
 			else if (*color2 == green) {
-				game_->addTeam('b');
-				player = new Rock('b');
+				game_->addTeam(BlueTeam);
+				player = new Rock(BlueTeam);
 			}
 			else if (*color2 == blue) {
-				game_->addTeam('b');
-				player = new Paper('b');
+				game_->addTeam(BlueTeam);
+				player = new Paper(BlueTeam);
 			}
 			else if (*color2 == cyan) {
-				game_->addTeam('b');
-				player = new Scissors('b');
+				game_->addTeam(BlueTeam);
+				player = new Scissors(BlueTeam);
 			}
 			if (player != 0)
 				game_->addPlayer(player);

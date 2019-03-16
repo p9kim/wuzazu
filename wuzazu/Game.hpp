@@ -15,14 +15,15 @@
 #include <vector>
 
 class Player;
+class Team;
 
 class Game
 {
 private:
 	bool isRunning;
-	vector<char> teams_;
+	vector<Team*> teams_;
 	vector<Player*> players;
-	char currentTeam_;
+	Team* currentTeam_;
 	unsigned int turn_ = 0;
 protected:
 
@@ -35,12 +36,12 @@ public:
 	bool running();
 	void switchTurn();
 
-	vector<char> teams();
-	void addTeam(char);
+	vector<Team*> teams();
+	void addTeam(Team);
 	void addPlayer(Player*);
 	unsigned int turn();
 	void turn(unsigned int);
-	char currentTeam();
+	Team* currentTeam();
 
 };
 #endif

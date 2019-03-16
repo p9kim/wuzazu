@@ -4,15 +4,15 @@ void Region::addCell(Cell* cell)
 {
 	cells.push_back(cell);
 }
-vector<Cell*> Region::getCells()
+std::vector<Cell*> Region::getCells()
 {
 	return cells;
 }
-void Region::setOwner(char o)
+void Region::setOwner(Team* t)
 {
-	owner = o;
+	owner = t;
 }
-char Region::getOwner()
+Team* Region::getOwner()
 {
 	return owner;
 }

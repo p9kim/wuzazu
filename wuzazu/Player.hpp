@@ -1,7 +1,9 @@
 #pragma once
 #include "Render.hpp"
 #include "TextureManager.h"
+#include "Teams.hpp"
 #include <utility>
+
 
 class Cell;
 
@@ -14,7 +16,7 @@ protected:
 	bool active_;
 	bool done_;
 	int health;
-	char team_;
+	Team* team_;
 	SDL_Texture* playerTex;
 	SDL_Rect srcRect, destRect;
     Cell* cell;
@@ -38,7 +40,7 @@ public:
 	void setCanMove(bool);
 	bool done();
 	void done(bool);
-	char team();
+	Team* team();
 	int xpos;
 	int ypos;
 };
@@ -47,19 +49,19 @@ class Rock : public Player
 {
 public:
 	const string type = "rock";
-	Rock(char team);
+	Rock(Team team);
 };
 
 class Paper : public Player
 {
 public:
 	const string type = "paper";
-	Paper(char team);
+	Paper(Team team);
 };
 
 class Scissors : public Player
 {
 public:
 	const string type = "scissors";
-	Scissors(char team);
+	Scissors(Team team);
 };

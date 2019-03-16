@@ -1,17 +1,17 @@
 #pragma once
 #include <vector>
-using namespace std;
 
 class Cell;
+class Team;
 
 class Region
 {
 private:
-	vector<Cell*> cells;
-	char owner;
+	std::vector<Cell*> cells;
+	Team* owner;
 public:
 	void addCell(Cell*);
-	vector<Cell*> getCells();
-	void setOwner(char);
-	char getOwner();
+	std::vector<Cell*> getCells();
+	void setOwner(Team*);
+	Team* getOwner();
 };
