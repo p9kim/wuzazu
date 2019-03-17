@@ -215,15 +215,15 @@ void Map::buildRegions()
 					buildSubRegion(temp->S(), 'S');
 					buildSubRegion(temp->W(), 'W');
 				}
+				regionNumber++;
 			}
-			regionNumber++;
 		}
 	}
 	for (const auto& key : regions)		//set region owners
 	{
-		for (auto &t : game_->teams())
+		for (auto t : game_->teams())
 			if (t.color() == key.second[0]->regionColor())
-				region_owners[key.first] = &t;
+				region_owners[key.first] = t;
 	}
 }
 
@@ -237,9 +237,7 @@ void Map::handleClick(int x, int y)
 {
 	Cell* clickedCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
 	EventHandler.clickCell(clickedCell);
-	Team* temp = region_owners[clickedCell->regionNumber()];
-	//if(region_owners[clickedCell->regionNumber()])
-		//cout << "Region " << clickedCell->regionNumber() << " owned by: " << region_owners[clickedCell->regionNumber()]->name() << endl;
+	cout << "Region " << clickedCell->regionNumber() << " owned by: " << region_owners[clickedCell->regionNumber()].name() << endl;
 }
 
 void Map::handleMouseHover(int x, int y)

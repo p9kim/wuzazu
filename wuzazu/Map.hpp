@@ -25,7 +25,7 @@ private:
 	deque<vector<Cell*>> cells;
 	unordered_map<unsigned int, vector<Cell*>> regions;
 	vector<pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>>> region_borders;
-	unordered_map<unsigned int, Team*> region_owners;
+	unordered_map<unsigned int, Team> region_owners;
 	Game* game_;
 
 public:

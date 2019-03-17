@@ -59,9 +59,6 @@
     <ClCompile Include="PlayerTypes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Region.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Team.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -95,9 +92,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Region.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Teams.hpp">
