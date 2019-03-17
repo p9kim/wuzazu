@@ -55,6 +55,9 @@ void Map::DrawMap()
 			dest.x = col * CS;
 			dest.y = row * CS;
 			c->draw(src, dest);
+			for (auto t : game_->teams())
+				if (t.color() == c->regionColor())
+					renderer->fillSquare(c->x(), c->y(), t.color());
 			col++;
 		}
 		col = 0;

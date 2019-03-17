@@ -63,3 +63,10 @@ void Render::RenderPresent()
 {
 	SDL_RenderPresent(renderer);
 }
+
+void Render::fillSquare(int x, int y, Pixel color)
+{
+	SDL_SetRenderDrawColor(renderer, color.R(), color.G(), color.B(), 100);
+	SDL_Rect square = { x*42, y*42, x*42 + 42, y*42 + 42 };
+	SDL_RenderFillRect(renderer, &square);
+}
