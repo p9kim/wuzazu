@@ -1,6 +1,6 @@
 #include "HandleEvents.hpp"
 #include "Render.hpp"
-#include <utility>
+
 //////////////////////////// Clicking Cells/Players ////////////////////////////
 void EventHandler_::clickCell(Cell* clickedCell)
 {
@@ -81,6 +81,7 @@ void EventHandler_::activePlayerClickCell(Cell* clickedCell)
 	{
 		lastCell->setPlayer(nullptr);
 		clickedCell->setPlayer(activePlayer);
+		activePlayer->cell(clickedCell);
 		activePlayer->setCanMove(false);
 		activePlayer->done(true);
 		lastCell = nullptr;
