@@ -50,9 +50,13 @@ void Player::movePlayerBy(int x, int y)
 	this->xpos += x;
 	this->ypos += y;
 }
-void Player::setCell(Cell* c)
+void Player::cell(Cell* c)
 {
-	cell = c;
+	cell_ = c;
+}
+Cell* Player::cell()
+{
+	return cell_;
 }
 void Player::highlight()
 {

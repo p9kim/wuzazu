@@ -40,6 +40,7 @@ public:
 	Cell* at(unsigned int, unsigned int);
 	void handleClick(int, int);
 	void handleMouseHover(int, int);
+	void captureRegion();
 
 	void setHeight(unsigned int);
 	unsigned int getHeight();

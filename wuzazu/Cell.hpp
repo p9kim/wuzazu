@@ -31,6 +31,7 @@ public:
 	unsigned int x();
 	unsigned int y();
 	void draw(SDL_Rect, SDL_Rect);
+	void drawPlayer(SDL_Rect, SDL_Rect);
 	bool selected;
 	Cell* N();
 	void N(Cell*);

@@ -88,17 +88,20 @@ void Cell::W(Cell* w)
 }
 void Cell::draw(SDL_Rect src, SDL_Rect dest)
 {
-	terrain().draw(src, dest);
-	if (hasPlayer())
-		player()->render(src, dest);
 	int xpos = X * 42;
 	int ypos = Y * 42;
+	terrain().draw(src, dest);
 	if (selected)
 	{
 		SDL_Rect outlineRect = { xpos-1, ypos-1, 43, 43 };
 		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
 		SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	}
+}
+void Cell::drawPlayer(SDL_Rect src, SDL_Rect dest)
+{
+	if (hasPlayer())
+		player()->render(src, dest);
 }
 void Cell::setRegionColor(Pixel p)
 {

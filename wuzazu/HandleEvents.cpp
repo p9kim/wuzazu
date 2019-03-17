@@ -1,5 +1,6 @@
 #include "HandleEvents.hpp"
 #include "Render.hpp"
+#include <utility>
 //////////////////////////// Clicking Cells/Players ////////////////////////////
 void EventHandler_::clickCell(Cell* clickedCell)
 {
@@ -7,11 +8,11 @@ void EventHandler_::clickCell(Cell* clickedCell)
 	{
 		if (activePlayer == clickedCell->player())   //clicked on itself
 		{
-			deactivatePlayer(clickedCell->player());
+			deactivatePlayer();
 		}
 		else if (activePlayer != nullptr && activePlayer != clickedCell->player()) //clicked on another player
 		{
-			deactivatePlayer(activePlayer);
+			deactivatePlayer();
 			clickInactivePlayer(clickedCell);
 		}
 		else  //click on inactive player w nothing selected
@@ -83,7 +84,7 @@ void EventHandler_::activePlayerClickCell(Cell* clickedCell)
 		activePlayer->setCanMove(false);
 		activePlayer->done(true);
 		lastCell = nullptr;
-		deactivatePlayer(activePlayer);
+		deactivatePlayer();
 	}
 }
 void EventHandler_::activatePlayer(Player* player)
@@ -95,10 +96,12 @@ void EventHandler_::activatePlayer(Player* player)
 		if (c != 0)
 			c->selected = true;
 }
-void EventHandler_::deactivatePlayer(Player* player)
+void EventHandler_::deactivatePlayer()
 {
-	player->active(false);
-	player->unhighlight();
+	if (activePlayer == 0)
+		return;
+	activePlayer->active(false);
+	activePlayer->unhighlight();
 	for (Cell* c : highlightedCells)
 		if (c != 0)
 			c->selected = false;
@@ -106,7 +109,6 @@ void EventHandler_::deactivatePlayer(Player* player)
 	highlightedCells.clear();
 }
 ////////////////////////////////////////////////////////
-
 
 void EventHandler_::hoverCell(Cell* cell)
 {
@@ -116,6 +118,11 @@ void EventHandler_::hoverCell(Cell* cell)
 	SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 100);
 	SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	renderer->RenderPresent();
+}
+
+Player* EventHandler_::getActivePlayer()
+{
+	return activePlayer;
 }
 
 void EventHandler_::setGame(Game* game)

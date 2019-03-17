@@ -55,10 +55,10 @@ void Map::DrawMap()
 			dest.x = col * CS;
 			dest.y = row * CS;
 			c->draw(src, dest);
-			for (auto t : game_->teams())
-				if (t.color() == c->regionColor())
-					renderer->fillSquare(c->x(), c->y(), t.color());
 			col++;
+			if(region_owners[c->regionNumber()].name() != "")
+				renderer->fillSquare(c->x(), c->y(), region_owners[c->regionNumber()].color());
+			c->drawPlayer(src, dest);
 		}
 		col = 0;
 		row++;
@@ -158,7 +158,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 			Pixel* regionColor = new Pixel((unsigned int)data3[j], (unsigned int)data3[j + 1], (unsigned int)data3[j + 2]);
 			Cell* cell = new Cell(*color, *ter, j / 3, width - i - 1, player);
 			if (player != nullptr)
-				player->setCell(cell);
+				player->cell(cell);
 			cell->setRegionColor(*regionColor);
 			row->push_back(cell);
 			delete(color);
@@ -250,7 +250,15 @@ void Map::handleMouseHover(int x, int y)
 		return;
 	EventHandler.hoverCell(hoveredCell);
 }
-
+void Map::captureRegion()
+{
+	Player* activePlayer = EventHandler.getActivePlayer();
+	if (activePlayer == 0)
+		return;
+	region_owners[activePlayer->cell()->regionNumber()] = *(activePlayer->team());
+	EventHandler.deactivatePlayer();
+	activePlayer->done(true);
+}
 
 /* Getters / Setters */
 void Map::setHeight(unsigned int height)

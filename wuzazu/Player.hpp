@@ -19,7 +19,7 @@ protected:
 	Team* team_;
 	SDL_Texture* playerTex;
 	SDL_Rect srcRect, destRect;
-    Cell* cell;
+    Cell* cell_;
 
 public:
 	Player();
@@ -29,7 +29,8 @@ public:
 	void update();
 	void render();
 	void render(SDL_Rect src, SDL_Rect dest);
-	void setCell(Cell*);
+	void cell(Cell*);
+	Cell* cell();
 	void movePlayerBy(int, int);
 	void highlight();
 	void unhighlight();

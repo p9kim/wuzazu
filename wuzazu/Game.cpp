@@ -52,6 +52,9 @@ void Game::handleEvents()
 		case SDLK_SPACE:
 			switchTurn();
 			break;
+		case SDLK_c:
+			map->captureRegion();
+			break;
 		default:
 			break;
 		}

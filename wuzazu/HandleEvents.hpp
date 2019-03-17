@@ -29,7 +29,8 @@ public:
 	void activePlayerClickCell(Cell*);
 	void clickInactivePlayer(Cell*);
 	void activatePlayer(Player*);
-	void deactivatePlayer(Player*);
+	void deactivatePlayer();
 	void hoverCell(Cell*);
+	Player* getActivePlayer();
 	void setGame(Game*);
 } EventHandler;
