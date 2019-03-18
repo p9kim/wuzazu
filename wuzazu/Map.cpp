@@ -43,7 +43,7 @@ void Map::LoadMap(unsigned int level)
 		readBMP("assets/map2.bmp", "assets/entities2.bmp", "assets/regions2.bmp");
 		break;
 	case 3:
-		readBMP("assets/map3.bmp", "assets/entities3.bmp", "assets/regions3.bmp");
+		readBMP("assets/map3.bmp", "assets/entities3.bmp", "assets/regions4.bmp");
 		break;	
 	default:
 		throw new exception("Invalid Map ID");
