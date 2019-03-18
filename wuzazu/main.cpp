@@ -7,7 +7,7 @@
 using namespace std;
 
 Game *game = nullptr;
-Render* renderer = new Render("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 53*42, 34*42, true);
+Render* renderer = new Render("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 25*42, 25*42, true);
 
 int main(int argc, char * argv[])
 {
