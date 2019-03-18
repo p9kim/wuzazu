@@ -9,7 +9,7 @@ Map::Map(Game* game)
 	src.w = dest.w = CS;
 	src.h = dest.h = CS;
 	dest.x = dest.y = 0;
-	LoadMap(1);
+	LoadMap(3);
 	unsigned int x = 0, y = 0;
 	for (vector<Cell*> cV : cells)
 	{
@@ -39,6 +39,12 @@ void Map::LoadMap(unsigned int level)
 	case 1:
 		readBMP("assets/map1.bmp", "assets/entities1.bmp", "assets/regions1.bmp");
 		break;
+	case 2:
+		readBMP("assets/map2.bmp", "assets/entities2.bmp", "assets/regions2.bmp");
+		break;
+	case 3:
+		readBMP("assets/map3.bmp", "assets/entities3.bmp", "assets/regions3.bmp");
+		break;	
 	default:
 		throw new exception("Invalid Map ID");
 	}
@@ -156,7 +162,7 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 			if (player != 0)
 				game_->addPlayer(player);
 			Pixel* regionColor = new Pixel((unsigned int)data3[j], (unsigned int)data3[j + 1], (unsigned int)data3[j + 2]);
-			Cell* cell = new Cell(*color, *ter, j / 3, width - i - 1, player);
+			Cell* cell = new Cell(*color, *ter, j / 3, height - i - 1, player);
 			if (player != nullptr)
 				player->cell(cell);
 			cell->setRegionColor(*regionColor);
