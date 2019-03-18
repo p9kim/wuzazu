@@ -10,7 +10,7 @@ Map::Map(Game* game)
 	src.w = dest.w = CS;
 	src.h = dest.h = CS;
 	dest.x = dest.y = 0;
-	LoadMap(3);
+	LoadMap(1);
 	unsigned int x = 0, y = 0;
 	for (vector<Cell*> cV : cells)
 	{
