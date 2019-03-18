@@ -24,7 +24,7 @@ Game::~Game()
 void Game::handleEvents()
 {
 	SDL_Event e;
-	int moveby = 24;
+	int moveby = 42;
 	SDL_PollEvent(&e);
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -35,18 +35,22 @@ void Game::handleEvents()
 		{
 		case SDLK_UP:
 			player->movePlayerBy(0, -(moveby));
+			renderer->updateCamera(player->xpos, player->ypos);
 			std::cout << "UP" << std::endl;
 			break;
 		case SDLK_DOWN:
 			player->movePlayerBy(0, moveby);
+			renderer->updateCamera(player->xpos, player->ypos);
 			std::cout << "DOWN" << std::endl;
 			break;
 		case SDLK_LEFT:
 			player->movePlayerBy(-(moveby), 0);
+			renderer->updateCamera(player->xpos, player->ypos);
 			std::cout << "LEFT" << std::endl;
 			break;
 		case SDLK_RIGHT:
 			player->movePlayerBy(moveby, 0);
+			renderer->updateCamera(player->xpos, player->ypos);
 			std::cout << "RIGHT" << std::endl;
 			break;
 		case SDLK_SPACE:

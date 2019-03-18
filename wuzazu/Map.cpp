@@ -54,13 +54,16 @@ void Map::DrawMap()
 {
 	int col = 0;
 	int row = 0;
+	SDL_Rect* res = new SDL_Rect();
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
 		{
 			dest.x = col * CS;
 			dest.y = row * CS;
-			c->draw(src, dest);
+			if (!(SDL_IntersectRect(&renderer->getCamera(), &dest, res)))
+				true;
+			c->draw(src, *res);
 			col++;
 			if(region_owners[c->regionNumber()].name() != "")
 				renderer->fillSquare(c->x(), c->y(), region_owners[c->regionNumber()].color());
