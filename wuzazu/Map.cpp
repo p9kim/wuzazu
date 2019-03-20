@@ -52,25 +52,37 @@ void Map::LoadMap(unsigned int level)
 
 void Map::DrawMap()
 {
-	int col = 0;
-	int row = 0;
-	SDL_Rect* res = new SDL_Rect();
+	SDL_Rect winBox = { 0, 0, 1050, 1050 };
+	SDL_Rect camBox = { 0, 0, 42, 42 };
+	int row = 0, col = 0, y = 0;
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
 		{
-			dest.x = col * CS;
-			dest.y = row * CS;
-			if (!(SDL_IntersectRect(&renderer->getCamera(), &dest, res)))
-				true;
-			c->draw(src, *res);
-			col++;
+			dest.x = col * CS; dest.y = row * CS;
+			if (c->x()*CS > renderer->getCamera().x + winBox.w || c->x()*CS < renderer->getCamera().x)
+				continue;
+			if (c->y()*CS > renderer->getCamera().y + winBox.h || c->y()*CS < renderer->getCamera().y)
+				continue;
+			y = c->y()*CS;
+			c->draw(src, camBox);
+			camBox.x += CS;
 			if(region_owners[c->regionNumber()].name() != "")
 				renderer->fillSquare(c->x(), c->y(), region_owners[c->regionNumber()].color());
 			c->drawPlayer(src, dest);
+			col++;
+			SDL_RenderDrawRect(renderer->getRenderer(), &camBox);
+			if (camBox.x > winBox.w)
+				break;
 		}
+		camBox.x = 0;
+		camBox.y += CS;
 		col = 0;
 		row++;
+		if (y > renderer->getCamera().y + winBox.h || y < renderer->getCamera().y)
+			camBox.y -= CS;
+		if (camBox.y > winBox.h)
+			break;
 	}
 	for (pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
 	{

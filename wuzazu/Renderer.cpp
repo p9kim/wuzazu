@@ -25,8 +25,8 @@ Render::Render(const char* title, int xpos, int ypos, int width, int height, boo
 }
 void Render::updateCamera(unsigned int x, unsigned int y)
 {
-	camera.x = (x/2)-(1050/2);
-	camera.y = (y / 2) - (1050 / 2);
+	camera.x = x-1050/2;
+	camera.y = y-1050/2;
 	if (camera.x < 0)
 		camera.x = 0;
 	if (camera.y < 0)
@@ -35,7 +35,6 @@ void Render::updateCamera(unsigned int x, unsigned int y)
 		camera.x = 53 * 42 - camera.w;
 	if (camera.y > 34*42 - camera.h) //map.heigh - camera.h
 		camera.y = 34*42 - camera.h;
-	cout << "x:"<< camera.x << " w:" << camera.w << " y:" << camera.y << " h:" << camera.h << endl;
 }
 SDL_Renderer* Render::getRenderer()
 {
