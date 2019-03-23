@@ -24,7 +24,7 @@ Game::~Game()
 void Game::handleEvents()
 {
 	SDL_Event e;
-	int moveby = 42;
+	int moveby = 6;
 	SDL_PollEvent(&e);
 	int x, y;
 	SDL_GetMouseState(&x, &y);

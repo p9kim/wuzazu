@@ -53,18 +53,18 @@ void Map::LoadMap(unsigned int level)
 void Map::DrawMap()
 {
 	SDL_Rect winBox = { 0, 0, 1050, 1050 };
-	SDL_Rect camBox = { 0, 0, 42, 42 };
+	SDL_Rect camBox = { renderer->getCamera().x*-1, renderer->getCamera().y*-1, 42, 42 };
 	int row = 0, col = 0, y = 0;
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
 		{
 			dest.x = col * CS; dest.y = row * CS;
-			if (c->x()*CS > renderer->getCamera().x + winBox.w || c->x()*CS < renderer->getCamera().x)
+			/*if (c->x()*CS > renderer->getCamera().x + winBox.w || c->x()*CS < renderer->getCamera().x)
 				continue;
 			if (c->y()*CS > renderer->getCamera().y + winBox.h || c->y()*CS < renderer->getCamera().y)
 				continue;
-			y = c->y()*CS;
+			y = c->y()*CS;*/
 			c->draw(src, camBox);
 			camBox.x += CS;
 			if(region_owners[c->regionNumber()].name() != "")
@@ -75,12 +75,12 @@ void Map::DrawMap()
 			if (camBox.x > winBox.w)
 				break;
 		}
-		camBox.x = 0;
+		camBox.x = renderer->getCamera().x*-1;
 		camBox.y += CS;
 		col = 0;
 		row++;
-		if (y > renderer->getCamera().y + winBox.h || y < renderer->getCamera().y)
-			camBox.y -= CS;
+		/*if (y > renderer->getCamera().y + winBox.h || y < renderer->getCamera().y)
+			continue;*/
 		if (camBox.y > winBox.h)
 			break;
 	}
