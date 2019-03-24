@@ -1,5 +1,6 @@
 #include "Map.hpp"
 #include "HandleEvents.hpp"
+#include <algorithm>
 
 Map::Map(Game* game)
 {
@@ -52,7 +53,6 @@ void Map::LoadMap(unsigned int level)
 
 void Map::DrawMap()
 {
-	SDL_Rect winBox = { 0, 0, 1050, 1050 };
 	SDL_Rect camBox = { renderer->getCamera().x*-1, renderer->getCamera().y*-1, 42, 42 };
 	int row = 0, col = 0, y = 0;
 	for (vector<Cell*> cV : cells)
@@ -66,13 +66,13 @@ void Map::DrawMap()
 				continue;
 			y = c->y()*CS;*/
 			c->draw(src, camBox);
+			c->drawPlayer(src, camBox);
 			camBox.x += CS;
 			if(region_owners[c->regionNumber()].name() != "")
 				renderer->fillSquare(c->x(), c->y(), region_owners[c->regionNumber()].color());
-			c->drawPlayer(src, dest);
 			col++;
 			SDL_RenderDrawRect(renderer->getRenderer(), &camBox);
-			if (camBox.x > winBox.w)
+			if (camBox.x > renderer->winBox().w)
 				break;
 		}
 		camBox.x = renderer->getCamera().x*-1;
@@ -81,7 +81,7 @@ void Map::DrawMap()
 		row++;
 		/*if (y > renderer->getCamera().y + winBox.h || y < renderer->getCamera().y)
 			continue;*/
-		if (camBox.y > winBox.h)
+		if (camBox.y > renderer->winBox().h)
 			break;
 	}
 	for (pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
@@ -253,6 +253,10 @@ void Map::buildRegions()
 
 Cell* Map::at(unsigned int x, unsigned int y)
 {
+	x = max(0, renderer->getCamera().x - (int)x);
+	y = max(0, renderer->getCamera().y - (int)y);
+	//y = max(0, (int) y - renderer->getCamera().y);
+	cout << x << " " << renderer->getCamera().x << "/" << y << " " << renderer->getCamera().y << endl;
 	vector<Cell*> col = cells.at(y);
 	return col.at(x);
 }

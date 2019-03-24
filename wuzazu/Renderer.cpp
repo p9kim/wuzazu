@@ -72,6 +72,11 @@ SDL_Rect Render::getCamera()
 	return camera;
 }
 
+SDL_Rect Render::winBox()
+{
+	return winBox_;
+}
+
 Render::~Render()
 {
 	SDL_DestroyWindow(window);
