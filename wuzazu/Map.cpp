@@ -54,17 +54,12 @@ void Map::LoadMap(unsigned int level)
 void Map::DrawMap()
 {
 	SDL_Rect camBox = { renderer->getCamera().x*-1, renderer->getCamera().y*-1, 42, 42 };
-	int row = 0, col = 0, y = 0;
+	int row = 0, col = 0;
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
 		{
 			dest.x = col * CS; dest.y = row * CS;
-			/*if (c->x()*CS > renderer->getCamera().x + winBox.w || c->x()*CS < renderer->getCamera().x)
-				continue;
-			if (c->y()*CS > renderer->getCamera().y + winBox.h || c->y()*CS < renderer->getCamera().y)
-				continue;
-			y = c->y()*CS;*/
 			c->draw(src, camBox);
 			c->drawPlayer(src, camBox);
 			camBox.x += CS;
@@ -79,8 +74,6 @@ void Map::DrawMap()
 		camBox.y += CS;
 		col = 0;
 		row++;
-		/*if (y > renderer->getCamera().y + winBox.h || y < renderer->getCamera().y)
-			continue;*/
 		if (camBox.y > renderer->winBox().h)
 			break;
 	}
@@ -251,26 +244,25 @@ void Map::buildRegions()
 	}
 }
 
-Cell* Map::at(unsigned int x, unsigned int y)
+Cell* Map::at(unsigned int x, unsigned int y) 
 {
-	x = max(0, renderer->getCamera().x - (int)x);
-	y = max(0, renderer->getCamera().y - (int)y);
-	//y = max(0, (int) y - renderer->getCamera().y);
-	cout << x << " " << renderer->getCamera().x << "/" << y << " " << renderer->getCamera().y << endl;
+	x = floor((x + renderer->getCamera().x) / CS);
+	y = floor((y + renderer->getCamera().y) / CS);
 	vector<Cell*> col = cells.at(y);
 	return col.at(x);
 }
 
 void Map::handleClick(int x, int y)
 {
-	Cell* clickedCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
+	cout << x << "," << y << " - " << renderer->getCamera().x << "," << renderer->getCamera().y << endl;
+	Cell* clickedCell = at(x, y);
 	EventHandler.clickCell(clickedCell);
 	cout << "Region " << clickedCell->regionNumber() << " owned by: " << region_owners[clickedCell->regionNumber()].name() << endl;
 }
 
 void Map::handleMouseHover(int x, int y)
 {
-	Cell* hoveredCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
+	Cell* hoveredCell = at(x, y);
 	if (!hoveredCell)
 		return;
 	EventHandler.hoverCell(hoveredCell);

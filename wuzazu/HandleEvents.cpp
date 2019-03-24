@@ -113,9 +113,7 @@ void EventHandler_::deactivatePlayer()
 
 void EventHandler_::hoverCell(Cell* cell)
 {
-	int xpos = cell->x()*42;
-	int ypos = cell->y()*42;
-	SDL_Rect outlineRect = { xpos+1, ypos+1, 41, 41 };
+	SDL_Rect outlineRect = { (int)cell->x()*42 +1 - renderer->getCamera().x, (int)cell->y()*42 +1 - renderer->getCamera().y, 41, 41 };
 	SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 100);
 	SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	renderer->RenderPresent();

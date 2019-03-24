@@ -92,8 +92,8 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 	if (selected)
 	{
 		SDL_Rect outlineRect = { dest.x-1, dest.y-1, 43, 43 };
-		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, SDL_ALPHA_OPAQUE);
-		SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
+		SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 80);
+		SDL_RenderFillRect(renderer->getRenderer(), &outlineRect);
 	}
 }
 void Cell::drawPlayer(SDL_Rect src, SDL_Rect dest)
