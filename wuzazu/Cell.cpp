@@ -96,6 +96,11 @@ void Cell::draw(SDL_Rect src, SDL_Rect dest)
 		SDL_RenderFillRect(renderer->getRenderer(), &outlineRect);
 	}
 }
+void Cell::drawRegionColor(SDL_Rect dest, Pixel color)
+{
+	SDL_SetRenderDrawColor(renderer->getRenderer(), color.R(), color.G(), color.B(), 100);
+	SDL_RenderFillRect(renderer->getRenderer(), &dest);
+}
 void Cell::drawPlayer(SDL_Rect src, SDL_Rect dest)
 {
 	if (hasPlayer())

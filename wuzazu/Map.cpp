@@ -59,10 +59,10 @@ void Map::DrawMap()
 		for (Cell* c : cV)
 		{
 			c->draw(src, camBox);
+			if(region_owners[c->regionNumber()].name() != "")
+				c->drawRegionColor(camBox, region_owners[c->regionNumber()].color());
 			c->drawPlayer(src, camBox);
 			camBox.x += CS;
-			if(region_owners[c->regionNumber()].name() != "")
-				renderer->fillSquare(c->x()*42 -(renderer->getCamera().x-c->x()) , c->y()*42 -(renderer->getCamera().y-c->y()) , region_owners[c->regionNumber()].color());
 			SDL_RenderDrawRect(renderer->getRenderer(), &camBox);
 			if (camBox.x > renderer->winBox().w)
 				break;
@@ -246,8 +246,8 @@ void Map::buildRegions()
 
 Cell* Map::at(unsigned int x, unsigned int y) 
 {
-	x = floor((x + renderer->getCamera().x) / CS);
-	y = floor((y + renderer->getCamera().y) / CS);
+	x = (int)floor((x + renderer->getCamera().x) / CS);
+	y = (int)floor((y + renderer->getCamera().y) / CS);
 	vector<Cell*> col = cells.at(y);
 	return col.at(x);
 }
