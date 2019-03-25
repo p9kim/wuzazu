@@ -36,6 +36,19 @@ void Render::updateCamera(unsigned int x, unsigned int y)
 	if (camera.y > 34*42 - camera.h) //map.height - camera.h
 		camera.y = 34*42 - camera.h;
 }
+void Render::updateCameraBy(unsigned int x=0, unsigned int y=0)
+{
+	camera.x += x;
+	camera.y += y;
+	if (camera.x < 0)
+		camera.x = 0;
+	if (camera.y < 0)
+		camera.y = 0;
+	if (camera.x > 53 * 42 - camera.w) //map width - camera.w
+		camera.x = 53 * 42 - camera.w;
+	if (camera.y > 34 * 42 - camera.h) //map.height - camera.h
+		camera.y = 34 * 42 - camera.h;
+}
 SDL_Renderer* Render::getRenderer()
 {
 	if (this == nullptr)

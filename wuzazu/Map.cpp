@@ -63,7 +63,6 @@ void Map::DrawMap()
 				c->drawRegionColor(camBox, region_owners[c->regionNumber()].color());
 			c->drawPlayer(src, camBox);
 			camBox.x += CS;
-			SDL_RenderDrawRect(renderer->getRenderer(), &camBox);
 			if (camBox.x > renderer->winBox().w)
 				break;
 		}
@@ -82,7 +81,6 @@ void Map::DrawMap()
 		ey = p.second.second - renderer->getCamera().y;
 		SDL_RenderDrawLine(renderer->getRenderer(), sx, sy, ex, ey);
 	}
-
 }
 
 void Map::readBMP(const char* mapfile, const char* entityfile, const char* regionfile)
@@ -262,6 +260,23 @@ void Map::handleClick(int x, int y)
 
 void Map::handleMouseHover(int x, int y)
 {
+	const int max_speed = 21;
+	int w = renderer->winBox().w, h = renderer->winBox().h;
+	const int accel = w * 3;
+	int speedx = max_speed * ((4*accel)/w * abs(  ((x-w/2)%w) - w/2  )   *-1 + w) / w;
+	int speedy = max_speed * ((4 * accel) / h * abs(((y - h / 2) % h) - h / 2)   *-1 + h) / h;
+
+	if (x > renderer->winBox().w - (CS * 2) || x < CS * 2) 
+	{
+		cout << speedx << " - " << speedy << endl;
+		renderer->updateCameraBy(speedx, speedy);
+	}
+	else if (y > renderer->winBox().h - (CS * 2) || y < CS * 2) 
+	{
+		cout << speedx << " = " << speedy << endl;
+		renderer->updateCameraBy(speedx, speedy);
+	}
+
 	Cell* hoveredCell = at(x, y);
 	if (!hoveredCell)
 		return;
