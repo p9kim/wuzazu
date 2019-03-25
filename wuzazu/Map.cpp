@@ -54,33 +54,33 @@ void Map::LoadMap(unsigned int level)
 void Map::DrawMap()
 {
 	SDL_Rect camBox = { renderer->getCamera().x*-1, renderer->getCamera().y*-1, 42, 42 };
-	int row = 0, col = 0;
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
 		{
-			dest.x = col * CS; dest.y = row * CS;
 			c->draw(src, camBox);
 			c->drawPlayer(src, camBox);
 			camBox.x += CS;
 			if(region_owners[c->regionNumber()].name() != "")
-				renderer->fillSquare(c->x(), c->y(), region_owners[c->regionNumber()].color());
-			col++;
+				renderer->fillSquare(c->x()*42 -(renderer->getCamera().x-c->x()) , c->y()*42 -(renderer->getCamera().y-c->y()) , region_owners[c->regionNumber()].color());
 			SDL_RenderDrawRect(renderer->getRenderer(), &camBox);
 			if (camBox.x > renderer->winBox().w)
 				break;
 		}
 		camBox.x = renderer->getCamera().x*-1;
 		camBox.y += CS;
-		col = 0;
-		row++;
 		if (camBox.y > renderer->winBox().h)
 			break;
 	}
 	for (pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
 	{
+		int sx, sy, ex, ey;
 		SDL_SetRenderDrawColor(renderer->getRenderer(), 0, 0, 0, 100);
-		SDL_RenderDrawLine(renderer->getRenderer(), p.first.first, p.first.second, p.second.first, p.second.second);
+		sx = p.first.first - renderer->getCamera().x;
+		sy = p.first.second - renderer->getCamera().y;
+		ex = p.second.first - renderer->getCamera().x;
+		ey = p.second.second - renderer->getCamera().y;
+		SDL_RenderDrawLine(renderer->getRenderer(), sx, sy, ex, ey);
 	}
 
 }
