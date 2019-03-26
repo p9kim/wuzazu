@@ -1,5 +1,6 @@
 #include "Map.hpp"
 #include "HandleEvents.hpp"
+#include <algorithm>
 
 Map::Map(Game* game)
 {
@@ -52,29 +53,34 @@ void Map::LoadMap(unsigned int level)
 
 void Map::DrawMap()
 {
-	int col = 0;
-	int row = 0;
+	SDL_Rect camBox = { renderer->getCamera().x*-1, renderer->getCamera().y*-1, 42, 42 };
 	for (vector<Cell*> cV : cells)
 	{
 		for (Cell* c : cV)
 		{
-			dest.x = col * CS;
-			dest.y = row * CS;
-			c->draw(src, dest);
-			col++;
+			c->draw(src, camBox);
 			if(region_owners[c->regionNumber()].name() != "")
-				renderer->fillSquare(c->x(), c->y(), region_owners[c->regionNumber()].color());
-			c->drawPlayer(src, dest);
+				c->drawRegionColor(camBox, region_owners[c->regionNumber()].color());
+			c->drawPlayer(src, camBox);
+			camBox.x += CS;
+			if (camBox.x > renderer->winBox().w)
+				break;
 		}
-		col = 0;
-		row++;
+		camBox.x = renderer->getCamera().x*-1;
+		camBox.y += CS;
+		if (camBox.y > renderer->winBox().h)
+			break;
 	}
 	for (pair<pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>> p : region_borders)
 	{
+		int sx, sy, ex, ey;
 		SDL_SetRenderDrawColor(renderer->getRenderer(), 0, 0, 0, 100);
-		SDL_RenderDrawLine(renderer->getRenderer(), p.first.first, p.first.second, p.second.first, p.second.second);
+		sx = p.first.first - renderer->getCamera().x;
+		sy = p.first.second - renderer->getCamera().y;
+		ex = p.second.first - renderer->getCamera().x;
+		ey = p.second.second - renderer->getCamera().y;
+		SDL_RenderDrawLine(renderer->getRenderer(), sx, sy, ex, ey);
 	}
-
 }
 
 void Map::readBMP(const char* mapfile, const char* entityfile, const char* regionfile)
@@ -236,25 +242,29 @@ void Map::buildRegions()
 	}
 }
 
-Cell* Map::at(unsigned int x, unsigned int y)
+Cell* Map::at(unsigned int x, unsigned int y) 
 {
+	x = (int)floor((x + renderer->getCamera().x) / CS);
+	y = (int)floor((y + renderer->getCamera().y) / CS);
 	vector<Cell*> col = cells.at(y);
 	return col.at(x);
 }
 
 void Map::handleClick(int x, int y)
 {
-	Cell* clickedCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
+	cout << x << "," << y << " - " << renderer->getCamera().x << "," << renderer->getCamera().y << endl;
+	Cell* clickedCell = at(x, y);
 	EventHandler.clickCell(clickedCell);
 	cout << "Region " << clickedCell->regionNumber() << " owned by: " << region_owners[clickedCell->regionNumber()].name() << endl;
 }
 
 void Map::handleMouseHover(int x, int y)
 {
-	Cell* hoveredCell = at((unsigned int)floor(x / CS), (unsigned int)floor(y / CS));
+	Cell* hoveredCell = at(x, y);
 	if (!hoveredCell)
 		return;
 	EventHandler.hoverCell(hoveredCell);
+	EventHandler.hoverMap(x, y, hoveredCell);
 }
 void Map::captureRegion()
 {
