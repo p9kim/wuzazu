@@ -98,16 +98,17 @@ void EventHandler_::activatePlayer(Player* player)
 			c->selected = true;
 }
 void EventHandler_::deactivatePlayer()
-{
+{	
+ 	for (Cell* c : highlightedCells)
+		if (c != 0)
+			c->selected = false;
+	highlightedCells.clear();
 	if (activePlayer == 0)
 		return;
 	activePlayer->active(false);
 	activePlayer->unhighlight();
-	for (Cell* c : highlightedCells)
-		if (c != 0)
-			c->selected = false;
-	activePlayer = nullptr;
-	highlightedCells.clear();
+	activePlayer = nullptr; 
+
 }
 ////////////////////////////////////////////////////////
 

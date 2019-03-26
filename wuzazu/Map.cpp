@@ -277,6 +277,10 @@ void Map::captureRegion()
 }
 
 /* Getters / Setters */
+void Map::deactivatePlayer()
+{
+	EventHandler.deactivatePlayer();
+}
 void Map::setHeight(unsigned int height)
 {
 	this->height = height;

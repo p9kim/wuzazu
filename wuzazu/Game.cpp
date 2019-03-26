@@ -94,7 +94,8 @@ void Game::render()
 }
 void Game::switchTurn()
 {
-	currentTeam_ = teams_.at(turn_ % teams_.size());
+ 	currentTeam_ = teams_.at(turn_ % teams_.size());
+	map->deactivatePlayer();
 	for (Player* p : players)
 		p->done(false);
 	turn_++;
