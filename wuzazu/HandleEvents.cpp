@@ -120,7 +120,7 @@ void EventHandler_::hoverCell(Cell* cell)
 }
 void EventHandler_::hoverMap(int x, int y, Cell* cell)
 {
-	const int CS = 42;
+	const int CS = 42; //cell size
 	int max_speed = 21; //max window speed
 	const int sensitivity = 3; //number of cells from the edge in which the camera will start moving
 	int w = renderer->winBox().w, h = renderer->winBox().h;

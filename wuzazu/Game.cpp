@@ -35,23 +35,15 @@ void Game::handleEvents()
 		{
 		case SDLK_UP:
 			player->movePlayerBy(0, -(moveby));
-			//renderer->updateCamera(player->xpos, player->ypos);
-			//std::cout << "UP" << std::endl;
 			break;
 		case SDLK_DOWN:
 			player->movePlayerBy(0, moveby);
-			//renderer->updateCamera(player->xpos, player->ypos);
-			//std::cout << "DOWN" << std::endl;
 			break;
 		case SDLK_LEFT:
 			player->movePlayerBy(-(moveby), 0);
-			//renderer->updateCamera(player->xpos, player->ypos);
-			//std::cout << "LEFT" << std::endl;
 			break;
 		case SDLK_RIGHT:
 			player->movePlayerBy(moveby, 0);
-			//renderer->updateCamera(player->xpos, player->ypos);
-			//std::cout << "RIGHT" << std::endl;
 			break;
 		case SDLK_SPACE:
 			switchTurn();
@@ -60,16 +52,16 @@ void Game::handleEvents()
 			map->captureRegion();
 			break;
 		case SDLK_w:
-			renderer->updateCameraBy(0, -42);
+			renderer->updateCameraBy(0, -84);
 			break;
 		case SDLK_a:
-			renderer->updateCameraBy(-42, 0);
+			renderer->updateCameraBy(-84, 0);
 			break;
 		case SDLK_s:
-			renderer->updateCameraBy(0, 42);
+			renderer->updateCameraBy(0, 84);
 			break;
 		case SDLK_d:
-			renderer->updateCameraBy(42, 0);
+			renderer->updateCameraBy(84, 0);
 			break;
 		default:
 			break;
@@ -96,7 +88,6 @@ void Game::render()
 {
 	renderer->RenderClear();
 	map->DrawMap();
-	//renderer->updateCamera(player->xpos, player->ypos);
 	player->render();
 	renderer->renderingLoop();
 	renderer->RenderPresent();
