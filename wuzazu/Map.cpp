@@ -264,7 +264,7 @@ void Map::handleMouseHover(int x, int y)
 	if (!hoveredCell)
 		return;
 	EventHandler.hoverCell(hoveredCell);
-	EventHandler.hoverMap(x, y);
+	EventHandler.hoverMap(x, y, hoveredCell);
 }
 void Map::captureRegion()
 {

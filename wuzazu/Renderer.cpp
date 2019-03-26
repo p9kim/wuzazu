@@ -36,7 +36,7 @@ void Render::updateCamera(unsigned int x, unsigned int y)
 	if (camera.y > 34*42 - camera.h) //map.height - camera.h
 		camera.y = 34*42 - camera.h;
 }
-void Render::updateCameraBy(unsigned int x=0, unsigned int y=0)
+void Render::updateCameraBy(int x=0, int y=0)
 {
 	camera.x += x;
 	camera.y += y;

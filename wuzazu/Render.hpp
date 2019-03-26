@@ -21,7 +21,7 @@ public:
 	void RenderPresent();
 	void renderingLoop();
 	void updateCamera(unsigned int x, unsigned int y);
-	void updateCameraBy(unsigned int x, unsigned int y);
+	void updateCameraBy(int x, int y);
 	SDL_Rect getCamera();
 	void fillSquare(int x, int y, Pixel color);
 	SDL_Rect winBox();

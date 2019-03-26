@@ -59,6 +59,18 @@ void Game::handleEvents()
 		case SDLK_c:
 			map->captureRegion();
 			break;
+		case SDLK_w:
+			renderer->updateCameraBy(0, -42);
+			break;
+		case SDLK_a:
+			renderer->updateCameraBy(-42, 0);
+			break;
+		case SDLK_s:
+			renderer->updateCameraBy(0, 42);
+			break;
+		case SDLK_d:
+			renderer->updateCameraBy(42, 0);
+			break;
 		default:
 			break;
 		}

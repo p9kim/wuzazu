@@ -118,13 +118,15 @@ void EventHandler_::hoverCell(Cell* cell)
 	SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	renderer->RenderPresent();
 }
-void EventHandler_::hoverMap(int x, int y)
+void EventHandler_::hoverMap(int x, int y, Cell* cell)
 {
 	const int CS = 42;
-	const int max_speed = 21; //max window speed
+	int max_speed = 21; //max window speed
 	const int sensitivity = 3; //number of cells from the edge in which the camera will start moving
 	int w = renderer->winBox().w, h = renderer->winBox().h;
 	const int accel = w * (sensitivity-1);
+	if (activePlayer != 0 || cell->hasPlayer())
+		max_speed = 2;
 	int speedx = max_speed * ((4 * accel) / w * abs(((x + w / 2) % w) - w / 2)*-1 + w) / w;
 	int speedy = max_speed * ((4 * accel) / h * abs(((y + h / 2) % h) - h / 2)*-1 + h) / h;
 	int leanx = max_speed * (2 * abs(((x + w / 2) % w) - w / 2)*-1 + w) / w;
@@ -134,7 +136,7 @@ void EventHandler_::hoverMap(int x, int y)
 	{
 		if (x < CS * sensitivity)
 			speedx *= -1;
-		if (y < h / sensitivity)
+		if (y < h / 2)
 			leany *= -1;
 		renderer->updateCameraBy(speedx, leany);
 	}
@@ -142,7 +144,7 @@ void EventHandler_::hoverMap(int x, int y)
 	{
 		if (y < CS * sensitivity)
 			speedy *= -1;
-		if (x < w / sensitivity)
+		if (x < w / 2)
 			leanx *= -1;
 		renderer->updateCameraBy(leanx, speedy);
 	}
