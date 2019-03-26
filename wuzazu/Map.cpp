@@ -1,6 +1,5 @@
 #include "Map.hpp"
 #include "HandleEvents.hpp"
-#include <algorithm>
 
 Map::Map(Game* game)
 {
