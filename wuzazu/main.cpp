@@ -11,7 +11,7 @@ Render* renderer = new Render("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CE
 
 int main(int argc, char * argv[])
 {
-	const int FPS = 165;
+	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
 
 	Uint32 frameStart;
