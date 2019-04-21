@@ -1,1 +1,1 @@
-Game by Kevin and Paul
+A game written from scratch in SDL where players must compete to capture map areas, collect resources, build infrastructure, and battle each other in this turn-based strategy game.

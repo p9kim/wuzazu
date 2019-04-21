@@ -26,19 +26,10 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Pixel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseButtons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -62,6 +53,9 @@
     <ClCompile Include="Team.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -71,9 +65,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pixel.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseButtons.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.hpp">
@@ -91,10 +82,10 @@
     <ClInclude Include="Render.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureManager.h">
+    <ClInclude Include="Teams.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Teams.hpp">
+    <ClInclude Include="TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

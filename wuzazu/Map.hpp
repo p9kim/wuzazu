@@ -41,6 +41,7 @@ public:
 	void handleClick(int, int);
 	void handleMouseHover(int, int);
 	void captureRegion();
+	void deactivatePlayer();
 
 	void setHeight(unsigned int);
 	unsigned int getHeight();

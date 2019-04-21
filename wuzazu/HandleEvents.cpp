@@ -98,16 +98,17 @@ void EventHandler_::activatePlayer(Player* player)
 			c->selected = true;
 }
 void EventHandler_::deactivatePlayer()
-{
+{	
+ 	for (Cell* c : highlightedCells)
+		if (c != 0)
+			c->selected = false;
+	highlightedCells.clear();
 	if (activePlayer == 0)
 		return;
 	activePlayer->active(false);
 	activePlayer->unhighlight();
-	for (Cell* c : highlightedCells)
-		if (c != 0)
-			c->selected = false;
-	activePlayer = nullptr;
-	highlightedCells.clear();
+	activePlayer = nullptr; 
+
 }
 ////////////////////////////////////////////////////////
 
@@ -126,7 +127,7 @@ void EventHandler_::hoverMap(int x, int y, Cell* cell)
 	int w = renderer->winBox().w, h = renderer->winBox().h;
 	const int accel = w * (sensitivity-1);
 	if (activePlayer != 0 || cell->hasPlayer())
-		max_speed = 2;
+		max_speed = 0;
 	int speedx = max_speed * ((4 * accel) / w * abs(((x + w / 2) % w) - w / 2)*-1 + w) / w;
 	int speedy = max_speed * ((4 * accel) / h * abs(((y + h / 2) % h) - h / 2)*-1 + h) / h;
 	int leanx = max_speed * (2 * abs(((x + w / 2) % w) - w / 2)*-1 + w) / w;
