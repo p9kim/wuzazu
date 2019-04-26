@@ -20,18 +20,18 @@ static class Water : public Terrain
 public:
 	Water() {
 		texture = textureManager.LoadTexture("assets/water.png");
-		movementcost = 3;
+		movementcost = 99;
 	}
 } water;
 
-static class Dirt : public Terrain
+static class Mountain : public Terrain
 {
 public:
-	Dirt() {
-		texture = textureManager.LoadTexture("assets/dirt.png");
-		movementcost = 2;
+	Mountain() {
+		texture = textureManager.LoadTexture("assets/mountain.png");
+		movementcost = 3;
 	}
-} dirt;
+} mountain;
 
 static class Grass : public Terrain
 {
@@ -41,3 +41,30 @@ public:
 		movementcost = 1;
 	};
 } grass;
+
+static class Forest : public Terrain
+{
+public:
+	Forest() {
+		texture = textureManager.LoadTexture("assets/tree.png");
+		movementcost = 2;
+	};
+} forest;
+
+static class Village : public Terrain
+{
+public:
+	Village() {
+		texture = textureManager.LoadTexture("assets/village.png");
+		movementcost = 1;
+	};
+} village;
+
+static class Ore : public Terrain
+{
+public:
+	Ore() {
+		texture = textureManager.LoadTexture("assets/ore.png");
+		movementcost = 1;
+	};
+} ore;

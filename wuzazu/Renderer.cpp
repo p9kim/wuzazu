@@ -24,28 +24,28 @@ Render::Render(const char* title, int xpos, int ypos, int width, int height, boo
 	SDL_SetRenderDrawBlendMode(getRenderer(), SDL_BLENDMODE_BLEND);
 }
 void Render::updateCamera(unsigned int x, unsigned int y)
-{
+{ //! FIX Hardcoded vals
 	camera.x = x-winBox_.w/2;
 	camera.y = y-winBox_.h/2;
 	if (camera.x < 0)
 		camera.x = 0;
 	if (camera.y < 0)
 		camera.y = 0;
-	if (camera.x > 53 * 42 - camera.w) //map width - camera.w
-		camera.x = 53 * 42 - camera.w;
+	if (camera.x > 31 * 42 - camera.w) //map width - camera.w
+		camera.x = 31 * 42 - camera.w;
 	if (camera.y > 34*42 - camera.h) //map.height - camera.h
 		camera.y = 34*42 - camera.h;
 }
 void Render::updateCameraBy(int x=0, int y=0)
-{
+{//! FIX Hardcoded vals
 	camera.x += x;
 	camera.y += y;
 	if (camera.x < 0)
 		camera.x = 0;
 	if (camera.y < 0)
 		camera.y = 0;
-	if (camera.x > 53 * 42 - camera.w) //map width - camera.w
-		camera.x = 53 * 42 - camera.w;
+	if (camera.x > 31 * 42 - camera.w) //map width - camera.w
+		camera.x = 31 * 42 - camera.w;
 	if (camera.y > 34 * 42 - camera.h) //map.height - camera.h
 		camera.y = 34 * 42 - camera.h;
 }

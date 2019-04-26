@@ -10,7 +10,7 @@ Map::Map(Game* game)
 	src.w = dest.w = CS;
 	src.h = dest.h = CS;
 	dest.x = dest.y = 0;
-	LoadMap(3);
+	LoadMap(2);
 	unsigned int x = 0, y = 0;
 	for (vector<Cell*> cV : cells)
 	{
@@ -129,11 +129,17 @@ void Map::readBMP(const char* mapfile, const char* entityfile, const char* regio
 			data[j + 2] = tmp; data2[j + 2] = tmp2; data3[j + 2] = tmp3;
 			Pixel* color = new Pixel((unsigned int)data[j], (unsigned int)data[j + 1], (unsigned int)data[j + 2]);
 			if (*color == red || *color == yellow)
-				ter = &dirt;
+				ter = &mountain;
 			else if (*color == green)
 				ter = &grass;
 			else if (*color == blue)
 				ter = &water;
+			else if (*color == cyan)
+				ter = &ore;
+			else if (*color == darkgreen)
+				ter = &forest;
+			else if (*color == gray)
+				ter = &village;
 			else
 			{
 				ter = &water;

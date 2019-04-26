@@ -51,3 +51,13 @@ static class Cyan : public Pixel
 public:
 	Cyan() { g = 255; b = 255; }
 } cyan;
+static class DarkGreen : public Pixel
+{
+public:
+	DarkGreen() { g = 155; }
+} darkgreen;
+static class Gray : public Pixel
+{
+public:
+	Gray() { r = 128; g = 128; b = 128;}
+} gray;
