@@ -31,6 +31,7 @@ public:
 	void activatePlayer(Player*);
 	void deactivatePlayer();
 	void hoverCell(Cell*);
+	void hoverMap(int, int, Cell*);
 	Player* getActivePlayer();
 	void setGame(Game*);
 } EventHandler;

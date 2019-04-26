@@ -7,7 +7,7 @@
 using namespace std;
 
 Game *game = nullptr;
-Render* renderer = new Render("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 53*42, 34*42, true);
+Render* renderer = new Render("Wuzazu", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1050, 1050, true);
 
 int main(int argc, char * argv[])
 {
@@ -23,7 +23,6 @@ int main(int argc, char * argv[])
 	{
 		frameStart = SDL_GetTicks();
 
-		
 		game->update();
 		game->render();
 		game->handleEvents();
@@ -36,7 +35,7 @@ int main(int argc, char * argv[])
 		}
 	}
 
-	renderer->clean();
+	renderer->~Render();
 	
 	return 0;
 }

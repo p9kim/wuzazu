@@ -24,7 +24,7 @@ Game::~Game()
 void Game::handleEvents()
 {
 	SDL_Event e;
-	int moveby = 24;
+	int moveby = 6;
 	SDL_PollEvent(&e);
 	int x, y;
 	SDL_GetMouseState(&x, &y);
@@ -35,25 +35,33 @@ void Game::handleEvents()
 		{
 		case SDLK_UP:
 			player->movePlayerBy(0, -(moveby));
-			std::cout << "UP" << std::endl;
 			break;
 		case SDLK_DOWN:
 			player->movePlayerBy(0, moveby);
-			std::cout << "DOWN" << std::endl;
 			break;
 		case SDLK_LEFT:
 			player->movePlayerBy(-(moveby), 0);
-			std::cout << "LEFT" << std::endl;
 			break;
 		case SDLK_RIGHT:
 			player->movePlayerBy(moveby, 0);
-			std::cout << "RIGHT" << std::endl;
 			break;
 		case SDLK_SPACE:
 			switchTurn();
 			break;
 		case SDLK_c:
 			map->captureRegion();
+			break;
+		case SDLK_w:
+			renderer->updateCameraBy(0, -84);
+			break;
+		case SDLK_a:
+			renderer->updateCameraBy(-84, 0);
+			break;
+		case SDLK_s:
+			renderer->updateCameraBy(0, 84);
+			break;
+		case SDLK_d:
+			renderer->updateCameraBy(84, 0);
 			break;
 		default:
 			break;
@@ -80,14 +88,14 @@ void Game::render()
 {
 	renderer->RenderClear();
 	map->DrawMap();
-	renderer->updateCamera(player->xpos, player->ypos);
 	player->render();
 	renderer->renderingLoop();
 	renderer->RenderPresent();
 }
 void Game::switchTurn()
 {
-	currentTeam_ = teams_.at(turn_ % teams_.size());
+ 	currentTeam_ = teams_.at(turn_ % teams_.size());
+	map->deactivatePlayer();
 	for (Player* p : players)
 		p->done(false);
 	turn_++;

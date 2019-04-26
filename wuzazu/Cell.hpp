@@ -45,4 +45,5 @@ public:
 	Pixel regionColor();
 	unsigned int regionNumber();
 	void regionNumber(unsigned int);
+	void drawRegionColor(SDL_Rect, Pixel);
 };

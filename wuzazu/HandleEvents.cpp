@@ -98,29 +98,58 @@ void EventHandler_::activatePlayer(Player* player)
 			c->selected = true;
 }
 void EventHandler_::deactivatePlayer()
-{
+{	
+ 	for (Cell* c : highlightedCells)
+		if (c != 0)
+			c->selected = false;
+	highlightedCells.clear();
 	if (activePlayer == 0)
 		return;
 	activePlayer->active(false);
 	activePlayer->unhighlight();
-	for (Cell* c : highlightedCells)
-		if (c != 0)
-			c->selected = false;
-	activePlayer = nullptr;
-	highlightedCells.clear();
+	activePlayer = nullptr; 
+
 }
 ////////////////////////////////////////////////////////
 
 void EventHandler_::hoverCell(Cell* cell)
 {
-	int xpos = cell->x()*42;
-	int ypos = cell->y()*42;
-	SDL_Rect outlineRect = { xpos+1, ypos+1, 41, 41 };
+	SDL_Rect outlineRect = { (int)cell->x()*42 +1 - renderer->getCamera().x, (int)cell->y()*42 +1 - renderer->getCamera().y, 41, 41 };
 	SDL_SetRenderDrawColor(renderer->getRenderer(), 255, 255, 255, 100);
 	SDL_RenderDrawRect(renderer->getRenderer(), &outlineRect);
 	renderer->RenderPresent();
 }
+void EventHandler_::hoverMap(int x, int y, Cell* cell)
+{
+	const int CS = 42; //cell size
+	int max_speed = 21; //max window speed
+	const int sensitivity = 3; //number of cells from the edge in which the camera will start moving
+	int w = renderer->winBox().w, h = renderer->winBox().h;
+	const int accel = w * (sensitivity-1);
+	if (activePlayer != 0 || cell->hasPlayer())
+		max_speed = 0;
+	int speedx = max_speed * ((4 * accel) / w * abs(((x + w / 2) % w) - w / 2)*-1 + w) / w;
+	int speedy = max_speed * ((4 * accel) / h * abs(((y + h / 2) % h) - h / 2)*-1 + h) / h;
+	int leanx = max_speed * (2 * abs(((x + w / 2) % w) - w / 2)*-1 + w) / w;
+	int leany = max_speed * (2 * abs(((y + h / 2) % h) - h / 2)*-1 + h) / h;
 
+	if (x > renderer->winBox().w - (CS * sensitivity) || x < CS * sensitivity)
+	{
+		if (x < CS * sensitivity)
+			speedx *= -1;
+		if (y < h / 2)
+			leany *= -1;
+		renderer->updateCameraBy(speedx, leany);
+	}
+	else if (y > renderer->winBox().h - (CS * sensitivity) || y < CS * sensitivity)
+	{
+		if (y < CS * sensitivity)
+			speedy *= -1;
+		if (x < w / 2)
+			leanx *= -1;
+		renderer->updateCameraBy(leanx, speedy);
+	}
+}
 Player* EventHandler_::getActivePlayer()
 {
 	return activePlayer;
